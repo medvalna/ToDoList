@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+
 class header extends StatelessWidget {
   final String number;
-
   const header(this.number);
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 82, left: 60, right: 25),
+      padding: EdgeInsets.only(left: 60, right: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Мои дела",
-            style: TextStyle(fontSize: largetitle, color: maintext),
-          ),
           Row(
             children: [
               Text(
@@ -30,7 +25,6 @@ class header extends StatelessWidget {
                   style: TextStyle(fontSize: body, color: secondarytext),
                 ),
               ),
-
               new Spacer(),
               Container(
                 //TODO место для кнопки раскрытия сделанных тасок
