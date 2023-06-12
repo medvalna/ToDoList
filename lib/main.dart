@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/widgets/addbutton.dart';
 import 'package:to_do_list/widgets/appbar.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
 
-import 'package:to_do_list/widgets/todotile.dart';
 
-import 'adaptivity/font_sizes.dart';
+void main() => runApp(MaterialApp(
+      home: Homepage(),
+    ));
 
-void main() {
-  runApp(MyApp());
+class Homepage extends StatefulWidget {
+  Homepage({key}) : super();
+
+  @override
+  State<StatefulWidget> createState() {
+    //TODO implement state
+    return _HomepageState();
+  }
 }
 
-class MyApp extends StatelessWidget {
+class _HomepageState extends State<Homepage> {
+  int _tapped;
+
+  @override
+  void initState() {
+    _tapped = 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,28 +47,14 @@ class MyApp extends StatelessWidget {
                 const SliverToBoxAdapter(
                   child: SizedBox(
                     height: 46,
+
                     child: header("5"),
                   ),
                 ),
                 taskList(true),
               ],
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                padding: EdgeInsets.all(button),
-                margin: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: add,
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: button,
-                  color: tileback_light,
-                ),
-              ),
-            ),
+            addButton(_tapped),
           ],
         ),
       ),
