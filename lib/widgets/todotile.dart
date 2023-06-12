@@ -14,7 +14,7 @@ class ToDoTile extends StatelessWidget{
     return Row(
       children: [
         SizedBox(
-          width: 40,
+          width: 20,
         ),
         Icon(
           Icons.check_box_outline_blank,
@@ -37,7 +37,7 @@ class ToDoTile extends StatelessWidget{
           Icons.info_outline,
         ),
         SizedBox(
-          height: 30,
+          height: 60,
         ),
       ],
     );

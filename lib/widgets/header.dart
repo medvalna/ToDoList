@@ -8,7 +8,7 @@ class header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 60, right: 25),
+      padding: EdgeInsets.only(left: 60, right: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

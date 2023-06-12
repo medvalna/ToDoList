@@ -14,8 +14,15 @@ class taskList extends StatelessWidget {
           Container(
             margin: EdgeInsets.all(5),
             padding: EdgeInsets.only(
-                right: 20, left: 10, top: 10, bottom: 10),
+                right: 25, left: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                    color: separator,
+                    offset: Offset(0.0, 0.0),
+                    blurRadius: 2.0,
+                    spreadRadius: 0.0),
+              ],
               borderRadius: BorderRadius.circular(20),
               color: tileback_light,
             ),

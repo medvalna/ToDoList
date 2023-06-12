@@ -27,7 +27,7 @@ class appBar extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                padding: EdgeInsets.only(right: 25, top: 50),
+                padding: EdgeInsets.only(right: 30, top: 50),
                 //TODO место для кнопки раскрытия сделанных тасок
                 child: Icon(
                   Icons.remove_red_eye,
