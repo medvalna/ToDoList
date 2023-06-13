@@ -6,7 +6,8 @@ import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
 
 
-void main() => runApp(MaterialApp(
+void main() =>
+    runApp(MaterialApp(
       home: Homepage(),
     ));
 
@@ -47,17 +48,17 @@ class _HomepageState extends State<Homepage> {
                 const SliverToBoxAdapter(
                   child: SizedBox(
                     height: 46,
-
                     child: header("5"),
                   ),
                 ),
                 taskList(true),
               ],
             ),
-            addButton(_tapped),
+            addButton(),
           ],
         ),
       ),
     );
   }
 }
+

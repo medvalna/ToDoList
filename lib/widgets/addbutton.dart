@@ -4,8 +4,8 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/pages/addScreen.dart';
 
 class addButton extends StatelessWidget {
-  int _tapped;
-  addButton(this._tapped);
+  //int _addtask;
+  //addButton(this._addtask);
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -21,8 +21,8 @@ class addButton extends StatelessWidget {
           backgroundColor: add,
           onPressed: () =>
           {
-            _tapped = _tapped + 1,
-            print(_tapped),
+            //_addtask = _addtask + 1,
+            //print(_addtask),
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => addScreen()),

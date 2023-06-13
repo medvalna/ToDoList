@@ -8,7 +8,6 @@ class appBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      //collapsedHeight: 60,
       backgroundColor: back_light,
       floating: true,
       pinned: true,
@@ -24,15 +23,15 @@ class appBar extends StatelessWidget {
                 style: TextStyle(color: maintext, fontSize: largetitle),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: EdgeInsets.only(right: 30, top: 50),
-                //TODO место для кнопки раскрытия сделанных тасок
+            Container(
+              margin: EdgeInsets.only(top:50, right:30),
+              child: Align(
+                alignment: Alignment.topRight,
                 child: Icon(
                   Icons.remove_red_eye,
                 ),
               ),
+
             ),
           ]
       ),
