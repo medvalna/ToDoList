@@ -27,15 +27,21 @@ class _ToDoTileState extends State<TodoTile> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      /*
-        onDismissed: (direction) {
-          if(direction == DismissDirection.endToStart) {
-            //to be continued
-          } else {
-
-          }
-        },*/
-
+      onDismissed: (direction) {
+        if (direction == DismissDirection.endToStart) {
+          setState(() {
+            item.isDone == 0
+                ? item.isDone = -1
+                : item.isDone == 1 ? item.isDone = 0 : item.isDone = -1;
+          });
+        } else {
+          setState(() {
+            item.isDone == 0
+                ? item.isDone = 1
+                : item.isDone == 1 ? item.isDone = 1 : item.isDone = 0;
+          });
+        }
+      },
       key: UniqueKey(),
       background: Container(
         padding: EdgeInsets.only(left: 10),
@@ -68,12 +74,9 @@ class _ToDoTileState extends State<TodoTile> {
             onPressed: () {
               print("tap");
               print(item.isDone);
-              setState((){
-                item.isDone == 0
-                    ? item.isDone = 1
-                    : item.isDone = 0;
+              setState(() {
+                item.isDone == 0 ? item.isDone = 1 : item.isDone = 0;
               });
-
             },
             icon: item.isDone == 1
                 ? Icon(Icons.check_box)
@@ -93,8 +96,7 @@ class _ToDoTileState extends State<TodoTile> {
               style: TextStyle(
                 fontSize: body,
                 color: item.isDone == 1 ? secondarytext : maintext,
-                decoration:
-                    item.isDone > 0 ? TextDecoration.lineThrough : null,
+                decoration: item.isDone > 0 ? TextDecoration.lineThrough : null,
               ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,

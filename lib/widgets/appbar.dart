@@ -27,9 +27,10 @@ class appBar extends StatelessWidget {
               margin: EdgeInsets.only(top:50, right:40),
               child: Align(
                 alignment: Alignment.topRight,
-                child: Icon(
+                //TODO добавить анимацию передвижения виджета глаза
+                /*child: Icon(
                   Icons.remove_red_eye,
-                ),
+                ),*/
               ),
 
             ),
