@@ -6,12 +6,15 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 
 class taskList extends StatefulWidget {
   @override
-  State<taskList> createState() => _taskListState();
+  State<taskList> createState() => taskListState();
 }
 
-class _taskListState extends State<taskList> {
+class taskListState extends State<taskList> {
+  //final Function(ToDo) ToDoTile;
   final toDosList = ToDo.taskcollection();
   List<ToDo> _currentToDos = [];
+
+
 
   @override
   void initState() {
@@ -41,7 +44,7 @@ class _taskListState extends State<taskList> {
             child: Container(
               child: Column(
                 children: [
-                  for (ToDo todo in _currentToDos) ToDoTile(todo),
+                  for (ToDo todo in _currentToDos) TodoTile(todo),
                 ],
               ),
             ),

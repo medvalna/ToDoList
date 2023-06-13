@@ -3,10 +3,26 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/data/todocollection.dart';
 
+class TodoTile extends StatefulWidget {
+  ToDo currItem;
 
-class ToDoTile extends StatelessWidget {
-  final ToDo item;
-  const ToDoTile(this.item);
+  TodoTile(this.currItem);
+
+  @override
+  State<TodoTile> createState() => _ToDoTileState();
+}
+
+class _ToDoTileState extends State<TodoTile> {
+  ToDo item;
+  final toDosList = ToDo.taskcollection();
+  List<ToDo> _currentToDos = [];
+
+  @override
+  void initState() {
+    item = widget.currItem;
+    _currentToDos = toDosList;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +64,25 @@ class ToDoTile extends StatelessWidget {
           SizedBox(
             width: 20,
           ),
-          Icon(
-            item.isDone == 1
-                ? Icons.check_box
+          IconButton(
+            onPressed: () {
+              print("tap");
+              print(item.isDone);
+              setState((){
+                item.isDone == 0
+                    ? item.isDone = 1
+                    : item.isDone = 0;
+              });
+
+            },
+            icon: item.isDone == 1
+                ? Icon(Icons.check_box)
                 : item.isDone == -1
-                    ? Icons.crop_square
-                    : Icons.check_box_outline_blank,
-            color: item.isDone == 1 ? done : item.isDone == -1 ? decline : maintext,
+                    ? Icon(Icons.check_box_outline_blank)
+                    : Icon(Icons.check_box_outline_blank),
+            color: item.isDone == 1
+                ? done
+                : item.isDone == -1 ? decline : maintext,
           ),
           SizedBox(
             width: 20,
@@ -65,7 +93,8 @@ class ToDoTile extends StatelessWidget {
               style: TextStyle(
                 fontSize: body,
                 color: item.isDone == 1 ? secondarytext : maintext,
-                decoration: item.isDone > 0 ? TextDecoration.lineThrough : null,
+                decoration:
+                    item.isDone > 0 ? TextDecoration.lineThrough : null,
               ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,

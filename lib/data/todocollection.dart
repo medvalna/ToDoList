@@ -12,8 +12,8 @@ class ToDo{
     return[
       ToDo(id: '1', toDoText: 'Погулять', isDone: 0),
       ToDo(id: '2', toDoText: 'Купить мандарины', isDone: 1),
-      ToDo(id: '3',  toDoText: 'Купить яблоки, молоко, мясо, '
-          'зелень, корм для кошки, кефир, творог, хлеб, рыбу', isDone: -1),
+      ToDo(id: '3',  toDoText: 'Купить яблоки, молоко, мясо, зелень,'
+          ' корм для кошки, кефир, творог, хлеб, рыбу', isDone: -1),
       ToDo(id: '4', toDoText: 'Закрыть сессию', isDone: 0),
       ToDo(id: '5', toDoText: 'Поехать на второй тур', isDone: 0),
       ToDo(id: '6', toDoText: 'Сделать домашку по ШМР', isDone: 1),
