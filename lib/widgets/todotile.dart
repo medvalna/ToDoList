@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/data/todocollection.dart';
 
-class ToDoTile extends StatelessWidget{
 
-  final String text;
-
-  const ToDoTile (this.text,);
+class ToDoTile extends StatelessWidget {
+  final ToDo item;
+  const ToDoTile(this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ToDoTile extends StatelessWidget{
           if(direction == DismissDirection.endToStart) {
             //to be continued
           } else {
-            
+
           }
         },*/
 
@@ -26,38 +26,47 @@ class ToDoTile extends StatelessWidget{
         color: done,
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Icon(Icons.check, color: tileback_light,),
+          child: Icon(
+            Icons.check,
+            color: tileback_light,
+          ),
         ),
       ),
       secondaryBackground: Container(
         padding: EdgeInsets.only(right: 10),
-      color: decline,
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Icon(Icons.delete, color: tileback_light,),
+        color: decline,
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Icon(
+            Icons.delete,
+            color: tileback_light,
+          ),
+        ),
       ),
-    ),
       child: Row(
         children: [
           SizedBox(
             width: 20,
           ),
           Icon(
-            Icons.check_box_outline_blank,
+            item.isDone == 1
+                ? Icons.check_box
+                : item.isDone == -1
+                    ? Icons.crop_square
+                    : Icons.check_box_outline_blank,
+            color: item.isDone == 1 ? done : item.isDone == -1 ? decline : maintext,
           ),
           SizedBox(
             width: 20,
           ),
           Expanded(
             child: Text(
-              text,
+              item.toDoText,
               style: TextStyle(
                 fontSize: body,
-                color: maintext,
-                //color: item.isDone > 0 ? secondarytext :maintext,
-                //decoration: item.isDone > 0 ? TextDecoration.lineThrough : null,
+                color: item.isDone == 1 ? secondarytext : maintext,
+                decoration: item.isDone > 0 ? TextDecoration.lineThrough : null,
               ),
-
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

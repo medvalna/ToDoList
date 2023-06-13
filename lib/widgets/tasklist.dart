@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/widgets/todotile.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
-class taskList extends StatelessWidget {
-  final bool tapped;
-  const taskList(this.tapped);
+class taskList extends StatefulWidget {
+
+
+  @override
+  State<taskList> createState() => _taskListState();
+}
+
+class _taskListState extends State<taskList> {
+  final toDosList = ToDo.taskcollection();
+  List<ToDo> _currentToDos = [];
+
+  @override
+  void initState() {
+    _currentToDos = toDosList;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
           Container(
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.only(
-                right: 25, left: 15, top: 10, bottom: 10),
+            margin: EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+            padding: EdgeInsets.only(right: 25, left: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -26,13 +40,17 @@ class taskList extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: tileback_light,
             ),
-            child: Column(
-              children: [
-                ToDoTile("Купить то"),
-                ToDoTile("Купить сё"),
-                ToDoTile("Купить пятое"),
-                ToDoTile("Купить десятое"),
-              ],
+            child: Container(
+              child: Column(
+                children: [
+                  ToDoTile(ToDo(id: '1', toDoText: 'Купить то', isDone: 0)),
+                  ToDoTile(ToDo(id: '1', toDoText: 'Купить то', isDone: 0)),
+                  ToDoTile(ToDo(id: '2', toDoText: 'Купить сё', isDone: 1)),
+                  ToDoTile(ToDo(id: '3', toDoText: 'Купить пятое', isDone: -1)),
+                  ToDoTile(
+                      ToDo(id: '4', toDoText: 'Купить десятое', isDone: 0)),
+                ],
+              ),
             ),
           ),
         ],

@@ -24,7 +24,7 @@ class appBar extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top:50, right:30),
+              margin: EdgeInsets.only(top:50, right:40),
               child: Align(
                 alignment: Alignment.topRight,
                 child: Icon(

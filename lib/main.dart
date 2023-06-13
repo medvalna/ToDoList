@@ -51,7 +51,7 @@ class _HomepageState extends State<Homepage> {
                     child: header("5"),
                   ),
                 ),
-                taskList(true),
+                taskList(),
               ],
             ),
             addButton(),

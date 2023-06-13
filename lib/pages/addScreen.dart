@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/main.dart';
-import 'package:to_do_list/widgets/appbar.dart';
-import 'package:to_do_list/widgets/header.dart';
-import 'package:to_do_list/widgets/tasklist.dart';
+import 'package:to_do_list/data/todocollection.dart';
 
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
@@ -21,17 +18,31 @@ class addScreen extends StatefulWidget {
 class _addScreen extends State<addScreen> {
   int _saved;
   bool _calendar;
+  final toDosList = ToDo.taskcollection();
+  final _toDocontroller = TextEditingController();
+  List<ToDo> _foundToDo = [];
 
   @override
   void initState() {
     _saved = 0;
     _calendar = false;
+    _foundToDo = toDosList;
     super.initState();
+  }
+
+  void _addToDoItem(String toDo) {
+    print("adding");
+    setState(() {
+      toDosList.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          toDoText: toDo, isDone: 0));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       backgroundColor: back_light,
       appBar: AppBar(
         elevation: 0,
@@ -63,6 +74,7 @@ class _addScreen extends State<addScreen> {
                   _saved = _saved + 1,
                   print(_saved),
                   Navigator.pop(context),
+                  _addToDoItem(_toDocontroller.text),
                 },
               ),
             ),
@@ -180,7 +192,6 @@ class _addScreen extends State<addScreen> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
