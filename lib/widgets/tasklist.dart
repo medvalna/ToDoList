@@ -5,8 +5,6 @@ import 'package:to_do_list/widgets/todotile.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
 class taskList extends StatefulWidget {
-
-
   @override
   State<taskList> createState() => _taskListState();
 }
@@ -43,12 +41,7 @@ class _taskListState extends State<taskList> {
             child: Container(
               child: Column(
                 children: [
-                  ToDoTile(ToDo(id: '1', toDoText: 'Купить то', isDone: 0)),
-                  ToDoTile(ToDo(id: '1', toDoText: 'Купить то', isDone: 0)),
-                  ToDoTile(ToDo(id: '2', toDoText: 'Купить сё', isDone: 1)),
-                  ToDoTile(ToDo(id: '3', toDoText: 'Купить пятое', isDone: -1)),
-                  ToDoTile(
-                      ToDo(id: '4', toDoText: 'Купить десятое', isDone: 0)),
+                  for (ToDo todo in _currentToDos) ToDoTile(todo),
                 ],
               ),
             ),

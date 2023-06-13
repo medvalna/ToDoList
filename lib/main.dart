@@ -5,9 +5,9 @@ import 'package:to_do_list/widgets/appbar.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
 
+import 'data/todocollection.dart';
 
-void main() =>
-    runApp(MaterialApp(
+void main() => runApp(MaterialApp(
       home: Homepage(),
     ));
 
@@ -22,11 +22,12 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int _tapped;
+  final toDosList = ToDo.taskcollection();
+  List<ToDo> _currentToDos = [];
 
   @override
   void initState() {
-    _tapped = 0;
+    _currentToDos = toDosList;
     super.initState();
   }
 
@@ -35,8 +36,8 @@ class _HomepageState extends State<Homepage> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        //fontFamily: 'RobotoSlab',
-      ),
+          //fontFamily: 'RobotoSlab',
+          ),
       home: Scaffold(
         backgroundColor: back_light,
         body: Stack(
@@ -45,10 +46,10 @@ class _HomepageState extends State<Homepage> {
             CustomScrollView(
               slivers: [
                 appBar(true),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
                     height: 46,
-                    child: header("5"),
+                    child: header(),
                   ),
                 ),
                 taskList(),
@@ -61,4 +62,3 @@ class _HomepageState extends State<Homepage> {
     );
   }
 }
-
