@@ -33,7 +33,7 @@ class _headerState extends State<header> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 60, right: 40),
+      padding: EdgeInsets.only(right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

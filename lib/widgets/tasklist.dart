@@ -28,7 +28,7 @@ class taskListState extends State<taskList> {
       delegate: SliverChildListDelegate(
         [
           Container(
-            margin: EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+            margin: EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 5),
             padding: EdgeInsets.only(right: 25, left: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
               boxShadow: const [

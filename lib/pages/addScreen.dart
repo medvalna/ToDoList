@@ -73,8 +73,9 @@ class _addScreen extends State<addScreen> {
                 onPressed: () => {
                   _saved = _saved + 1,
                   print(_saved),
-                  Navigator.pop(context),
                   _addToDoItem(_toDocontroller.text),
+                  //TODO: добавление таски
+                  Navigator.pop(context),
                 },
               ),
             ),
