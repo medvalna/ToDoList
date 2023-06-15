@@ -10,7 +10,7 @@ import 'data/logic_provider.dart';
 /*
 * UI главной страницы:
 *    - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
+*     через ChangeNotifier (прописан в /data/logic_provider)
 *   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
 *   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
 *   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
