@@ -1,16 +1,14 @@
-# to_do_list
+# ToDoList
+Классическое приложение to-do list.
+Функционал: добавление задачи, изменение её статуса на выполненную/отменённую/текущую.
 
-A new Flutter project.
 
-## Getting Started
+## Визуал приложения:
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://github.com/MedVAL-na/ToDoList/assets/72570836/9420921b-0d43-4ebd-940b-48cbaadc9500)
+![Screenshot_1](https://github.com/MedVAL-na/ToDoList/assets/72570836/18e2f8e4-d6aa-4fb0-b7c8-1c70eee18a22)
+![Screenshot_2](https://github.com/MedVAL-na/ToDoList/assets/72570836/d0de55d2-89ef-44aa-ba3a-d4abd0c8cbeb)
+![Screenshot_3](https://github.com/MedVAL-na/ToDoList/assets/72570836/a5664553-c9d5-4835-a098-e782608597d2)
+![Screenshot_4](https://github.com/MedVAL-na/ToDoList/assets/72570836/830789d9-61ea-4243-ad03-f6a53bc6ae1a)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
