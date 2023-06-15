@@ -8,9 +8,11 @@ import 'package:to_do_list/widgets/tasklist.dart';
 import 'data/logic_provider.dart';
 /*
 * UI главной страницы:
+*    - itemNotifier - вызов глобального состояния
+*     через ChangeNotifier (он прописан в /data/logic_provider)
 *   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
 *   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
-*   - TaskList() - виджет, отвечающий за прорисовку тайлов
+*   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
 *   - AddButton - кнопка добавления тайла и переход на страницу добавления
 *   - работа с тайлами производится через структуру "TоDo",
 *     которая прописана в data/todocollection
@@ -90,7 +92,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         opacity: appear(shrinkOffset),
         child: Container(
           color: back_light,
-          padding: EdgeInsets.only(top: 30, right: 20),
+          margin: EdgeInsets.only(top: 30, right: 20),
           child: Row(
             children: [
               Expanded(

@@ -5,10 +5,9 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import '../main.dart';
 
 /*
-*   - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
-*   - ToDoTile - прорисовка тайлов
-*   - countDoneItems -  подсчёт сделанных задач
+*
+*   - ToDoTile - прорисовка листа тайлов
+*   - getNum() -  подсчёт сделанных задач
 * */
 class Header extends StatelessWidget {
 

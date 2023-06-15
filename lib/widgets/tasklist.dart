@@ -7,8 +7,7 @@ import 'package:to_do_list/widgets/todotile.dart';
 import '../main.dart';
 
 /*
-*   - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
+*   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
 *   - ToDoTile - прорисовка тайлов
 *
 * */

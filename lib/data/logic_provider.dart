@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:to_do_list/data/todocollection.dart';
-import 'package:to_do_list/main.dart';
 
 class TileActions extends ChangeNotifier {
   final List<ToDo> _items = ToDo.taskcollection();
@@ -11,7 +10,7 @@ class TileActions extends ChangeNotifier {
   //подсчет числа сделанных задач
   int countDoneItems() {
     int dones = 0;
-    for (ToDo todo in itemNotifier.getItems()) {
+    for (ToDo todo in _items) {
       if (todo.isDone == 1) {
         dones = dones + 1;
       }
