@@ -10,7 +10,6 @@ import '../main.dart';
 *   - getNum() -  подсчёт сделанных задач
 * */
 class Header extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(

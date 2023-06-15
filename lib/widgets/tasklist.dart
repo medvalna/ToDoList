@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/widgets/todotile.dart';
 
@@ -12,7 +11,6 @@ import '../main.dart';
 *
 * */
 class TaskList extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SliverList(

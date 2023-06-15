@@ -10,12 +10,12 @@ import '../main.dart';
 
 class TodoTile extends StatefulWidget {
   ToDo currItem;
+
   TodoTile(this.currItem);
 
   @override
   State<TodoTile> createState() => _ToDoTileState();
 }
-
 
 class _ToDoTileState extends State<TodoTile> {
   late ToDo item;
@@ -26,6 +26,7 @@ class _ToDoTileState extends State<TodoTile> {
     item = widget.currItem;
     super.initState();
   }
+
   @override
   void dispose() {
     // 3
@@ -84,7 +85,9 @@ class _ToDoTileState extends State<TodoTile> {
                     : Icon(Icons.check_box_outline_blank),
             color: item.isDone == 1
                 ? done
-                : item.isDone == -1 ? decline : maintext,
+                : item.isDone == -1
+                    ? decline
+                    : maintext,
           ),
           SizedBox(
             width: 20,
@@ -112,4 +115,3 @@ class _ToDoTileState extends State<TodoTile> {
     );
   }
 }
-

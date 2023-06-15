@@ -6,6 +6,7 @@ import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
 
 import 'data/logic_provider.dart';
+
 /*
 * UI главной страницы:
 *    - itemNotifier - вызов глобального состояния

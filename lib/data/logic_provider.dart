@@ -5,6 +5,7 @@ import 'package:to_do_list/data/todocollection.dart';
 
 class TileActions extends ChangeNotifier {
   final List<ToDo> _items = ToDo.taskcollection();
+
   int getNum() => countDoneItems();
 
   //подсчет числа сделанных задач
@@ -32,8 +33,7 @@ class TileActions extends ChangeNotifier {
 
   //вызываем при сдвиге слайда налево
   void slideDecline(ToDo item) {
-    if (item.isDone == 1) {
-    }
+    if (item.isDone == 1) {}
     item.isDone = -1;
     notifyListeners();
   }
