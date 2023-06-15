@@ -126,6 +126,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   const CustomSliverAppBarDelegate({
     @required this.expandedHeight,
+
   });
 
   @override

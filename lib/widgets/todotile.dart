@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
 
 class TodoTile extends StatefulWidget {
@@ -11,14 +14,21 @@ class TodoTile extends StatefulWidget {
   @override
   State<TodoTile> createState() => _ToDoTileState();
 }
-
+TileActions itemNotifier = TileActions();
 class _ToDoTileState extends State<TodoTile> {
   ToDo item;
 
   @override
   void initState() {
+    itemNotifier.addListener(() => mounted ? setState(() {}) : null);
     item = widget.currItem;
     super.initState();
+  }
+  @override
+  void dispose() {
+    // 3
+    itemNotifier.removeListener(() {});
+    super.dispose();
   }
 
   @override
@@ -26,17 +36,20 @@ class _ToDoTileState extends State<TodoTile> {
     return Dismissible(
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
-          setState(() {
+          itemNotifier.slidedecline(item);
+          /*setState(() {
             item.isDone == 0
                 ? item.isDone = -1
                 : item.isDone == 1 ? item.isDone = 0 : item.isDone = -1;
-          });
+          });*/
         } else {
-          setState(() {
+
+          itemNotifier.slidedone(item);
+          /*setState(() {
             item.isDone == 0
                 ? item.isDone = 1
                 : item.isDone == 1 ? item.isDone = 1 : item.isDone = 0;
-          });
+          });*/
         }
       },
       key: UniqueKey(),
@@ -71,9 +84,10 @@ class _ToDoTileState extends State<TodoTile> {
             onPressed: () {
               print("tap");
               print(item.isDone);
-              setState(() {
+              itemNotifier.icondone(item);
+              /*setState(() {
                 item.isDone == 0 ? item.isDone = 1 : item.isDone = 0;
-              });
+              });*/
             },
             icon: item.isDone == 1
                 ? Icon(Icons.check_box)
@@ -110,3 +124,4 @@ class _ToDoTileState extends State<TodoTile> {
     );
   }
 }
+
