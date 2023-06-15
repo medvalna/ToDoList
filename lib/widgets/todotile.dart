@@ -6,6 +6,8 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
 
+import '../main.dart';
+
 class TodoTile extends StatefulWidget {
   ToDo currItem;
   TodoTile(this.currItem);
@@ -13,7 +15,6 @@ class TodoTile extends StatefulWidget {
   @override
   State<TodoTile> createState() => _ToDoTileState();
 }
-TileActions itemNotifier = TileActions();
 
 
 class _ToDoTileState extends State<TodoTile> {

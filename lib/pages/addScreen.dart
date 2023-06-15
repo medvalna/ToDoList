@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+
+import '../main.dart';
 /*
 * UI страницы добавления:
 *   - itemNotifier - вызов глобального состояния
@@ -20,7 +22,6 @@ class AddScreen extends StatefulWidget {
 }
 
 class AddScreenState extends State<AddScreen> {
-  final itemNotifier = TileActions();
   bool _calendar = false;
   TextEditingController _controller = TextEditingController();
 

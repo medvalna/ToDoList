@@ -4,6 +4,8 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/widgets/addbutton.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
+
+import 'data/logic_provider.dart';
 /*
 * UI главной страницы:
 *   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
@@ -14,6 +16,7 @@ import 'package:to_do_list/widgets/tasklist.dart';
 *     которая прописана в data/todocollection
 *
 * */
+final itemNotifier = TileActions();
 
 void main() => runApp(MaterialApp(
       home: Homepage(),
@@ -79,7 +82,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 
-  double appear(double shrinkOffset) => shrinkOffset / 100;
+  double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
 
   double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
 

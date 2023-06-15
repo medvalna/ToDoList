@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/data/logic_provider.dart';
+
+import '../main.dart';
 
 /*
 *   - itemNotifier - вызов глобального состояния
@@ -10,7 +11,6 @@ import 'package:to_do_list/data/logic_provider.dart';
 *   - countDoneItems -  подсчёт сделанных задач
 * */
 class Header extends StatelessWidget {
-  final itemNotifier = TileActions();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Header extends StatelessWidget {
               //TODO место для количества выполненных тасок
               Expanded(
                 child: Text(
-                  itemNotifier.countDoneItems().toString(),
+                  itemNotifier.getNum().toString(),
                   style: TextStyle(fontSize: body, color: secondarytext),
                 ),
               ),
