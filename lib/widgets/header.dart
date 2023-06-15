@@ -3,6 +3,12 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/data/logic_provider.dart';
 
+/*
+*   - itemNotifier - вызов глобального состояния
+*     через ChangeNotifier (он прописан в /data/logic_provider)
+*   - ToDoTile - прорисовка тайлов
+*   - countDoneItems -  подсчёт сделанных задач
+* */
 class Header extends StatelessWidget {
   final itemNotifier = TileActions();
 

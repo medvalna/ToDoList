@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+/*
+* класс с кастомными цветами
+* */
 const Color maintext = Color(0xFF000000);
 const Color secondarytext = Color(0x4D000000);
 const Color separator = Color(0x33000000);

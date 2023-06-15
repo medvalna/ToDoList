@@ -1,3 +1,7 @@
+/*
+*класс с объектом  ToDo
+* */
+
 class ToDo {
   String id;
   String toDoText;

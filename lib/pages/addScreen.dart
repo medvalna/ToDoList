@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/data/logic_provider.dart';
-import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-
+/*
+* UI страницы добавления:
+*   - itemNotifier - вызов глобального состояния
+*     через ChangeNotifier (он прописан в /data/logic_provider)
+*
+* */
 class AddScreen extends StatefulWidget {
   AddScreen({key}) : super();
 

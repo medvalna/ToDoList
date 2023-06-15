@@ -1,3 +1,7 @@
+/*
+* класс с кастомными шрифтами
+* */
+
 const double largetitle = 38;
 const double title = 32;
 const double button = 24;

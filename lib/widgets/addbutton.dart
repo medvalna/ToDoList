@@ -3,7 +3,9 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/pages/addScreen.dart';
-
+/*
+*   -навигация к странице addScreen через Navigator.push
+* */
 class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

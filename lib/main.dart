@@ -4,6 +4,16 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/widgets/addbutton.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
+/*
+* UI главной страницы:
+*   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
+*   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
+*   - TaskList() - виджет, отвечающий за прорисовку тайлов
+*   - AddButton - кнопка добавления тайла и переход на страницу добавления
+*   - работа с тайлами производится через структуру "TоDo",
+*     которая прописана в data/todocollection
+*
+* */
 
 void main() => runApp(MaterialApp(
       home: Homepage(),

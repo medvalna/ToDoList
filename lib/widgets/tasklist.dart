@@ -4,6 +4,12 @@ import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/widgets/todotile.dart';
 
+/*
+*   - itemNotifier - вызов глобального состояния
+*     через ChangeNotifier (он прописан в /data/logic_provider)
+*   - ToDoTile - прорисовка тайлов
+*
+* */
 class TaskList extends StatelessWidget {
   final itemNotifier = TileActions();
 
