@@ -14,13 +14,10 @@ class TodoTile extends StatefulWidget {
 
 class _ToDoTileState extends State<TodoTile> {
   ToDo item;
-  final toDosList = ToDo.taskcollection();
-  List<ToDo> _currentToDos = [];
 
   @override
   void initState() {
     item = widget.currItem;
-    _currentToDos = toDosList;
     super.initState();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/pages/addScreen.dart';
 import 'package:to_do_list/widgets/addbutton.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
@@ -24,11 +25,38 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final toDosList = ToDo.taskcollection();
   List<ToDo> _currentToDos = [];
-
+  String shouldRefresh;
   @override
   void initState() {
+    shouldRefresh = "";
     _currentToDos = toDosList;
     super.initState();
+  }
+  void _refreshData(String task) {
+    //toDosList = (new)ToDo.taskcollection();
+
+    /*for(ToDo todo in ToDo.taskcollection()){
+      print(todo.toDoText);
+    }*/
+    //print(toDosList.last.toDoText);
+    setState( () {
+      toDosList.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          toDoText: task, isDone: 0));
+      print("локальная печать");
+      for(ToDo todo in toDosList){
+        print(todo.toDoText);
+      }
+    });
+  }
+  String _printToDos() {
+    //_currentToDos = toDosList;
+    super.initState();
+    print("печать d main");
+    for(ToDo todo in toDosList){
+      print(todo.toDoText);
+    }
+    return toDosList.last.toDoText;
   }
 
   @override
@@ -51,11 +79,42 @@ class _HomepageState extends State<Homepage> {
 
                 //appBar(true),
                 //header(),
-                taskList(),
+                taskList(toDosList),
               ],
             ),
-            addButton(),
+
+            //addButton(),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  //color: add,
+                ),
+                child: FloatingActionButton(
+                  onPressed: () async => {
+
+                    shouldRefresh = await Navigator.push<String>(
+                        context,
+                        MaterialPageRoute(builder: (context) => addScreen())),
+                    if (shouldRefresh != "")
+                      {
+                        _refreshData(shouldRefresh),
+                      }
+                  },
+                  child: Icon(
+                    Icons.add,
+                    size: 28,
+                    color: tileback_light,
+                  ),
+                ),
+              ),
+            ),
+            //TODO redraw page after pushing button
           ],
+
         ),
       ),
     );

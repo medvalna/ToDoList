@@ -3,8 +3,10 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/data/todocollection.dart';
 
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/widgets/tasklist.dart';
 
 class addScreen extends StatefulWidget {
+
   addScreen({key}) : super();
 
   @override
@@ -18,25 +20,55 @@ class addScreen extends StatefulWidget {
 class _addScreen extends State<addScreen> {
   int _saved;
   bool _calendar;
-  final toDosList = ToDo.taskcollection();
-  final _toDocontroller = TextEditingController();
-  List<ToDo> _foundToDo = [];
+  List<ToDo> toDosList = ToDo.taskcollection();
+  TextEditingController _controller = TextEditingController();
+  //List<ToDo> _foundToDo = [];
 
   @override
   void initState() {
-    _saved = 0;
+   _saved = 0;
     _calendar = false;
-    _foundToDo = toDosList;
+   // _foundToDo = toDosList;
     super.initState();
+    _controller.addListener(() {
+      final String text = _controller.text.toLowerCase();
+      _controller.value = _controller.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
   }
 
   void _addToDoItem(String toDo) {
-    print("adding");
+    print("глобальная печать");
+    ToDo.taskcollection().add(ToDo(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        toDoText: toDo, isDone: 0));
+    for(ToDo todo in ToDo.taskcollection()){
+      print(todo.toDoText);
+    }
     setState(() {
       toDosList.add(ToDo(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
           toDoText: toDo, isDone: 0));
+      print("локальная печать");
+      for(ToDo todo in toDosList){
+        print(todo.toDoText);
+      }
+
     });
+    //print(toDosList.last.toDoText);
+    _controller.clear();
+  }
+  void _printItem() {
+    print(_controller.text);
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,10 +104,9 @@ class _addScreen extends State<addScreen> {
                 ),
                 onPressed: () => {
                   _saved = _saved + 1,
-                  print(_saved),
-                  _addToDoItem(_toDocontroller.text),
+                  //_addToDoItem(_controller.text),
                   //TODO: добавление таски
-                  Navigator.pop(context),
+                  Navigator.of(context).pop(_controller.text),
                 },
               ),
             ),
@@ -102,7 +133,7 @@ class _addScreen extends State<addScreen> {
               child: SizedBox(
                 height: 96,
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: _controller,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 10),
                     border: InputBorder.none,
