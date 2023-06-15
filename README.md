@@ -12,3 +12,4 @@
 ![Screenshot_3](https://github.com/MedVAL-na/ToDoList/assets/72570836/a5664553-c9d5-4835-a098-e782608597d2)
 ![Screenshot_4](https://github.com/MedVAL-na/ToDoList/assets/72570836/830789d9-61ea-4243-ad03-f6a53bc6ae1a)
 
+## Скачать по ссылке:
