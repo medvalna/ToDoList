@@ -4,47 +4,7 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/pages/addScreen.dart';
 
-class addButton extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    //TODO implement state
-
-    return _addButton();
-  }
-}
-
-class _addButton extends State<addButton> {
-  String shouldRefresh;
-  Color color;
-  List<ToDo> toDosList = ToDo.taskcollection();
-  @override
-  void initState() {
-    color = add;
-    shouldRefresh = "";
-    super.initState();
-  }
-
-  //int _addtask;
-  //addButton(this._addtask);
-  void _refreshData(String task) {
-    //toDosList = (new)ToDo.taskcollection();
-
-    /*for(ToDo todo in ToDo.taskcollection()){
-      print(todo.toDoText);
-    }*/
-    //print(toDosList.last.toDoText);
-    setState( () {
-        color = Colors.red;
-          toDosList.add(ToDo(
-              id: DateTime.now().millisecondsSinceEpoch.toString(),
-              toDoText: task, isDone: 0));
-          print("локальная печать");
-          for(ToDo todo in toDosList){
-            print(todo.toDoText);
-          }
-        });
-  }
-
+class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final bool shouldRefresh;
@@ -58,21 +18,11 @@ class _addButton extends State<addButton> {
           //color: add,
         ),
         child: FloatingActionButton(
-          backgroundColor: color,
-          onPressed: () async => {
-            /*
+          onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => addScreen()),
-            ),*/
-
-            shouldRefresh = await Navigator.push<String>(
-                context,
-                MaterialPageRoute(builder: (context) => addScreen())),
-            if (shouldRefresh != "")
-              {
-                _refreshData(shouldRefresh),
-              }
+              MaterialPageRoute(builder: (context) => AddScreen()),
+            ),
           },
           child: Icon(
             Icons.add,

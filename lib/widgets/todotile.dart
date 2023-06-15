@@ -8,15 +8,16 @@ import 'package:to_do_list/data/todocollection.dart';
 
 class TodoTile extends StatefulWidget {
   ToDo currItem;
-
   TodoTile(this.currItem);
 
   @override
   State<TodoTile> createState() => _ToDoTileState();
 }
 TileActions itemNotifier = TileActions();
+
+
 class _ToDoTileState extends State<TodoTile> {
-  ToDo item;
+  late ToDo item;
 
   @override
   void initState() {
@@ -36,20 +37,9 @@ class _ToDoTileState extends State<TodoTile> {
     return Dismissible(
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
-          itemNotifier.slidedecline(item);
-          /*setState(() {
-            item.isDone == 0
-                ? item.isDone = -1
-                : item.isDone == 1 ? item.isDone = 0 : item.isDone = -1;
-          });*/
+          itemNotifier.slideDecline(item);
         } else {
-
-          itemNotifier.slidedone(item);
-          /*setState(() {
-            item.isDone == 0
-                ? item.isDone = 1
-                : item.isDone == 1 ? item.isDone = 1 : item.isDone = 0;
-          });*/
+          itemNotifier.slideDone(item);
         }
       },
       key: UniqueKey(),
@@ -84,10 +74,7 @@ class _ToDoTileState extends State<TodoTile> {
             onPressed: () {
               print("tap");
               print(item.isDone);
-              itemNotifier.icondone(item);
-              /*setState(() {
-                item.isDone == 0 ? item.isDone = 1 : item.isDone = 0;
-              });*/
+              itemNotifier.iconDone(item);
             },
             icon: item.isDone == 1
                 ? Icon(Icons.check_box)

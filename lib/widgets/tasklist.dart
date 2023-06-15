@@ -1,26 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
 import 'package:to_do_list/widgets/todotile.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
 
-class taskList extends StatefulWidget {
-  List<ToDo> currentToDos = [];
-  taskList (this.currentToDos);
-  @override
-  State<taskList> createState() => taskListState();
-}
-
-class taskListState extends State<taskList> {
-  //final Function(ToDo) ToDoTile;
-  final toDosList = ToDo.taskcollection();
-  List<ToDo> currList = [];
-
-  @override
-  void initState() {
-    currList = widget.currentToDos;
-    super.initState();
-  }
+class TaskList extends StatelessWidget {
+  final itemNotifier = TileActions();
 
   @override
   Widget build(BuildContext context) {
@@ -29,25 +14,29 @@ class taskListState extends State<taskList> {
         [
           Container(
             margin: EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 5),
-            padding: EdgeInsets.only(right: 25, left: 15, top: 10, bottom: 10),
+            padding: EdgeInsets.only(right: 25, top: 10, bottom: 10),
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
                     color: separator,
                     offset: Offset(0.0, 0.0),
-                    blurRadius: 2.0,
+                    blurRadius: 1.0,
                     spreadRadius: 0.0),
               ],
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               color: tileback_light,
             ),
             child: Container(
-              child: Column(
-                children: [
-                  for (ToDo todo in currList) TodoTile(todo),
-                ],
-              ),
-            ),
+                child: ListenableBuilder(
+              listenable: itemNotifier,
+              builder: (BuildContext context, Widget? child) {
+                return Column(
+                  children: [
+                    for (ToDo todo in itemNotifier.getItems()) TodoTile(todo),
+                  ],
+                );
+              },
+            )),
           ),
         ],
       ),

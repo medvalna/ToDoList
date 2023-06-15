@@ -1,70 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/data/logic_provider.dart';
 import 'package:to_do_list/data/todocollection.dart';
-
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/widgets/tasklist.dart';
 
-class addScreen extends StatefulWidget {
-
-  addScreen({key}) : super();
+class AddScreen extends StatefulWidget {
+  AddScreen({key}) : super();
 
   @override
   State<StatefulWidget> createState() {
     //TODO implement state
 
-    return _addScreen();
+    return AddScreenState();
   }
 }
 
-class _addScreen extends State<addScreen> {
-  int _saved;
-  bool _calendar;
-  List<ToDo> toDosList = ToDo.taskcollection();
+class AddScreenState extends State<AddScreen> {
+  final itemNotifier = TileActions();
+  bool _calendar = false;
   TextEditingController _controller = TextEditingController();
-  //List<ToDo> _foundToDo = [];
 
   @override
   void initState() {
-   _saved = 0;
     _calendar = false;
-   // _foundToDo = toDosList;
     super.initState();
-    _controller.addListener(() {
-      final String text = _controller.text.toLowerCase();
-      _controller.value = _controller.value.copyWith(
-        text: text,
-        selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
+    itemNotifier.addListener(() => mounted ? setState(() {}) : null);
   }
 
-  void _addToDoItem(String toDo) {
-    print("глобальная печать");
-    ToDo.taskcollection().add(ToDo(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        toDoText: toDo, isDone: 0));
-    for(ToDo todo in ToDo.taskcollection()){
-      print(todo.toDoText);
-    }
-    setState(() {
-      toDosList.add(ToDo(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          toDoText: toDo, isDone: 0));
-      print("локальная печать");
-      for(ToDo todo in toDosList){
-        print(todo.toDoText);
-      }
-
-    });
-    //print(toDosList.last.toDoText);
-    _controller.clear();
-  }
-  void _printItem() {
-    print(_controller.text);
-  }
   @override
   void dispose() {
     _controller.dispose();
@@ -74,7 +36,7 @@ class _addScreen extends State<addScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: back_light,
       appBar: AppBar(
         elevation: 0,
@@ -102,11 +64,9 @@ class _addScreen extends State<addScreen> {
                   'сохранить',
                   style: TextStyle(fontSize: button, color: add),
                 ),
-                onPressed: () => {
-                  _saved = _saved + 1,
-                  //_addToDoItem(_controller.text),
-                  //TODO: добавление таски
-                  Navigator.of(context).pop(_controller.text),
+                onPressed: () {
+                  itemNotifier.addItem(_controller.text);
+                  Navigator.of(context).pop();
                 },
               ),
             ),
