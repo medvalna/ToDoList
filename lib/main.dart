@@ -1,144 +1,47 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/widgets/addbutton.dart';
-import 'package:to_do_list/widgets/header.dart';
-import 'package:to_do_list/widgets/tasklist.dart';
-
+import 'package:to_do_list/pages/Homepage.dart';
+import 'package:flutter/cupertino.dart.';
+import 'package:to_do_list/pages/welcomeScreen.dart';
+import 'adaptivity/font_sizes.dart';
 import 'data/logic_provider.dart';
+import 'dart:io' show Platform;
 
-/*
-* UI главной страницы:
-*    - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
-*   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
-*   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
-*   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
-*   - AddButton - кнопка добавления тайла и переход на страницу добавления
-*   - работа с тайлами производится через структуру "TоDo",
-*     которая прописана в data/todocollection
-*
-* */
+import 'data/navigation.dart';
+
 final itemNotifier = TileActions();
 
 void main() => runApp(MaterialApp(
-      home: Homepage(),
+      home: App(),
     ));
 
-class Homepage extends StatelessWidget {
+class App extends StatelessWidget {
+  static const String title = ' To-do List App ';
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          //fontFamily: 'RobotoSlab',
-          ),
-      home: Scaffold(
-        backgroundColor: back_light,
-        body: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  delegate: CustomSliverAppBarDelegate(expandedHeight: 160),
-                  pinned: true,
-                ),
-                TaskList(),
-              ],
-            ),
-            AddButton(),
-          ],
+    const home = WelcomePage(title: title);
+    if (Platform.isIOS) {
+      return CupertinoApp(
+        theme: CupertinoThemeData(
+          scaffoldBackgroundColor: back_light,
+          primaryColor: Colors.blue,
         ),
-      ),
-    );
-  }
-}
-
-class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final double expandedHeight;
-
-  const CustomSliverAppBarDelegate({
-    required this.expandedHeight,
-  });
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      children: [
-        Container(
-          color: back_light,
-        ),
-        Positioned(
-          top: 80,
-          left: 60,
-          right: 20,
-          child: buildAppBar(shrinkOffset),
-        ),
-        Positioned(
-          top: 10,
-          left: 20,
-          right: 20,
-          child: buildFloating(shrinkOffset),
-        ),
-      ],
-    );
-  }
-
-  double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
-
-  double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-
-  Widget buildFloating(double shrinkOffset) => Opacity(
-        opacity: appear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          margin: EdgeInsets.only(top: 30, right: 20),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  Icons.remove_red_eye,
-                ),
-              ),
-            ],
-          ),
-        ),
+        home: Homepage(),
       );
-
-  Widget buildAppBar(double shrinkOffset) => Opacity(
-        opacity: disappear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          //padding: EdgeInsets.only(top: 30, right: 20),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Header(),
-            ],
+    } else {
+      return MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: back_light,
+          primaryColor: Colors.blue,
+          textTheme: TextTheme(
+            headlineLarge: TextStyle(fontSize: largetitle, color: maintext),
           ),
         ),
+        home: home,
+        navigatorKey: NavigationManager.instance.key,
       );
-
-  @override
-  double get maxExtent => expandedHeight;
-
-  @override
-  double get minExtent => kToolbarHeight + 30;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+    }
+  }
 }

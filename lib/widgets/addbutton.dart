@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/pages/addScreen.dart';
+import 'dart:io' show Platform;
 
+import '../data/navigation.dart';
 /*
 *   - навигация к странице addScreen через Navigator.push
 * */
@@ -9,6 +12,7 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final bool shouldRefresh;
+
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
@@ -20,10 +24,7 @@ class AddButton extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddScreen()),
-            ),
+            _onOpenAdding(),
           },
           child: Icon(
             Icons.add,
@@ -33,5 +34,8 @@ class AddButton extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _onOpenAdding() {
+    NavigationManager.instance.openAdding();
   }
 }

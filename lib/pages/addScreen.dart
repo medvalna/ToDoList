@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
+import '../data/navigation.dart';
 import '../main.dart';
 
 /*
@@ -62,18 +63,18 @@ class AddScreenState extends State<AddScreen> {
             SizedBox(
               width: 150,
               child: FloatingActionButton(
-                elevation: 0,
-                backgroundColor: back_light,
-                shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
-                child: Text(
-                  'сохранить',
-                  style: TextStyle(fontSize: button, color: add),
-                ),
-                onPressed: () {
-                  itemNotifier.addItem(_controller.text);
-                  Navigator.of(context).pop();
-                },
-              ),
+                  elevation: 0,
+                  backgroundColor: back_light,
+                  shape:
+                      BeveledRectangleBorder(borderRadius: BorderRadius.zero),
+                  child: Text(
+                    'сохранить',
+                    style: TextStyle(fontSize: button, color: add),
+                  ),
+                  onPressed: () => {
+                        itemNotifier.addItem(_controller.text),
+                        _onGoBack(),
+                      }),
             ),
           ],
         ),
@@ -150,7 +151,7 @@ class AddScreenState extends State<AddScreen> {
                           style: TextStyle(color: maintext, fontSize: body),
                         ),
                         new Spacer(),
-                        Switch(
+                        Switch.adaptive(
                           value: _calendar,
                           activeColor: add,
                           onChanged: (bool value) {
@@ -194,4 +195,8 @@ class AddScreenState extends State<AddScreen> {
       ),
     );
   }
+}
+
+void _onGoBack() {
+  NavigationManager.instance.pop();
 }
