@@ -3,8 +3,8 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/data/logic_provider.dart';
-import 'package:to_do_list/data/todocollection.dart';
+import 'package:to_do_list/models/logic_provider.dart';
+import 'package:to_do_list/models/todocollection.dart';
 
 import '../main.dart';
 
@@ -18,7 +18,7 @@ class TodoTile extends StatefulWidget {
 }
 
 class _ToDoTileState extends State<TodoTile> {
-  late ToDo item;
+  late final ToDo item;
 
   @override
   void initState() {
@@ -78,14 +78,14 @@ class _ToDoTileState extends State<TodoTile> {
               print(item.isDone);
               itemNotifier.iconDone(item);
             },
-            icon: item.isDone == 1
+            icon: item.isDone ==true
                 ? Icon(Icons.check_box)
-                : item.isDone == -1
+                : item.isDone == false
                     ? Icon(Icons.check_box_outline_blank)
                     : Icon(Icons.check_box_outline_blank),
-            color: item.isDone == 1
+            color: item.isDone == true
                 ? done
-                : item.isDone == -1
+                : item.isDone == false
                     ? decline
                     : maintext,
           ),
@@ -97,8 +97,8 @@ class _ToDoTileState extends State<TodoTile> {
               item.toDoText,
               style: TextStyle(
                 fontSize: body,
-                color: item.isDone == 1 ? secondarytext : maintext,
-                decoration: item.isDone > 0 ? TextDecoration.lineThrough : null,
+                color: item.isDone == true ? secondarytext : maintext,
+                decoration: item.isDone == true ? TextDecoration.lineThrough : null,
               ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
-import '../data/navigation.dart';
+import '../models/navigation.dart';
 import '../main.dart';
 
 /*
@@ -48,8 +48,8 @@ class AddScreenState extends State<AddScreen> {
         elevation: 0,
         backgroundColor: back_light,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
+          onPressed: () => {
+           _onGoBack(),
           },
           icon: const Icon(
             Icons.clear,

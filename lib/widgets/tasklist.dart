@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/data/todocollection.dart';
+import 'package:to_do_list/models/todocollection.dart';
 import 'package:to_do_list/widgets/todotile.dart';
 
 import '../main.dart';

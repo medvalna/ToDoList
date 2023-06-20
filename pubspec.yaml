@@ -22,6 +22,8 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  bloc: ^8.1.1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
 
@@ -32,6 +34,7 @@ dependencies:
   provider: ^6.0.0
 
 dev_dependencies:
+  bloc_test: ^9.1.0
   flutter_test:
     sdk: flutter
 
@@ -45,6 +48,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

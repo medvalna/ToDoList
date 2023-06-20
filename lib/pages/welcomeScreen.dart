@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'dart:io' show Platform;
-import '../data/navigation.dart';
+import '../models/navigation.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key, required this.title});

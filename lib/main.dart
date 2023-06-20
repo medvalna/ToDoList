@@ -5,10 +5,10 @@ import 'package:to_do_list/pages/Homepage.dart';
 import 'package:flutter/cupertino.dart.';
 import 'package:to_do_list/pages/welcomeScreen.dart';
 import 'adaptivity/font_sizes.dart';
-import 'data/logic_provider.dart';
+import 'models/logic_provider.dart';
 import 'dart:io' show Platform;
 
-import 'data/navigation.dart';
+import 'models/navigation.dart';
 
 final itemNotifier = TileActions();
 

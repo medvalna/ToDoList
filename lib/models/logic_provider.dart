@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:to_do_list/data/todocollection.dart';
+import 'package:to_do_list/models/todocollection.dart';
 
 class TileActions extends ChangeNotifier {
   final List<ToDo> _items = ToDo.taskcollection();
@@ -23,29 +23,29 @@ class TileActions extends ChangeNotifier {
 
   //вызываем при сдвиге слайда направо
   void slideDone(ToDo item) {
-    if (item.isDone == 0) {
-      item.isDone = 1;
-    } else if (item.isDone == -1) {
-      item.isDone = 0;
+    if (item.isDone == null) {
+      item.isDone = true;
+    } else if (item.isDone == false) {
+      item.isDone = null;
     }
     notifyListeners();
   }
 
   //вызываем при сдвиге слайда налево
   void slideDecline(ToDo item) {
-    if (item.isDone == 1) {}
-    item.isDone = -1;
+    if (item.isDone == true) {}
+    item.isDone = false;
     notifyListeners();
   }
 
   //вызываем при нажатии на чекбокс
   void iconDone(ToDo item) {
-    if (item.isDone == 0) {
-      item.isDone = 1;
-    } else if (item.isDone == 1) {
-      item.isDone = 0;
+    if (item.isDone == null) {
+      item.isDone = true;
+    } else if (item.isDone == true) {
+      item.isDone = false;
     } else {
-      item.isDone = 0;
+      item.isDone = null;
     }
     notifyListeners();
   }
@@ -55,7 +55,7 @@ class TileActions extends ChangeNotifier {
     _items.add(ToDo(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         toDoText: toDo,
-        isDone: 0));
+        isDone: null));
     for (ToDo todo in _items) {
       print(todo.toDoText);
     }

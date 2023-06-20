@@ -4,7 +4,7 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/pages/addScreen.dart';
 import 'dart:io' show Platform;
 
-import '../data/navigation.dart';
+import '../models/navigation.dart';
 /*
 *   - навигация к странице addScreen через Navigator.push
 * */
