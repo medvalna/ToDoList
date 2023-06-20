@@ -55,13 +55,14 @@ class Homepage extends StatelessWidget {
           builder: (context, state) {
             if (state is TileListUpdated && state.tileList.isNotEmpty) {
               final tileList = state.tileList;
+              final tileCount = state.doneItems;
               return Stack(
                 children: [
                   CustomScrollView(
                     slivers: [
                       SliverPersistentHeader(
-                        delegate:
-                            CustomSliverAppBarDelegate(expandedHeight: 160),
+                        delegate: CustomSliverAppBarDelegate(
+                            expandedHeight: 160, doneCount: tileCount),
                         pinned: true,
                       ),
                       TaskList(tileList),
@@ -95,12 +96,11 @@ class Homepage extends StatelessWidget {
                     ),
                   ),
                   Center(
-
                     child: Text(
-                        "Добавь новую задачу!", style: Theme.of(context).textTheme.bodyMedium,
+                      "Добавь новую задачу!",
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
-
                   Align(
                     alignment: Alignment.bottomRight,
                     child: AddButton(),
@@ -115,9 +115,11 @@ class Homepage extends StatelessWidget {
 
 class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
+  final int doneCount;
 
   const CustomSliverAppBarDelegate({
     required this.expandedHeight,
+    required this.doneCount,
   });
 
   @override
@@ -186,7 +188,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                   style: TextStyle(color: maintext, fontSize: largetitle),
                 ),
               ),
-              Header(),
+              Header(doneCount: doneCount),
             ],
           ),
         ),

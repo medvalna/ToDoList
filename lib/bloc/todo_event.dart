@@ -5,7 +5,6 @@ part of 'todo_bloc.dart';
 abstract class TileListEvents {
 
 }
-
 class AddTile extends TileListEvents {
   final String text;
   AddTile({required this.text});
