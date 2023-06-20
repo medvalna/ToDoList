@@ -1,8 +1,13 @@
+import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart';
+import 'package:flutter/hosted/pub.dev/provider-6.0.5/test/null_safe/inherited_provider_test.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/widgets/tasklist.dart';
 
+import '../bloc/todo_bloc.dart';
 import '../main.dart';
+import '../models/todocollection.dart';
 
 /*
 *
@@ -26,7 +31,7 @@ class Header extends StatelessWidget {
               //TODO место для количества выполненных тасок
               Expanded(
                 child: Text(
-                  itemNotifier.getNum().toString(),
+                  _countDone(),
                   style: TextStyle(fontSize: body, color: secondarytext),
                 ),
               ),
@@ -34,7 +39,7 @@ class Header extends StatelessWidget {
               Container(
                 //TODO место для кнопки раскрытия сделанных тасок
                 child: Icon(
-                  Icons.remove_red_eye,
+                  Icons.visibility,
                 ),
               ),
             ],
@@ -46,4 +51,21 @@ class Header extends StatelessWidget {
       ),
     );
   }
+}
+
+String _countDone() {
+  int count = 0;
+  BlocListener<TileListBloc, TileListState>(
+    listener: (context, state) {
+      List<ToDo> taskList = state.tileList;
+      for (ToDo todo in taskList) {
+        if (todo.isDone == true) {
+          count = count + 1;
+        }
+      }
+    },
+  );
+
+  String res = count.toString();
+  return res;
 }

@@ -1,47 +1,28 @@
 import 'dart:collection';
 
+import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/logic_provider.dart';
 import 'package:to_do_list/models/todocollection.dart';
 
+import '../bloc/todo_bloc.dart';
 import '../main.dart';
 
-class TodoTile extends StatefulWidget {
-  ToDo currItem;
+class ToDoTile extends StatelessWidget {
+  final ToDo item;
 
-  TodoTile(this.currItem);
-
-  @override
-  State<TodoTile> createState() => _ToDoTileState();
-}
-
-class _ToDoTileState extends State<TodoTile> {
-  late final ToDo item;
-
-  @override
-  void initState() {
-    itemNotifier.addListener(() => mounted ? setState(() {}) : null);
-    item = widget.currItem;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // 3
-    itemNotifier.removeListener(() {});
-    super.dispose();
-  }
+  ToDoTile(this.item);
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
-          itemNotifier.slideDecline(item);
+          context.read<TileListBloc>().add(DeleteTile(tile: item));
         } else {
-          itemNotifier.slideDone(item);
+          context.read<TileListBloc>().add(SlideDone(tile: item));
         }
       },
       key: UniqueKey(),
@@ -76,9 +57,9 @@ class _ToDoTileState extends State<TodoTile> {
             onPressed: () {
               print("tap");
               print(item.isDone);
-              itemNotifier.iconDone(item);
+              context.read<TileListBloc>().add(TappedOnCheckbox(tile: item));
             },
-            icon: item.isDone ==true
+            icon: item.isDone == true
                 ? Icon(Icons.check_box)
                 : item.isDone == false
                     ? Icon(Icons.check_box_outline_blank)
@@ -98,7 +79,8 @@ class _ToDoTileState extends State<TodoTile> {
               style: TextStyle(
                 fontSize: body,
                 color: item.isDone == true ? secondarytext : maintext,
-                decoration: item.isDone == true ? TextDecoration.lineThrough : null,
+                decoration:
+                    item.isDone == true ? TextDecoration.lineThrough : null,
               ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,

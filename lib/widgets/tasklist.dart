@@ -11,6 +11,11 @@ import '../main.dart';
 *
 * */
 class TaskList extends StatelessWidget {
+  final List<ToDo> tileList;
+
+  const TaskList(this.tileList);
+
+  //final List <ToDo> tileList;
   @override
   Widget build(BuildContext context) {
     return SliverList(
@@ -31,16 +36,13 @@ class TaskList extends StatelessWidget {
               color: tileback_light,
             ),
             child: Container(
-                child: ListenableBuilder(
-              listenable: itemNotifier,
-              builder: (BuildContext context, Widget? child) {
-                return Column(
-                  children: [
-                    for (ToDo todo in itemNotifier.getItems()) TodoTile(todo),
-                  ],
-                );
-              },
-            )),
+              child: Column(
+                children: [
+                  //for (ToDo todo in itemNotifier.getItems()) TodoTile(todo),
+                  for (ToDo todo in tileList) ToDoTile(todo),
+                ],
+              ),
+            ),
           ),
         ],
       ),

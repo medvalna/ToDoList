@@ -56,9 +56,9 @@ class TileActions extends ChangeNotifier {
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         toDoText: toDo,
         isDone: null));
-    for (ToDo todo in _items) {
+    /*for (ToDo todo in _items) {
       print(todo.toDoText);
-    }
+    }*/
     notifyListeners();
   }
 }

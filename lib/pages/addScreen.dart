@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-
+import 'package:to_do_list/bloc/todo_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/navigation.dart';
 import '../main.dart';
+import '../models/todocollection.dart';
 
 /*
 * UI страницы добавления:
@@ -11,6 +13,7 @@ import '../main.dart';
 *     через ChangeNotifier (он прописан в /data/logic_provider)
 *
 * */
+/*
 class AddScreen extends StatefulWidget {
   AddScreen({key}) : super();
 
@@ -20,24 +23,21 @@ class AddScreen extends StatefulWidget {
 
     return AddScreenState();
   }
-}
+}*/
 
-class AddScreenState extends State<AddScreen> {
+class AddScreen extends StatelessWidget {
+
   bool _calendar = false;
   TextEditingController _controller = TextEditingController();
-
+/*
   @override
   void initState() {
     _calendar = false;
     super.initState();
     itemNotifier.addListener(() => mounted ? setState(() {}) : null);
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+*/
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,8 @@ class AddScreenState extends State<AddScreen> {
                     style: TextStyle(fontSize: button, color: add),
                   ),
                   onPressed: () => {
-                        itemNotifier.addItem(_controller.text),
+                        //itemNotifier.addItem(_controller.text),
+                    context.read<TileListBloc>().add(AddTile(text:_controller.text)),
                         _onGoBack(),
                       }),
             ),
@@ -155,10 +156,10 @@ class AddScreenState extends State<AddScreen> {
                           value: _calendar,
                           activeColor: add,
                           onChanged: (bool value) {
-                            setState(() {
+                            /*setState(() {
                               _calendar = value;
                               print(_calendar);
-                            });
+                            });*/
                           },
                         ),
                       ],
