@@ -9,7 +9,8 @@ import 'package:to_do_list/widgets/addbutton.dart';
 import 'package:to_do_list/widgets/header.dart';
 import 'package:to_do_list/widgets/tasklist.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../models/logic_provider.dart';
+
+import '../widgets/appBar.dart';
 
 /*
 * UI главной страницы:
@@ -23,7 +24,7 @@ import '../models/logic_provider.dart';
 *     которая прописана в data/todocollection
 *
 * */
-final itemNotifier = TileActions();
+
 
 class Homepage extends StatelessWidget {
   @override
@@ -56,6 +57,7 @@ class Homepage extends StatelessWidget {
             if (state is TileListUpdated && state.tileList.isNotEmpty) {
               final tileList = state.tileList;
               final tileCount = state.doneItems;
+              final showFullList = state.showDone;
               return Stack(
                 children: [
                   CustomScrollView(
@@ -65,7 +67,7 @@ class Homepage extends StatelessWidget {
                             expandedHeight: 160, doneCount: tileCount),
                         pinned: true,
                       ),
-                      TaskList(tileList),
+                      TaskList(tileList, showFullList),
                     ],
                   ),
                   AddButton(),
@@ -113,93 +115,4 @@ class Homepage extends StatelessWidget {
       );
 }
 
-class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final double expandedHeight;
-  final int doneCount;
 
-  const CustomSliverAppBarDelegate({
-    required this.expandedHeight,
-    required this.doneCount,
-  });
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      children: [
-        Container(
-          color: back_light,
-        ),
-        Positioned(
-          top: 80,
-          left: 60,
-          right: 20,
-          child: buildAppBar(shrinkOffset),
-        ),
-        Positioned(
-          top: 10,
-          left: 20,
-          right: 20,
-          child: buildFloating(shrinkOffset),
-        ),
-      ],
-    );
-  }
-
-  double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
-
-  double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-
-  Widget buildFloating(double shrinkOffset) => Opacity(
-        opacity: appear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          margin: EdgeInsets.only(top: 30, right: 20),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  Icons.remove_red_eye,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget buildAppBar(double shrinkOffset) => Opacity(
-        opacity: disappear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          //padding: EdgeInsets.only(top: 30, right: 20),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Header(doneCount: doneCount),
-            ],
-          ),
-        ),
-      );
-
-  @override
-  double get maxExtent => expandedHeight;
-
-  @override
-  double get minExtent => kToolbarHeight + 30;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-}

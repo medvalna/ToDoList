@@ -7,12 +7,10 @@ import 'package:flutter/cupertino.dart.';
 import 'package:to_do_list/pages/welcomeScreen.dart';
 import 'adaptivity/font_sizes.dart';
 import 'bloc/todo_bloc.dart';
-import 'models/logic_provider.dart';
 import 'dart:io' show Platform;
 
 import 'models/navigation.dart';
 
-final itemNotifier = TileActions();
 
 void main() => runApp(MaterialApp(
       home: App(),

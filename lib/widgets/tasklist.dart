@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/models/todocollection.dart';
+import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/widgets/todotile.dart';
 
 import '../main.dart';
@@ -12,8 +12,9 @@ import '../main.dart';
 * */
 class TaskList extends StatelessWidget {
   final List<ToDo> tileList;
+  final bool showFullList;
 
-  const TaskList(this.tileList);
+  const TaskList(this.tileList, this.showFullList);
 
   //final List <ToDo> tileList;
   @override
@@ -38,8 +39,7 @@ class TaskList extends StatelessWidget {
             child: Container(
               child: Column(
                 children: [
-                  //for (ToDo todo in itemNotifier.getItems()) TodoTile(todo),
-                  for (ToDo todo in tileList) ToDoTile(todo),
+                  for (ToDo todo in tileList) ToDoTile(todo)
                 ],
               ),
             ),

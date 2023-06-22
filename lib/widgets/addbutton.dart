@@ -5,7 +5,7 @@ import 'package:to_do_list/pages/addScreen.dart';
 import 'dart:io' show Platform;
 
 import '../models/navigation.dart';
-import '../models/todocollection.dart';
+import '../models/todo.dart';
 /*
 *   - навигация к странице addScreen через Navigator.push
 * */

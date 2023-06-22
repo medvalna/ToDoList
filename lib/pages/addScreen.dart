@@ -4,8 +4,6 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/navigation.dart';
-import '../main.dart';
-import '../models/todocollection.dart';
 
 /*
 * UI страницы добавления:

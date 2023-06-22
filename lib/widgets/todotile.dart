@@ -4,8 +4,7 @@ import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart'
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/models/logic_provider.dart';
-import 'package:to_do_list/models/todocollection.dart';
+import 'package:to_do_list/models/todo.dart';
 
 import '../bloc/todo_bloc.dart';
 import '../main.dart';

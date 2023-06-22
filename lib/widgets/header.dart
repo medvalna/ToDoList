@@ -1,10 +1,11 @@
+import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
 import '../bloc/todo_bloc.dart';
 import '../main.dart';
-import '../models/todocollection.dart';
+import '../models/todo.dart';
 
 /*
 *
@@ -44,8 +45,15 @@ class Header extends StatelessWidget {
               new Spacer(),
               Container(
                 //TODO место для кнопки раскрытия сделанных тасок
-                child: Icon(
-                  Icons.visibility,
+                child: IconButton(
+                  icon: const Icon(Icons.remove_red_eye),
+                  onPressed: () {
+                    BlocListener<TileListBloc, TileListState>(
+                      listener: (context, state) {
+                        context.read<TileListBloc>().add(ShowOppos());
+                      },
+                    );
+                  },
                 ),
               ),
             ],
