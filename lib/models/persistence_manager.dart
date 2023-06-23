@@ -1,11 +1,16 @@
+import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:to_do_list/models/todo.dart';
 
 class PersistenceManager {
-  Database? _database;
+  //Stream.value()asBroadcast;
+  PersistenceManager._();
+  static final PersistenceManager db = PersistenceManager._();
+
   static const _tableName = "to_do";
 
+  static Database? _database;
   Future<Database> get _databaseGetter async {
     final appDirectory = await getApplicationDocumentsDirectory();
     _database ??= await openDatabase(
@@ -13,33 +18,63 @@ class PersistenceManager {
       version: 1,
       onCreate: (db, version) {
         db.execute(
-            'CREATE TABLE $_tableName (id TEXT PRIMARY KEY, task TEXT, isDone BOOL)');
+            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY, task TEXT, isDone INTEGER)');
       },
     );
     return _database!;
   }
 
-  Future<List<ToDo>> todos() async {
+/*
+  todos() async {
     // Get a reference to the database.
     final db = await _databaseGetter;
-    final List<Map<String, dynamic>> items = await db.query(_tableName);
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    final List<Map<String?, dynamic>> items = await db.query(_tableName);
     return List.generate(items.length, (i) {
+      int id = items[i]['id'];
       return ToDo(
-        id: items[i]['id'],
-        toDoText: items[i]['toDoText'],
-        isDone: items[i]['isDone'],
+        id: id,
+        task: items[i]['task'],
+        isDone: items[i]['isDone'] == 10 ? null : items[i]['isDone'] == 1 ? true : false ,
       );
     });
-  }
+  }*/
 
-  Future<void> saveToDo(ToDo todo) async {
+  getAllTodos() async {
+    final db = await _databaseGetter;
+    var res = await db.query(_tableName);
+    List<ToDo> list =
+    res.isNotEmpty ? res.map((c) => ToDo.fromJson(c)).toList() : [];
+    return list;
+  }
+  saveToDo(ToDo todo) async {
     // Get a reference to the database.
     final db = await _databaseGetter;
-    await db.insert(
+    var res = await db.insert(
       _tableName,
-      todo.toMap(),
+      todo.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    return res;
+  }
+
+  deleteToDo(int id) async {
+    // Get a reference to the database.
+    final db = await _databaseGetter;
+    await db.delete(_tableName, where: "id= ?", whereArgs: [id]);
+  }
+
+  changeToDo(ToDo todo) async {
+    print("im in db");
+    // Get a reference to the database.
+    final db = await _databaseGetter;
+    var res = await db.update(_tableName, todo.toJson(),
+        where: "id = ?", whereArgs: [todo.id]);
+    return res;
+
+  }
+  getToDo(int id) async {
+    final db = await _databaseGetter;
+    var res =await  db.query("Client", where: "id = ?", whereArgs: [id]);
+    return res.isNotEmpty ? ToDo.fromJson(res.first) : Null ;
   }
 }

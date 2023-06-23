@@ -8,20 +8,27 @@ import 'package:to_do_list/models/todo.dart';
 
 import '../bloc/todo_bloc.dart';
 import '../main.dart';
+import '../models/persistence_manager.dart';
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;
 
-  ToDoTile(this.item);
+  //late PersistenceManager manager;
+
+  ToDoTile(this.item) {
+    //manager = PersistenceManager();
+  }
+
+  //get manager => PersistenceManager();
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      onDismissed: (direction) {
+      onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
           context.read<TileListBloc>().add(DeleteTile(tile: item));
         } else {
-          context.read<TileListBloc>().add(SlideDone(tile: item));
+          context.read<TileListBloc>().add(TappedDone(tile: item));
         }
       },
       key: UniqueKey(),
@@ -54,9 +61,7 @@ class ToDoTile extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              print("tap");
-              print(item.isDone);
-              context.read<TileListBloc>().add(TappedOnCheckbox(tile: item));
+              context.read<TileListBloc>().add(TappedDone(tile: item));
             },
             icon: item.isDone == true
                 ? Icon(Icons.check_box)
@@ -74,7 +79,7 @@ class ToDoTile extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              item.toDoText,
+              item.task,
               style: TextStyle(
                 fontSize: body,
                 color: item.isDone == true ? secondarytext : maintext,

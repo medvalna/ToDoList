@@ -63,11 +63,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 child: IconButton(
                   icon: const Icon(Icons.remove_red_eye),
                   onPressed: () {
-                    BlocListener<TileListBloc, TileListState>(
-                      listener: (context, state) {
-                        context.read<TileListBloc>().add(ShowOppos());
-                      },
-                    );
+
                   },
                 ),
               ),
@@ -90,7 +86,8 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                   style: TextStyle(color: maintext, fontSize: largetitle),
                 ),
               ),
-              Header(doneCount: doneCount),
+              Header(doneCount: doneCount
+              ),
             ],
           ),
         ),

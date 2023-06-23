@@ -11,6 +11,7 @@ class TileListState {
     required this.showDone,
     required this.doneItems,
   });
+
 }
 
 class TileListInitial extends TileListState {

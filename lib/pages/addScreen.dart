@@ -4,6 +4,7 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/navigation.dart';
+import '../models/todo.dart';
 
 /*
 * UI страницы добавления:
@@ -24,9 +25,15 @@ class AddScreen extends StatefulWidget {
 }*/
 
 class AddScreen extends StatelessWidget {
-
   bool _calendar = false;
+  late ToDo item;
   TextEditingController _controller = TextEditingController();
+  //late PersistenceManager manager;
+
+  AddScreen() {
+    //manager = PersistenceManager();
+  }
+
 /*
   @override
   void initState() {
@@ -35,7 +42,6 @@ class AddScreen extends StatelessWidget {
     itemNotifier.addListener(() => mounted ? setState(() {}) : null);
   }
 */
- 
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,7 @@ class AddScreen extends StatelessWidget {
         backgroundColor: back_light,
         leading: IconButton(
           onPressed: () => {
-           _onGoBack(),
+            _onGoBack(),
           },
           icon: const Icon(
             Icons.clear,
@@ -71,7 +77,13 @@ class AddScreen extends StatelessWidget {
                   ),
                   onPressed: () => {
                         //itemNotifier.addItem(_controller.text),
-                    context.read<TileListBloc>().add(AddTile(text:_controller.text)),
+                        item = ToDo(
+                            id: DateTime.now().millisecondsSinceEpoch,
+                            task: _controller.text,
+                            isDone: null),
+                        context.read<TileListBloc>().add(AddTile(todo: item)),
+
+                    print("adding1"),
                         _onGoBack(),
                       }),
             ),

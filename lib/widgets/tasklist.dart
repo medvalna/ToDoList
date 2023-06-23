@@ -12,9 +12,10 @@ import '../main.dart';
 * */
 class TaskList extends StatelessWidget {
   final List<ToDo> tileList;
-  final bool showFullList;
+  //final bool showFullList;
 
-  const TaskList(this.tileList, this.showFullList);
+  const TaskList(this.tileList, //this.showFullList
+  );
 
   //final List <ToDo> tileList;
   @override

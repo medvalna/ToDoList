@@ -25,7 +25,6 @@ import '../widgets/appBar.dart';
 *
 * */
 
-
 class Homepage extends StatelessWidget {
   @override
   Widget build(
@@ -54,6 +53,7 @@ class Homepage extends StatelessWidget {
         backgroundColor: back_light,
         body: BlocBuilder<TileListBloc, TileListState>(
           builder: (context, state) {
+            context.watch<TileListBloc>().add(ShowTiles());
             if (state is TileListUpdated && state.tileList.isNotEmpty) {
               final tileList = state.tileList;
               final tileCount = state.doneItems;
@@ -67,7 +67,9 @@ class Homepage extends StatelessWidget {
                             expandedHeight: 160, doneCount: tileCount),
                         pinned: true,
                       ),
-                      TaskList(tileList, showFullList),
+                      TaskList(
+                        tileList, //showFullList
+                      ),
                     ],
                   ),
                   AddButton(),
@@ -114,5 +116,3 @@ class Homepage extends StatelessWidget {
         ),
       );
 }
-
-

@@ -11,7 +11,6 @@ import 'dart:io' show Platform;
 
 import 'models/navigation.dart';
 
-
 void main() => runApp(MaterialApp(
       home: App(),
     ));
@@ -32,20 +31,19 @@ class App extends StatelessWidget {
       );
     } else {*/
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => TileListBloc())],
-      child: MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: back_light,
-          primaryColor: Colors.blue,
-          textTheme: TextTheme(
-            headlineLarge: TextStyle(fontSize: largetitle, color: maintext),
-            headlineMedium: TextStyle(fontSize: midtitle, color: maintext),
-            bodyMedium: TextStyle(fontSize: midtitle, color: secondarytext),
+        providers: [BlocProvider(create: (context) => TileListBloc())],
+        child: MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: back_light,
+            primaryColor: Colors.blue,
+            textTheme: TextTheme(
+              headlineLarge: TextStyle(fontSize: largetitle, color: maintext),
+              headlineMedium: TextStyle(fontSize: midtitle, color: maintext),
+              bodyMedium: TextStyle(fontSize: midtitle, color: secondarytext),
+            ),
           ),
-        ),
-        home: home,
-        navigatorKey: NavigationManager.instance.key,
-      ),
-    );
+          home: home,
+          navigatorKey: NavigationManager.instance.key,
+        ));
   }
 }

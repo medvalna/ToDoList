@@ -48,11 +48,7 @@ class Header extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(Icons.remove_red_eye),
                   onPressed: () {
-                    BlocListener<TileListBloc, TileListState>(
-                      listener: (context, state) {
-                        context.read<TileListBloc>().add(ShowOppos());
-                      },
-                    );
+
                   },
                 ),
               ),
