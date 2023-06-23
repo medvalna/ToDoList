@@ -1,27 +1,22 @@
-
-
-
-import 'package:flutter/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
+import 'package:to_do_list/bloc/todo_bloc.dart';
 
-import '../bloc/todo_bloc.dart';
+import '../main.dart';
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;
 
-  //late PersistenceManager manager;
 
-  ToDoTile(this.item) {
-    //manager = PersistenceManager();
-  }
-
-  //get manager => PersistenceManager();
+  const ToDoTile(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    loggerNoStack.i('Drawing todo with id ${item.id}');
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -32,30 +27,30 @@ class ToDoTile extends StatelessWidget {
       },
       key: UniqueKey(),
       background: Container(
-        padding: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 10),
         color: done,
-        child: Align(
+        child: const Align(
           alignment: Alignment.centerLeft,
           child: Icon(
             Icons.check,
-            color: tileback_light,
+            color: tileBackLight,
           ),
         ),
       ),
       secondaryBackground: Container(
-        padding: EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(right: 10),
         color: decline,
-        child: Align(
+        child: const Align(
           alignment: Alignment.centerRight,
           child: Icon(
             Icons.delete,
-            color: tileback_light,
+            color: tileBackLight,
           ),
         ),
       ),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           IconButton(
@@ -63,17 +58,17 @@ class ToDoTile extends StatelessWidget {
               context.read<TileListBloc>().add(TappedDone(tile: item));
             },
             icon: item.isDone == true
-                ? Icon(Icons.check_box)
+                ? const Icon(Icons.check_box)
                 : item.isDone == false
-                    ? Icon(Icons.check_box_outline_blank)
-                    : Icon(Icons.check_box_outline_blank),
+                    ? const Icon(Icons.check_box_outline_blank)
+                    : const Icon(Icons.check_box_outline_blank),
             color: item.isDone == true
                 ? done
                 : item.isDone == false
                     ? decline
-                    : maintext,
+                    : mainText,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(
@@ -81,7 +76,7 @@ class ToDoTile extends StatelessWidget {
               item.task,
               style: TextStyle(
                 fontSize: body,
-                color: item.isDone == true ? secondarytext : maintext,
+                color: item.isDone == true ? secondaryText : mainText,
                 decoration:
                     item.isDone == true ? TextDecoration.lineThrough : null,
               ),
@@ -89,10 +84,10 @@ class ToDoTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Icon(
+          const Icon(
             Icons.info_outline,
           ),
-          SizedBox(
+          const SizedBox(
             height: 60,
           ),
         ],

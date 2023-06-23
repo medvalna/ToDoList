@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/models/persistence_manager.dart';
@@ -6,36 +5,8 @@ import 'package:to_do_list/models/persistence_manager.dart';
 part 'todo_event.dart';
 
 part 'todo_state.dart';
-/*
-class DBBloc {
-  DBBloc() {
-    getAllToDos();
-  }
-  final _todosController =     StreamController<List<ToDo>>.broadcast();
-  get getAllToDos => _todosController.stream;
 
-  dispose() {
-    _todosController.close();
-  }
-
-  getToDos() async {
-    _todosController.sink.add(await PersistenceManager.db.getAllTodos());
-  }
-
-
-  delete(int id) {
-    PersistenceManager.db.deleteToDo(id);
-    getAllToDos();
-  }
-
-  add(ToDo todo) {
-    PersistenceManager.db.saveToDo(todo);
-    getAllToDos();
-  }
-}*/
 class TileListBloc extends Bloc<TileListEvents, TileListState> {
-  //late PersistenceManager _manager;
-
   TileListBloc()
       : super(TileListState(tileList: [], doneItems: 0, showDone: true)) {
     on<AddTile>(_addTile);
@@ -53,14 +24,16 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
   }
 
   _addTile(AddTile event, Emitter<TileListState> emit) async {
-    print("adding bloc");
-    state.tileList.add(event.todo);
-    await PersistenceManager.db.saveToDo(event.todo);
+    ToDo item = ToDo(
+        id: DateTime.now().millisecondsSinceEpoch,
+        task: event.text,
+        isDone: null);
+    state.tileList.add(item);
+    await PersistenceManager.db.saveToDo(item);
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
         showDone: state.showDone));
-    //state.tileList = await _manager.todos();
   }
 
   _deleteTile(DeleteTile event, Emitter<TileListState> emit) async {
@@ -76,12 +49,11 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
   }
 
   _tappedDone(TappedDone event, Emitter<TileListState> emit) async {
-    print("tapping");
     if (event.tile.isDone == null) {
       event.tile.isDone = true;
       state.doneItems = state.doneItems + 1;
     } else if (event.tile.isDone == true) {
-      event.tile.isDone = null;
+      event.tile.isDone = false;
       state.doneItems = state.doneItems - 1;
     } else {
       event.tile.isDone = null;
@@ -91,6 +63,5 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
         tileList: state.tileList,
         doneItems: state.doneItems,
         showDone: state.showDone));
-    //state.tileList = await _manager.todos();
   }
 }

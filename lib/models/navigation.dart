@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/pages/Homepage.dart';
+import 'package:to_do_list/pages/home_page.dart';
 
-import '../pages/addScreen.dart';
+import 'package:to_do_list/pages/add_screen.dart';
 
 class NavigationManager {
   NavigationManager._();
@@ -17,7 +17,7 @@ class NavigationManager {
     _navigator.pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return Homepage();
+          return const Homepage();
         },
       ),
     );

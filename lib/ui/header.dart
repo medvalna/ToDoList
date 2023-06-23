@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
-
 
 /*
 *
@@ -13,15 +10,14 @@ class Header extends StatelessWidget {
   final int doneCount;
 
   const Header({
-
+    super.key,
     required this.doneCount,
   });
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 20),
+      padding: const EdgeInsets.only(right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,28 +25,22 @@ class Header extends StatelessWidget {
             children: [
               Text(
                 "Выполнено - ",
-                style: TextStyle(fontSize: body, color: secondarytext),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
-              //TODO место для количества выполненных тасок
               Expanded(
                 child: Text(
                   doneCount.toString(),
-                  style: TextStyle(fontSize: body, color: secondarytext),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
-              new Spacer(),
-              Container(
-                //TODO место для кнопки раскрытия сделанных тасок
-                child: IconButton(
-                  icon: const Icon(Icons.remove_red_eye),
-                  onPressed: () {
-
-                  },
-                ),
+              const Spacer(),
+              IconButton(
+                icon: const Icon(Icons.remove_red_eye),
+                onPressed: () {},
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
         ],

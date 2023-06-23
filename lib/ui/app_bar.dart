@@ -1,10 +1,8 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/widgets/header.dart';
+import 'package:to_do_list/ui/header.dart';
+
 
 class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -21,7 +19,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return Stack(
       children: [
         Container(
-          color: back_light,
+          color: backLight,
         ),
         Positioned(
           top: 80,
@@ -42,27 +40,25 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
 
   double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-
   Widget buildFloating(double shrinkOffset) => Opacity(
+
         opacity: appear(shrinkOffset),
         child: Container(
-          color: back_light,
-          margin: EdgeInsets.only(top: 30, right: 20),
+          color: backLight,
+          margin: const EdgeInsets.only(top: 30, right: 20),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text(
                   "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
+                  style: TextStyle(color: mainText, fontSize: largeTitle),
                 ),
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
                   icon: const Icon(Icons.remove_red_eye),
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
@@ -73,19 +69,18 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset) => Opacity(
         opacity: disappear(shrinkOffset),
         child: Container(
-          color: back_light,
+          color: backLight,
           //padding: EdgeInsets.only(top: 30, right: 20),
           child: Column(
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
+                  style: TextStyle(color: mainText, fontSize: largeTitle),
                 ),
               ),
-              Header(doneCount: doneCount
-              ),
+              Header(doneCount: doneCount),
             ],
           ),
         ),

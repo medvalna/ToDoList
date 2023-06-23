@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'dart:io' show Platform;
-import '../models/navigation.dart';
+import 'package:to_do_list/models/navigation.dart';
+
+import '../main.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key, required this.title});
@@ -28,6 +30,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
+    loggerNoStack.i('On welcome screen');
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
           child: Container(
@@ -36,24 +39,24 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Welcome to ',
-                style: TextStyle(fontSize: largetitle, color: maintext),
+                style: TextStyle(fontSize: largeTitle, color: mainText),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
-                '${widget.title}',
-                style: TextStyle(fontSize: largetitle, color: maintext),
+                widget.title,
+                style: const TextStyle(fontSize: largeTitle, color: mainText),
               ),
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 20,
                   right: 20,
                   left: 20,
                 ),
-                child: LinearProgressIndicator(),
+                child: const LinearProgressIndicator(),
               ),
             ],
           ),
@@ -71,20 +74,20 @@ class _WelcomePageState extends State<WelcomePage> {
                 'Welcome to ',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
-                '${widget.title}',
+                widget.title,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 20,
                   right: 20,
                   left: 20,
                 ),
-                child: LinearProgressIndicator(),
+                child: const LinearProgressIndicator(),
               ),
             ],
           ),

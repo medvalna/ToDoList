@@ -6,8 +6,8 @@ abstract class TileListEvents {
 
 }
 class AddTile extends TileListEvents {
-  final ToDo todo;
-  AddTile({required this.todo});
+  final String text;
+  AddTile({required this.text});
 }
 class ShowTiles extends TileListEvents {
 

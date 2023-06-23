@@ -2,8 +2,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:to_do_list/models/todo.dart';
 
+import '../main.dart';
+
 class PersistenceManager {
-  //Stream.value()asBroadcast;
   PersistenceManager._();
 
   static final PersistenceManager db = PersistenceManager._();
@@ -13,15 +14,14 @@ class PersistenceManager {
   static Database? _database;
 
   Future<Database> get _databaseGetter async {
-
-    if (_database != null)
-      return _database!;
+    if (_database != null) return _database!;
 
     _database = await initDB();
     return _database!;
   }
 
   initDB() async {
+    loggerNoStack.i('Initialization of DataBase');
     final appDirectory = await getApplicationDocumentsDirectory();
     _database = await openDatabase(
       '${appDirectory.path}/to_do.db',
@@ -34,22 +34,8 @@ class PersistenceManager {
     return _database;
   }
 
-/*
-  todos() async {
-    // Get a reference to the database.
-    final db = await _databaseGetter;
-    final List<Map<String?, dynamic>> items = await db.query(_tableName);
-    return List.generate(items.length, (i) {
-      int id = items[i]['id'];
-      return ToDo(
-        id: id,
-        task: items[i]['task'],
-        isDone: items[i]['isDone'] == 10 ? null : items[i]['isDone'] == 1 ? true : false ,
-      );
-    });
-  }*/
-
   getAllTodos() async {
+    loggerNoStack.i('Taking todos from database');
     final db = await _databaseGetter;
     var res = await db.query(_tableName);
     List<ToDo> list =
@@ -58,6 +44,7 @@ class PersistenceManager {
   }
 
   saveToDo(ToDo todo) async {
+    loggerNoStack.i('Saving todos in database');
     // Get a reference to the database.
     final db = await _databaseGetter;
     var res = await db.insert(
@@ -69,13 +56,14 @@ class PersistenceManager {
   }
 
   deleteToDo(int id) async {
+    loggerNoStack.i('Deleting todo with id = $id from database');
     // Get a reference to the database.
     final db = await _databaseGetter;
     await db.delete(_tableName, where: "id= ?", whereArgs: [id]);
   }
 
   Future<void> changeToDo(ToDo todo) async {
-    print("im in db");
+    loggerNoStack.i('Changing todo with id = ${todo.id} from database');
     // Get a reference to the database.
     final db = await _databaseGetter;
     await db.update(_tableName, todo.toJson(),
@@ -84,8 +72,9 @@ class PersistenceManager {
   }
 
   getToDo(int id) async {
+    loggerNoStack.i('Taking todo with id = $id from database');
     final db = await _databaseGetter;
     var res = await db.query(_tableName, where: "id = ?", whereArgs: [id]);
-    return res.isNotEmpty ? ToDo.fromJson(res.first) : Null;
+    return res.isNotEmpty ? ToDo.fromJson(res.first) : null;
   }
 }
