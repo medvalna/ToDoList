@@ -1,6 +1,6 @@
 part of 'todo_bloc.dart';
 
-@immutable
+
 class TileListState {
   List<ToDo> tileList;
   int doneItems;

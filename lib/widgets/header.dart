@@ -1,11 +1,7 @@
-import 'package:flutter/hosted/pub.dev/flutter_bloc-8.1.3/lib/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 
-import '../bloc/todo_bloc.dart';
-import '../main.dart';
-import '../models/todo.dart';
 
 /*
 *

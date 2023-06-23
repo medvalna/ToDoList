@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/widgets/header.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
