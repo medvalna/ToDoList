@@ -1,7 +1,4 @@
 
-
-
-import 'package:flutter/hosted/pub.dev/meta-1.9.1/lib/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/models/persistence_manager.dart';
