@@ -85,7 +85,7 @@ class PersistenceManager {
 
   getToDo(int id) async {
     final db = await _databaseGetter;
-    var res = await db.query("Client", where: "id = ?", whereArgs: [id]);
+    var res = await db.query(_tableName, where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? ToDo.fromJson(res.first) : Null;
   }
 }
