@@ -33,11 +33,12 @@ class Header extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
+              /*
               const Spacer(),
               IconButton(
                 icon: const Icon(Icons.remove_red_eye),
                 onPressed: () {},
-              ),
+              ),*/
             ],
           ),
           const SizedBox(

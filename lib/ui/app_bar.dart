@@ -22,16 +22,13 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           color: backLight,
         ),
         Positioned(
-          top: 80,
+          top: 160,
           left: 60,
           right: 20,
-          child: buildAppBar(shrinkOffset),
+          child: buildExpandedAppBar(shrinkOffset),
         ),
         Positioned(
-          top: 10,
-          left: 20,
-          right: 20,
-          child: buildFloating(shrinkOffset),
+          child: buildCollapsedAppBar(shrinkOffset),
         ),
       ],
     );
@@ -40,12 +37,22 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
 
   double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-  Widget buildFloating(double shrinkOffset) => Opacity(
+  Widget buildCollapsedAppBar(double shrinkOffset) => Opacity(
 
         opacity: appear(shrinkOffset),
         child: Container(
-          color: backLight,
-          margin: const EdgeInsets.only(top: 30, right: 20),
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: separator,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 2.0,
+                  spreadRadius: 0.0),
+            ],
+            color: backLight,
+          ),
+          margin: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(top: 35, right: 25, left: 20),
           child: Row(
             children: [
               const Expanded(
@@ -66,19 +73,29 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         ),
       );
 
-  Widget buildAppBar(double shrinkOffset) => Opacity(
+  Widget buildExpandedAppBar(double shrinkOffset) => Opacity(
         opacity: disappear(shrinkOffset),
         child: Container(
           color: backLight,
-          //padding: EdgeInsets.only(top: 30, right: 20),
+          padding: const EdgeInsets.only(right: 5),
           child: Column(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: mainText, fontSize: largeTitle),
-                ),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      "Мои дела",
+                      style: TextStyle(color: mainText, fontSize: largeTitle),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.remove_red_eye),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
               ),
               Header(doneCount: doneCount),
             ],

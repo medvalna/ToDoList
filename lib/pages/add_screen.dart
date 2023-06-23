@@ -5,7 +5,7 @@ import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/navigation.dart';
 
-import '../main.dart';
+import 'package:to_do_list/main.dart';
 
 /*
 * UI страницы добавления:

@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'dart:io' show Platform;
 import 'package:to_do_list/models/navigation.dart';
 
-import '../main.dart';
+import 'package:to_do_list/main.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key, required this.title});
@@ -23,13 +25,14 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 2),
+      const Duration(seconds: 5),
       () => NavigationManager.instance.openHome(widget.title),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    context.read<TileListBloc>().add(ShowTiles());
     loggerNoStack.i('On welcome screen');
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
@@ -56,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   right: 20,
                   left: 20,
                 ),
-                child: const LinearProgressIndicator(),
+                child: const CircularProgressIndicator(),
               ),
             ],
           ),

@@ -8,7 +8,7 @@ import 'package:to_do_list/ui/add_button.dart';
 import 'package:to_do_list/ui/task_list.dart';
 import 'package:to_do_list/ui/app_bar.dart';
 
-import '../main.dart';
+import 'package:to_do_list/main.dart';
 
 /*
 * UI главной страницы:
@@ -29,7 +29,6 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     loggerNoStack.i('Try to take todos from database');
-    context.read<TileListBloc>().add(ShowTiles());
     return Scaffold(
       backgroundColor: backLight,
       body: BlocBuilder<TileListBloc, TileListState>(
@@ -44,7 +43,7 @@ class Homepage extends StatelessWidget {
                   slivers: [
                     SliverPersistentHeader(
                       delegate: CustomSliverAppBarDelegate(
-                          expandedHeight: 160, doneCount: tileCount),
+                          expandedHeight: 240, doneCount: tileCount),
                       pinned: true,
                     ),
                     TaskList(
@@ -60,7 +59,7 @@ class Homepage extends StatelessWidget {
               children: [
                 Container(
                   color: backLight,
-                  padding: const EdgeInsets.only(top: 160, right: 20, left: 20),
+                  padding: const EdgeInsets.only(top: 160, right: 20, left: 60),
                   child: const Align(
                     alignment: Alignment.topCenter,
                     child: Row(

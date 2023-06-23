@@ -2,7 +2,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:to_do_list/models/todo.dart';
 
-import '../main.dart';
+import 'package:to_do_list/main.dart';
 
 class PersistenceManager {
   PersistenceManager._();
@@ -37,10 +37,19 @@ class PersistenceManager {
   getAllTodos() async {
     loggerNoStack.i('Taking todos from database');
     final db = await _databaseGetter;
-    var res = await db.query(_tableName);
-    List<ToDo> list =
-        res.isNotEmpty ? res.map((c) => ToDo.fromJson(c)).toList() : [];
-    return list;
+    final List<Map<String?, dynamic>> items = await db.query(_tableName);
+    return List.generate(items.length, (i) {
+      int id = items[i]['id'];
+      return ToDo(
+        id: id,
+        task: items[i]['task'],
+        isDone: items[i]['isDone'] == 10
+            ? null
+            : items[i]['isDone'] == 1
+                ? true
+                : false,
+      );
+    });
   }
 
   saveToDo(ToDo todo) async {

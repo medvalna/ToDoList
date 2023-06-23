@@ -6,7 +6,6 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 
-import '../main.dart';
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;
@@ -16,7 +15,6 @@ class ToDoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.i('Drawing todo with id ${item.id}');
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
