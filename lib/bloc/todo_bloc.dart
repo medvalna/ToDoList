@@ -17,6 +17,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
 
   _showTiles(ShowTiles event, Emitter<TileListState> emit) async {
     state.tileList = await PersistenceManager.db.getAllTodos();
+    state.doneItems = countDone(state.tileList);
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
@@ -64,4 +65,14 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
         doneItems: state.doneItems,
         showDone: state.showDone));
   }
+}
+
+int countDone (List<ToDo> todos){
+  int count = 0;
+  for (ToDo todo in todos){
+    if (todo.isDone == true){
+      count = count +1;
+    }
+  }
+  return count;
 }
