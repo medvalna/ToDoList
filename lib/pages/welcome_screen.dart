@@ -11,6 +11,9 @@ import 'package:to_do_list/models/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
+/*
+* welcome screen
+* */
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
