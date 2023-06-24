@@ -3,7 +3,7 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/models/navigation.dart';
 
 /*
-*   - навигация к странице addScreen через Navigator.push
+*   - навигация к странице addScreen через Navigator
 * */
 class AddButton extends StatelessWidget {
   const AddButton({super.key});

@@ -2,26 +2,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/models/persistence_manager.dart';
 
+import 'package:to_do_list/main.dart';
+
 part 'todo_event.dart';
 
 part 'todo_state.dart';
 
 class TileListBloc extends Bloc<TileListEvents, TileListState> {
   TileListBloc()
-      : super(TileListState(tileList: [], doneItems: 0, showDone: true)) {
+      : super(TileListState(tileList: [], doneItems: 0, showProccessTiles: true)) {
     on<AddTile>(_addTile);
     on<DeleteTile>(_deleteTile);
     on<TappedDone>(_tappedDone);
-    on<ShowTiles>(_showTiles);
+    on<GetTiles>(_getTiles);
+    on<ShowProcessTasks>(_showProcessTasks);
   }
 
-  _showTiles(ShowTiles event, Emitter<TileListState> emit) async {
+  _getTiles(GetTiles event, Emitter<TileListState> emit) async {
     state.tileList = await PersistenceManager.db.getAllTodos();
     state.doneItems = countDone(state.tileList);
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showDone));
+        showDone: state.showProccessTiles));
+  }
+  _showProcessTasks(ShowProcessTasks event, Emitter<TileListState> emit) async {
+    loggerNoStack.i('Changing visibility');
+    state.showProccessTiles = !state.showProccessTiles;
+    emit(TileListUpdated(
+        tileList: state.tileList,
+        doneItems: state.doneItems,
+        showDone: state.showProccessTiles));
   }
 
   _addTile(AddTile event, Emitter<TileListState> emit) async {
@@ -34,7 +45,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showDone));
+        showDone: state.showProccessTiles));
   }
 
   _deleteTile(DeleteTile event, Emitter<TileListState> emit) async {
@@ -46,7 +57,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showDone));
+        showDone: state.showProccessTiles));
   }
 
   _tappedDone(TappedDone event, Emitter<TileListState> emit) async {
@@ -63,7 +74,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showDone));
+        showDone: state.showProccessTiles));
   }
 }
 

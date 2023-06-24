@@ -13,7 +13,7 @@ class NavigationManager {
   NavigatorState get _navigator => key.currentState!;
 
 
-  void openHome(String title) {
+  void openHome() {
     _navigator.pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {

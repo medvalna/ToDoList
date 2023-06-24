@@ -4,13 +4,11 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/navigation.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
 /*
 * UI страницы добавления:
-*   - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
 *
 * */
 
@@ -48,9 +46,9 @@ class AddScreen extends StatelessWidget {
                   backgroundColor: backLight,
                   shape: const BeveledRectangleBorder(
                       borderRadius: BorderRadius.zero),
-                  child: const Text(
-                    'сохранить',
-                    style: TextStyle(fontSize: button, color: add),
+                  child: Text(
+                    AppLocalizations.of(context).save,
+                    style: const TextStyle(fontSize: button, color: add),
                   ),
                   onPressed: () => {
                   loggerNoStack.i('Pressed to add new task'),
@@ -81,11 +79,11 @@ class AddScreen extends StatelessWidget {
               height: 96,
               child: TextField(
                 controller: _controller,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(bottom: 10),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(bottom: 10),
                   border: InputBorder.none,
-                  hintText: "Что надо сделать",
-                  hintStyle: TextStyle(color: secondaryText, fontSize: body),
+                  hintText: AppLocalizations.of(context).whatNeeds,
+                  hintStyle: const TextStyle(color: secondaryText, fontSize: body),
                 ),
               ),
             ),
@@ -96,11 +94,11 @@ class AddScreen extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Column(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Важность",
-                    style: TextStyle(color: mainText, fontSize: body),
+                    AppLocalizations.of(context).importance,
+                    style: const TextStyle(color: mainText, fontSize: body),
                   ),
                 ),
                 TextField(
@@ -127,9 +125,9 @@ class AddScreen extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Row(
                     children: [
-                      const Text(
-                        "Сделать до",
-                        style: TextStyle(color: mainText, fontSize: body),
+                      Text(
+                        AppLocalizations.of(context).deadline,
+                        style: const TextStyle(color: mainText, fontSize: body),
                       ),
                       const Spacer(),
                       Switch.adaptive(
@@ -152,16 +150,16 @@ class AddScreen extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
             padding: const EdgeInsets.all(5),
-            child: const Align(
+            child: Align(
               alignment: Alignment.topLeft,
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.delete,
                     color: secondaryText,
                   ),
-                  Text("Удалить",
-                      style: TextStyle(color: secondaryText, fontSize: body))
+                  Text(AppLocalizations.of(context).delete,
+                      style: const TextStyle(color: secondaryText, fontSize: body))
                 ],
               ),
             ),

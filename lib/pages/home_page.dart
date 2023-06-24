@@ -7,13 +7,11 @@ import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/ui/add_button.dart';
 import 'package:to_do_list/ui/task_list.dart';
 import 'package:to_do_list/ui/app_bar.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
 /*
 * UI главной страницы:
-*    - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
 *   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
 *   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
 *   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
@@ -36,14 +34,14 @@ class Homepage extends StatelessWidget {
           if (state is TileListUpdated && state.tileList.isNotEmpty) {
             final tileList = state.tileList;
             final tileCount = state.doneItems;
-            //final showFullList = state.showDone;
+            final showUndone = state.showProccessTiles;
             return Stack(
               children: [
                 CustomScrollView(
                   slivers: [
                     SliverPersistentHeader(
                       delegate: CustomSliverAppBarDelegate(
-                          expandedHeight: 240, doneCount: tileCount),
+                          expandedHeight: 240, doneCount: tileCount, showUndone: showUndone),
                       pinned: true,
                     ),
                     TaskList(
@@ -60,18 +58,18 @@ class Homepage extends StatelessWidget {
                 Container(
                   color: backLight,
                   padding: const EdgeInsets.only(top: 160, right: 20, left: 60),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.topCenter,
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            "Мои дела",
-                            style: TextStyle(
+                            AppLocalizations.of(context).myTasks,
+                            style: const TextStyle(
                                 color: mainText, fontSize: largeTitle),
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.visibility_off,
                         ),
                       ],
@@ -80,7 +78,7 @@ class Homepage extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    "Добавь новую задачу!",
+                AppLocalizations.of(context).addNew,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

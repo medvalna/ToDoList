@@ -8,13 +8,11 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'dart:io' show Platform;
 import 'package:to_do_list/models/navigation.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({super.key, required this.title});
-
-  final String title;
+  const WelcomePage({super.key});
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();
@@ -26,13 +24,13 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
     Timer(
       const Duration(seconds: 5),
-      () => NavigationManager.instance.openHome(widget.title),
+      () => NavigationManager.instance.openHome(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<TileListBloc>().add(ShowTiles());
+    context.read<TileListBloc>().add(GetTiles());
     loggerNoStack.i('On welcome screen');
     if (Platform.isIOS) {
       return CupertinoPageScaffold(
@@ -49,10 +47,11 @@ class _WelcomePageState extends State<WelcomePage> {
               const SizedBox(
                 height: 20,
               ),
+              /*
               Text(
                 widget.title,
                 style: const TextStyle(fontSize: largeTitle, color: mainText),
-              ),
+              ),*/
               Container(
                 padding: const EdgeInsets.only(
                   top: 20,
@@ -73,17 +72,16 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Welcome to ',
-                style: Theme.of(context).textTheme.headlineLarge,
+              Container(
+                padding: const EdgeInsets.only(right: 20, left: 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(AppLocalizations.of(context).welcome,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                widget.title,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
+
               Container(
                 padding: const EdgeInsets.only(
                   top: 20,

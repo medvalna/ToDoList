@@ -9,9 +9,14 @@ class AddTile extends TileListEvents {
   final String text;
   AddTile({required this.text});
 }
-class ShowTiles extends TileListEvents {
+class GetTiles extends TileListEvents {
 
-  ShowTiles();
+  GetTiles();
+}
+
+class ShowProcessTasks extends TileListEvents {
+
+  ShowProcessTasks();
 }
 class TappedDone extends TileListEvents {
   final ToDo tile;

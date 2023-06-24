@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
 *
 *   - ToDoTile - прорисовка листа тайлов
-*   - getNum() -  подсчёт сделанных задач
 * */
 
 class Header extends StatelessWidget {
@@ -14,6 +13,7 @@ class Header extends StatelessWidget {
     required this.doneCount,
   });
 
+  //var t = AppLocalizations.of(context);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +24,7 @@ class Header extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Выполнено - ",
+                AppLocalizations.of(context).done,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Expanded(

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/ui/header.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final int doneCount;
+  final bool showUndone;
 
   const CustomSliverAppBarDelegate({
     required this.expandedHeight,
     required this.doneCount,
+    required this.showUndone,
   });
 
   @override
@@ -25,10 +27,10 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           top: 160,
           left: 60,
           right: 20,
-          child: buildExpandedAppBar(shrinkOffset),
+          child: buildExpandedAppBar(shrinkOffset, context),
         ),
         Positioned(
-          child: buildCollapsedAppBar(shrinkOffset),
+          child: buildCollapsedAppBar(shrinkOffset, context),
         ),
       ],
     );
@@ -37,8 +39,8 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
 
   double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-  Widget buildCollapsedAppBar(double shrinkOffset) => Opacity(
 
+  Widget buildCollapsedAppBar(double shrinkOffset, context) => Opacity(
         opacity: appear(shrinkOffset),
         child: Container(
           decoration: const BoxDecoration(
@@ -55,17 +57,21 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           padding: const EdgeInsets.only(top: 35, right: 25, left: 20),
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: mainText, fontSize: largeTitle),
+                  AppLocalizations.of(context).myTasks,
+                  style: const TextStyle(color: mainText, fontSize: largeTitle),
                 ),
               ),
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                  icon: const Icon(Icons.remove_red_eye),
-                  onPressed: () {},
+                  icon: showUndone == true
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {
+                    _changeVisibility();
+                  },
                 ),
               ),
             ],
@@ -73,7 +79,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         ),
       );
 
-  Widget buildExpandedAppBar(double shrinkOffset) => Opacity(
+  Widget buildExpandedAppBar(double shrinkOffset, context) => Opacity(
         opacity: disappear(shrinkOffset),
         child: Container(
           color: backLight,
@@ -82,17 +88,21 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      "Мои дела",
-                      style: TextStyle(color: mainText, fontSize: largeTitle),
+                      AppLocalizations.of(context).myTasks,
+                      style: const TextStyle(color: mainText, fontSize: largeTitle),
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: IconButton(
-                      icon: const Icon(Icons.remove_red_eye),
-                      onPressed: () {},
+                      icon: showUndone == true
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
+                      onPressed: () {
+                        _changeVisibility();
+                      },
                     ),
                   ),
                 ],
@@ -111,4 +121,8 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+}
+
+void _changeVisibility() {
+  //context.read<TileListBloc>().add(ShowProcessTasks());
 }
