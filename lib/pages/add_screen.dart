@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
@@ -11,13 +12,44 @@ import 'package:to_do_list/main.dart';
 * UI страницы добавления:
 *
 * */
+class AddScreen extends StatefulWidget {
 
-class AddScreen extends StatelessWidget {
-  final bool _calendar = false;
+
+  const AddScreen({super.key});
+
+  @override
+  State<AddScreen> createState() => _AddScreenState();
+
+}
+
+class _AddScreenState extends State<AddScreen> {
   final TextEditingController _controller = TextEditingController();
+  bool _getDate = false;
+  String date ="";
+  @override
+  Future<DateTime?> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    return picked;
+  }
+    void _attemptChange(bool newState) async {
+    if (newState == true) {
+      final newDate = await _selectDate(context);
+      if (newDate != null) {
+        final newTaskDate = "${newDate.toLocal()}".split(' ')[0].split('-');
+        date = '${newTaskDate[2]}/${(newTaskDate[1])}/${newTaskDate[0]}';
 
-  AddScreen({super.key});
-
+      }
+    } else if (newState == false) {
+      // widget.editTask.date = "";
+    }
+    setState(() {
+      _getDate = newState;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +84,7 @@ class AddScreen extends StatelessWidget {
                   ),
                   onPressed: () => {
                   loggerNoStack.i('Pressed to add new task'),
-                        context.read<TileListBloc>().add(AddTile(text: _controller.text)),
+                        context.read<TileListBloc>().add(AddTile(text: _controller.text, date: date)),
                         _onGoBack(),
                       }),
             ),
@@ -117,7 +149,7 @@ class AddScreen extends StatelessWidget {
           ),
           Container(
             margin:
-                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
+            const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
             padding: const EdgeInsets.all(5),
             child: Column(
               children: [
@@ -125,15 +157,23 @@ class AddScreen extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Row(
                     children: [
-                      Text(
-                        AppLocalizations.of(context).deadline,
-                        style: const TextStyle(color: mainText, fontSize: body),
+                      Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).deadline,
+                            style: const TextStyle(color: mainText, fontSize: body),
+                          ),
+                          Text (
+                              date,
+                              style: const TextStyle(color: add, fontSize: subhead),
+                            ),
+                        ],
                       ),
                       const Spacer(),
                       Switch.adaptive(
-                        value: _calendar,
+                        value: _getDate,
                         activeColor: add,
-                        onChanged: (bool value) {},
+                        onChanged: _attemptChange,
                       ),
                     ],
                   ),
@@ -173,3 +213,5 @@ class AddScreen extends StatelessWidget {
 void _onGoBack() {
   NavigationManager.instance.pop();
 }
+
+

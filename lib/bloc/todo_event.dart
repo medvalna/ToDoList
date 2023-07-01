@@ -7,7 +7,8 @@ abstract class TileListEvents {
 }
 class AddTile extends TileListEvents {
   final String text;
-  AddTile({required this.text});
+  final String date;
+  AddTile({required this.text, required this.date});
 }
 class GetTiles extends TileListEvents {
 

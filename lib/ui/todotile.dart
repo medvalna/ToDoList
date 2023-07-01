@@ -70,21 +70,43 @@ class ToDoTile extends StatelessWidget {
             width: 20,
           ),
           Expanded(
-            child: Text(
-              item.task,
-              style: TextStyle(
-                fontSize: body,
-                color: item.isDone == true ? secondaryText : mainText,
-                decoration:
-                    item.isDone == true ? TextDecoration.lineThrough : null,
-              ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    item.task,
+                    style: TextStyle(
+                      fontSize: body,
+                      color: item.isDone == true ? secondaryText : mainText,
+                      decoration:
+                      item.isDone == true ? TextDecoration.lineThrough : null,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      item.date,
+                      style: const TextStyle(
+                        fontSize: subhead,
+                        color: secondaryText,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                ),
+
+              ],
             ),
+
           ),
           const Icon(
-            Icons.info_outline,
-          ),
+              Icons.info_outline,
+            ),
+
           const SizedBox(
             height: 60,
           ),

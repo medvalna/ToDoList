@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logger/logger.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:flutter/cupertino.dart.';
+import 'package:flutter/cupertino.dart';
 import 'package:to_do_list/pages/welcome_screen.dart';
 import 'adaptivity/font_sizes.dart';
 import 'bloc/todo_bloc.dart';
