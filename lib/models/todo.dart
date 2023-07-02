@@ -19,12 +19,14 @@ class ToDo {
   String task;
   bool? isDone;
   String date;
+  int importance;
 
   ToDo({
     required this.id,
     required this.task,
     this.isDone,
     required this.date,
+    required this.importance,
   });
 
   Map<String, dynamic> toJson() {
@@ -37,6 +39,7 @@ class ToDo {
               ? 1
               : 0,
       "date": date,
+      "importance": importance,
     };
   }
 
@@ -49,5 +52,6 @@ class ToDo {
                 ? true
                 : false,
         date: json["date"],
+        importance: json["importance"],
       );
 }

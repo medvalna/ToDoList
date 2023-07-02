@@ -8,7 +8,8 @@ abstract class TileListEvents {
 class AddTile extends TileListEvents {
   final String text;
   final String date;
-  AddTile({required this.text, required this.date});
+  final int importance;
+  AddTile({required this.text, required this.date, required this.importance});
 }
 class GetTiles extends TileListEvents {
 

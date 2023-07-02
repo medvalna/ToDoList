@@ -28,7 +28,7 @@ class PersistenceManager {
       version: 1,
       onCreate: (db, version) {
         db.execute(
-            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY, task TEXT, isDone INTEGER, date TEXT)');
+            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY, task TEXT, isDone INTEGER, date TEXT, importance INTEGER)');
       },
     );
     return _database;
@@ -49,6 +49,7 @@ class PersistenceManager {
                 ? true
                 : false,
         date: items[i]['date'],
+        importance: items[i]["importance"]
       );
     });
   }

@@ -6,10 +6,8 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 
-
 class ToDoTile extends StatelessWidget {
   final ToDo item;
-
 
   const ToDoTile(this.item, {super.key});
 
@@ -74,39 +72,53 @@ class ToDoTile extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    item.task,
-                    style: TextStyle(
-                      fontSize: body,
-                      color: item.isDone == true ? secondaryText : mainText,
-                      decoration:
-                      item.isDone == true ? TextDecoration.lineThrough : null,
-                    ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                  child: Row(
+                    children: [
+                      item.importance == 2
+                          ? const Text(
+                              "!! ",
+                              style: TextStyle(fontSize: body, color: decline),
+                            )
+                          : item.importance ==1 ? const Icon(Icons.arrow_downward, color: secondaryText,) : const Text (""),
+                      Text(
+                              item.task,
+                              style: TextStyle(
+                                fontSize: body,
+                                color: item.isDone == true
+                                    ? secondaryText
+                                    : mainText,
+                                decoration: item.isDone == true
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                    ],
                   ),
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      item.date,
-                      style: const TextStyle(
-                        fontSize: subhead,
-                        color: secondaryText,
+                item.date != ""
+                    ? Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          item.date,
+                          style: const TextStyle(
+                            fontSize: subhead,
+                            color: secondaryText,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    : const SizedBox(
+                        height: 2,
                       ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                ),
-
               ],
             ),
-
           ),
           const Icon(
-              Icons.info_outline,
-            ),
-
+            Icons.info_outline,
+          ),
           const SizedBox(
             height: 60,
           ),

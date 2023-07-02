@@ -13,19 +13,21 @@ import 'package:to_do_list/main.dart';
 *
 * */
 class AddScreen extends StatefulWidget {
-
-
   const AddScreen({super.key});
 
   @override
   State<AddScreen> createState() => _AddScreenState();
-
 }
+
+const List<String> list = <String>['Нет', 'Низкий', 'Высокий'];
 
 class _AddScreenState extends State<AddScreen> {
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
-  String date ="";
+  String dropdownValue = list.first;
+  String date = "";
+  int importance = 0;
+
   @override
   Future<DateTime?> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -35,21 +37,22 @@ class _AddScreenState extends State<AddScreen> {
         lastDate: DateTime(2101));
     return picked;
   }
-    void _attemptChange(bool newState) async {
+
+  void _changeDate(bool newState) async {
     if (newState == true) {
       final newDate = await _selectDate(context);
       if (newDate != null) {
         final newTaskDate = "${newDate.toLocal()}".split(' ')[0].split('-');
         date = '${newTaskDate[2]}/${(newTaskDate[1])}/${newTaskDate[0]}';
-
       }
     } else if (newState == false) {
-      // widget.editTask.date = "";
+      date = "";
     }
     setState(() {
       _getDate = newState;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +86,11 @@ class _AddScreenState extends State<AddScreen> {
                     style: const TextStyle(fontSize: button, color: add),
                   ),
                   onPressed: () => {
-                  loggerNoStack.i('Pressed to add new task'),
-                        context.read<TileListBloc>().add(AddTile(text: _controller.text, date: date)),
+                        loggerNoStack.i('Pressed to add new task'),
+                        context.read<TileListBloc>().add(AddTile(
+                            text: _controller.text,
+                            date: date,
+                            importance: importance)),
                         _onGoBack(),
                       }),
             ),
@@ -115,7 +121,8 @@ class _AddScreenState extends State<AddScreen> {
                   contentPadding: const EdgeInsets.only(bottom: 10),
                   border: InputBorder.none,
                   hintText: AppLocalizations.of(context).whatNeeds,
-                  hintStyle: const TextStyle(color: secondaryText, fontSize: body),
+                  hintStyle:
+                      const TextStyle(color: secondaryText, fontSize: body),
                 ),
               ),
             ),
@@ -133,23 +140,45 @@ class _AddScreenState extends State<AddScreen> {
                     style: const TextStyle(color: mainText, fontSize: body),
                   ),
                 ),
-                TextField(
-                  controller: TextEditingController(),
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: disable),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: disable),
-                    ),
-                  ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                    value: dropdownValue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownValue = value!;
+                        value == list[0]
+                            ? importance = 0
+                            : value == list[1]
+                                ? importance = 1
+                                : importance = 2;
+                      });
+                    },
+                    items: list.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: const TextStyle(
+                              fontSize: body),
+                        ),
+                      );
+                    }).toList(),
+                  )),
+                ),
+                const Divider(
+                  color: disable,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
                 ),
               ],
             ),
           ),
           Container(
             margin:
-            const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
+                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
             padding: const EdgeInsets.all(5),
             child: Column(
               children: [
@@ -161,19 +190,21 @@ class _AddScreenState extends State<AddScreen> {
                         children: [
                           Text(
                             AppLocalizations.of(context).deadline,
-                            style: const TextStyle(color: mainText, fontSize: body),
+                            style: const TextStyle(
+                                color: mainText, fontSize: body),
                           ),
-                          Text (
-                              date,
-                              style: const TextStyle(color: add, fontSize: subhead),
-                            ),
+                          Text(
+                            date,
+                            style:
+                                const TextStyle(color: add, fontSize: subhead),
+                          ),
                         ],
                       ),
                       const Spacer(),
                       Switch.adaptive(
                         value: _getDate,
                         activeColor: add,
-                        onChanged: _attemptChange,
+                        onChanged: _changeDate,
                       ),
                     ],
                   ),
@@ -188,7 +219,8 @@ class _AddScreenState extends State<AddScreen> {
             endIndent: 0,
           ),
           Container(
-            margin: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
+            margin:
+                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
             padding: const EdgeInsets.all(5),
             child: Align(
               alignment: Alignment.topLeft,
@@ -199,7 +231,8 @@ class _AddScreenState extends State<AddScreen> {
                     color: secondaryText,
                   ),
                   Text(AppLocalizations.of(context).delete,
-                      style: const TextStyle(color: secondaryText, fontSize: body))
+                      style:
+                          const TextStyle(color: secondaryText, fontSize: body))
                 ],
               ),
             ),
@@ -213,5 +246,3 @@ class _AddScreenState extends State<AddScreen> {
 void _onGoBack() {
   NavigationManager.instance.pop();
 }
-
-

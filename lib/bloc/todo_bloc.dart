@@ -39,7 +39,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     ToDo item = ToDo(
         id: DateTime.now().millisecondsSinceEpoch,
         task: event.text,
-        isDone: null, date: event.date);
+        isDone: null, date: event.date, importance: event.importance);
     state.tileList.add(item);
     await PersistenceManager.db.saveToDo(item);
     emit(TileListUpdated(
