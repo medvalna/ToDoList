@@ -34,5 +34,17 @@
   "whatNeeds": "What needs to be done?",
     "@whatNeeds":{
       "whatNeeds": "What needs to be done"
-    }
+    },
+  "no": "No",
+      "@no":{
+        "no": "not important task"
+      },
+  "low": "Low",
+      "@low":{
+        "low": "task has low importance"
+      },
+  "high": "High",
+        "@high":{
+          "high": "task has high importance"
+        }
 }

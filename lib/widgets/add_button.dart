@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/models/navigation.dart';
+import 'package:to_do_list/managers/navigation.dart';
 
 /*
 *   - навигация к странице addScreen через Navigator

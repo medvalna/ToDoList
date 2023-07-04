@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/models/todo.dart';
-import 'package:to_do_list/ui/todotile.dart';
+import 'package:to_do_list/widgets/todotile.dart';
 
 /*
 *   - TaskList() - виджет, отвечающий за прорисовку листа тайлов

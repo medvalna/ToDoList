@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
-import 'package:to_do_list/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/bloc/todo_bloc.dart';
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;

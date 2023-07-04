@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/bloc/todo_bloc.dart';
 import 'dart:io' show Platform;
-import 'package:to_do_list/models/navigation.dart';
+import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 

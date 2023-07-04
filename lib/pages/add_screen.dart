@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list/models/navigation.dart';
+import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
@@ -19,17 +18,17 @@ class AddScreen extends StatefulWidget {
   State<AddScreen> createState() => _AddScreenState();
 }
 
-const List<String> list = <String>['Нет', 'Низкий', 'Высокий'];
+
 
 class _AddScreenState extends State<AddScreen> {
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
-  String dropdownValue = list.first;
   String date = "";
   int importance = 0;
 
   @override
   Future<DateTime?> _selectDate(BuildContext context) async {
+
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -55,6 +54,7 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> list = <String>[AppLocalizations.of(context).no, AppLocalizations.of(context).low, AppLocalizations.of(context).high];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backLight,
@@ -144,10 +144,10 @@ class _AddScreenState extends State<AddScreen> {
                   alignment: Alignment.topLeft,
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: list.first,
                     onChanged: (String? value) {
                       setState(() {
-                        dropdownValue = value!;
+                        list.first = value!;
                         value == list[0]
                             ? importance = 0
                             : value == list[1]

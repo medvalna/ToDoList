@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo.dart';
-import 'package:to_do_list/models/persistence_manager.dart';
+import 'package:to_do_list/managers/persistence_manager.dart';
 
 import 'package:to_do_list/main.dart';
 
