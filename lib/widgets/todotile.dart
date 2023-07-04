@@ -21,7 +21,7 @@ class ToDoTile extends StatelessWidget {
           context.read<TileListBloc>().add(TappedDone(tile: item));
         }
       },
-      key: UniqueKey(),
+      key: Key(item.id.toString()),
       background: Container(
         padding: const EdgeInsets.only(left: 10),
         color: done,
@@ -76,7 +76,7 @@ class ToDoTile extends StatelessWidget {
                     children: [
                       item.importance == 2
                           ? const Text(
-                              "!! ",
+                              "!!",
                               style: TextStyle(fontSize: body, color: decline),
                             )
                           : item.importance ==1 ? const Icon(Icons.arrow_downward, color: secondaryText,) : const Text (""),

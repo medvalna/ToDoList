@@ -11,6 +11,11 @@ import 'package:to_do_list/main.dart';
 * UI страницы добавления:
 *
 * */
+
+/*
+* TODO: исправить баг с демонстрацией выбора важности в dropdown widget
+*
+* */
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
 
@@ -21,8 +26,10 @@ class AddScreen extends StatefulWidget {
 
 
 class _AddScreenState extends State<AddScreen> {
+
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
+  late String? dropdownValue;
   String date = "";
   int importance = 0;
 
@@ -54,7 +61,11 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> list = <String>[AppLocalizations.of(context).no, AppLocalizations.of(context).low, AppLocalizations.of(context).high];
+
+    List<String> list = <String>[AppLocalizations.of(context).no,
+      AppLocalizations.of(context).low,
+      AppLocalizations.of(context).high];
+    dropdownValue = list.first;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backLight,
@@ -144,10 +155,10 @@ class _AddScreenState extends State<AddScreen> {
                   alignment: Alignment.topLeft,
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                    value: list.first,
+                    value: dropdownValue,
                     onChanged: (String? value) {
                       setState(() {
-                        list.first = value!;
+                        dropdownValue = value;
                         value == list[0]
                             ? importance = 0
                             : value == list[1]

@@ -39,7 +39,7 @@ class Homepage extends StatelessWidget {
                 CustomScrollView(
                   slivers: [
                     CustomAppBar(showUndone: showUndone,doneCount: tileCount ),
-                    TaskList(
+                    TaskList(showUndone: showUndone,
                       tileList, //showFullList
                     ),
                   ],

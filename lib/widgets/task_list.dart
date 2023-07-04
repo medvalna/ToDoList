@@ -10,10 +10,11 @@ import 'package:to_do_list/widgets/todotile.dart';
 * */
 class TaskList extends StatelessWidget {
   final List<ToDo> tileList;
+  bool showUndone;
 
   //final bool showFullList;
 
-  const TaskList(this.tileList, {super.key});
+  TaskList(this.tileList, {required this.showUndone, super.key});
 
   //final List <ТoDo> tileList;
   @override
@@ -21,7 +22,9 @@ class TaskList extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(
-           /* left: 20.0, */bottom: 20.0, /*right: 20.0,*/ top: 10.0),
+            /* left: 20.0, */
+            bottom: 20.0,
+            /*right: 20.0,*/ top: 10.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Container(
@@ -39,8 +42,28 @@ class TaskList extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: tileBackLight,
             ),
-            child: Column(
-              children: [for (ToDo todo in tileList) ToDoTile(todo)],
+            child: SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Column(
+                children: [
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: tileList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final task = tileList[index];
+                      if (showUndone == true && task.isDone == true) {
+                        return SizedBox(
+                          key: Key((task.id).toString()),
+                        );
+                      } else {
+                        return ToDoTile(task);
+                      }
+                    },
+                  ),
+                  //[for (ToDo todo in tileList) ToDoTile(todo)],
+                ],
+              ),
             ),
           ),
         ),

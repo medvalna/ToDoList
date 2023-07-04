@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
+
+import '../managers/bloc/todo_bloc.dart';
 
 class CustomAppBar extends StatelessWidget {
   final int doneCount;
@@ -60,7 +63,7 @@ class CustomAppBar extends StatelessWidget {
                         color: add,
                       ),
                 onPressed: () {
-                  showUndone = !showUndone;
+                  context.read<TileListBloc>().add(ShowProcessTasks(show: showUndone));
                 },
               ),
             )
