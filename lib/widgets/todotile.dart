@@ -21,7 +21,7 @@ class ToDoTile extends StatelessWidget {
           context.read<TileListBloc>().add(TappedDone(tile: item));
         }
       },
-      key: Key(item.id.toString()),
+      key: UniqueKey(),
       background: Container(
         padding: const EdgeInsets.only(left: 10),
         color: done,
