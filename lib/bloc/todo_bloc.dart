@@ -10,7 +10,7 @@ part 'todo_state.dart';
 
 class TileListBloc extends Bloc<TileListEvents, TileListState> {
   TileListBloc()
-      : super(TileListState(tileList: [], doneItems: 0, showProccessTiles: true)) {
+      : super(TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
     on<AddTile>(_addTile);
     on<DeleteTile>(_deleteTile);
     on<TappedDone>(_tappedDone);
@@ -24,15 +24,15 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showProccessTiles));
+        showDone: state.showProcessTiles));
   }
   _showProcessTasks(ShowProcessTasks event, Emitter<TileListState> emit) async {
     loggerNoStack.i('Changing visibility');
-    state.showProccessTiles = !state.showProccessTiles;
+    state.showProcessTiles = !event.show;
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showProccessTiles));
+        showDone: state.showProcessTiles));
   }
 
   _addTile(AddTile event, Emitter<TileListState> emit) async {
@@ -45,7 +45,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showProccessTiles));
+        showDone: state.showProcessTiles));
   }
 
   _deleteTile(DeleteTile event, Emitter<TileListState> emit) async {
@@ -57,7 +57,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showProccessTiles));
+        showDone: state.showProcessTiles));
   }
 
   _tappedDone(TappedDone event, Emitter<TileListState> emit) async {
@@ -74,7 +74,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
-        showDone: state.showProccessTiles));
+        showDone: state.showProcessTiles));
   }
 }
 

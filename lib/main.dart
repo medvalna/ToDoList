@@ -55,7 +55,7 @@ class App extends StatelessWidget {
               textTheme: const TextTheme(
                 headlineLarge: TextStyle(fontSize: largeTitle, color: mainText),
                 headlineMedium: TextStyle(fontSize: midTitle, color: mainText),
-                bodyMedium: TextStyle(fontSize: midTitle, color: secondaryText),
+                bodyMedium: TextStyle(fontSize: button, color: secondaryText),
                 bodySmall: TextStyle(fontSize: body, color: secondaryText),
               ),
             ),

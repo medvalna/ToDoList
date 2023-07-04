@@ -17,8 +17,8 @@ class GetTiles extends TileListEvents {
 }
 
 class ShowProcessTasks extends TileListEvents {
-
-  ShowProcessTasks();
+  final bool show;
+  ShowProcessTasks({required this.show});
 }
 class TappedDone extends TileListEvents {
   final ToDo tile;

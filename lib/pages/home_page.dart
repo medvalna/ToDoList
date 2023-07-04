@@ -6,9 +6,10 @@ import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/ui/add_button.dart';
 import 'package:to_do_list/ui/task_list.dart';
-import 'package:to_do_list/ui/app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
+
+import '../ui/appBar.dart';
 
 /*
 * UI главной страницы:
@@ -23,7 +24,6 @@ import 'package:to_do_list/main.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
-
   @override
   Widget build(BuildContext context) {
     loggerNoStack.i('Try to take todos from database');
@@ -34,16 +34,12 @@ class Homepage extends StatelessWidget {
           if (state is TileListUpdated && state.tileList.isNotEmpty) {
             final tileList = state.tileList;
             final tileCount = state.doneItems;
-            final showUndone = state.showProccessTiles;
+            bool showUndone = state.showProcessTiles;
             return Stack(
               children: [
                 CustomScrollView(
                   slivers: [
-                    SliverPersistentHeader(
-                      delegate: CustomSliverAppBarDelegate(
-                          expandedHeight: 240, doneCount: tileCount, showUndone: showUndone),
-                      pinned: true,
-                    ),
+                    CustomAppBar(showUndone: showUndone,doneCount: tileCount ),
                     TaskList(
                       tileList, //showFullList
                     ),
@@ -70,7 +66,8 @@ class Homepage extends StatelessWidget {
                           ),
                         ),
                         const Icon(
-                          Icons.visibility_off,
+                          Icons.visibility,
+                          color: add,
                         ),
                       ],
                     ),
