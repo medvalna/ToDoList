@@ -20,6 +20,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
 
   _getTiles(GetTiles event, Emitter<TileListState> emit) async {
     state.tileList = await PersistenceManager.db.getAllTodos();
+    /*TODO add network*/
     state.doneItems = countDone(state.tileList);
     emit(TileListUpdated(
         tileList: state.tileList,

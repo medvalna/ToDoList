@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/pages/home_page.dart';
+import 'package:to_do_list/ui/pages/home_page.dart';
 
-import 'package:to_do_list/pages/add_screen.dart';
+import 'package:to_do_list/ui/pages/add_screen.dart';
 
 class NavigationManager {
   NavigationManager._();
