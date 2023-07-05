@@ -13,7 +13,7 @@ class ToDoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
+     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
           context.read<TileListBloc>().add(DeleteTile(tile: item));

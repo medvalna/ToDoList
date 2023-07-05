@@ -29,9 +29,10 @@ class _AddScreenState extends State<AddScreen> {
 
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
-  late String? dropdownValue;
+  late String dropdownValue = AppLocalizations.of(context).no;
   String date = "";
   int importance = 0;
+
 
   @override
   Future<DateTime?> _selectDate(BuildContext context) async {
@@ -65,7 +66,6 @@ class _AddScreenState extends State<AddScreen> {
     List<String> list = <String>[AppLocalizations.of(context).no,
       AppLocalizations.of(context).low,
       AppLocalizations.of(context).high];
-    dropdownValue = list.first;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backLight,
@@ -158,12 +158,13 @@ class _AddScreenState extends State<AddScreen> {
                     value: dropdownValue,
                     onChanged: (String? value) {
                       setState(() {
-                        dropdownValue = value;
                         value == list[0]
                             ? importance = 0
                             : value == list[1]
                                 ? importance = 1
                                 : importance = 2;
+                        dropdownValue = value!;
+                        loggerNoStack.i('$dropdownValue val');
                       });
                     },
                     items: list.map<DropdownMenuItem<String>>((String value) {
