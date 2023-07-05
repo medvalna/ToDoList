@@ -7,6 +7,8 @@ import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 
+import '../../models/todo.dart';
+
 /*
 * UI страницы добавления:
 *
@@ -17,26 +19,38 @@ import 'package:to_do_list/main.dart';
 *
 * */
 class AddScreen extends StatefulWidget {
-  const AddScreen({super.key});
+  const AddScreen({super.key, required this.editing, required this.item});
+
+  final ToDo? item;
+  final bool editing;
 
   @override
   State<AddScreen> createState() => _AddScreenState();
 }
 
-
-
 class _AddScreenState extends State<AddScreen> {
-
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
   late String dropdownValue = AppLocalizations.of(context).no;
   String date = "";
   int importance = 0;
 
-
   @override
-  Future<DateTime?> _selectDate(BuildContext context) async {
+  void initState() {
+    super.initState();
+    if (widget.editing) {
+      _controller.text = widget.item!.task;
+    } else {
+      _controller.text = "";
+    }
+    if (widget.editing && widget.item?.date == "") {
+      _getDate = false;
+    } else {
+      _getDate = true;
+    }
+  }
 
+  Future<DateTime?> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -62,10 +76,11 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    List<String> list = <String>[AppLocalizations.of(context).no,
+    List<String> list = <String>[
+      AppLocalizations.of(context).no,
       AppLocalizations.of(context).low,
-      AppLocalizations.of(context).high];
+      AppLocalizations.of(context).high
+    ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backLight,
@@ -98,11 +113,23 @@ class _AddScreenState extends State<AddScreen> {
                   ),
                   onPressed: () => {
                         loggerNoStack.i('Pressed to add new task'),
-                        context.read<TileListBloc>().add(AddTile(
-                            text: _controller.text,
-                            date: date,
-                            importance: importance)),
-                        _onGoBack(),
+                        if (widget.editing)
+                          {
+                            context.read<TileListBloc>().add(ChangeTile(
+                                item: widget.item!,
+                                text: _controller.text,
+                                date: date,
+                                importance: importance)),
+                            _onGoBack(),
+                          }
+                        else
+                          {
+                            context.read<TileListBloc>().add(AddTile(
+                                text: _controller.text,
+                                date: date,
+                                importance: importance)),
+                            _onGoBack(),
+                          }
                       }),
             ),
           ],
@@ -172,8 +199,7 @@ class _AddScreenState extends State<AddScreen> {
                         value: value,
                         child: Text(
                           value,
-                          style: const TextStyle(
-                              fontSize: body),
+                          style: const TextStyle(fontSize: body),
                         ),
                       );
                     }).toList(),
@@ -238,8 +264,18 @@ class _AddScreenState extends State<AddScreen> {
               alignment: Alignment.topLeft,
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.delete,
+                  IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: widget.editing ? decline : secondaryText,
+                    ),
+                    onPressed: () {
+                      if (widget.editing) {
+                        context
+                            .read<TileListBloc>()
+                            .add(DeleteTile(tile: widget.item!));
+                      }
+                    },
                     color: secondaryText,
                   ),
                   Text(AppLocalizations.of(context).delete,

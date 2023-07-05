@@ -10,7 +10,6 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
@@ -34,6 +33,6 @@ class AddButton extends StatelessWidget {
   }
 
   void _onOpenAdding() {
-    NavigationManager.instance.openAdding();
+    NavigationManager.instance.openAdding(false, null);
   }
 }

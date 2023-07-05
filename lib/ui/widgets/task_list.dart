@@ -10,11 +10,11 @@ import 'package:to_do_list/ui/widgets/todotile.dart';
 * */
 class TaskList extends StatelessWidget {
   final List<ToDo> tileList;
-  bool showUndone;
+  final bool showUndone;
 
   //final bool showFullList;
 
-  TaskList(this.tileList, {required this.showUndone, super.key});
+  const TaskList(this.tileList, {required this.showUndone, super.key});
 
   //final List <ТoDo> tileList;
   @override

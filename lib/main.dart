@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logger/logger.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:to_do_list/ui/pages/welcome_screen.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/managers/bloc/todo_bloc.dart';
-import 'dart:io' show Platform;
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

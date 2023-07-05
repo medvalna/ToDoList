@@ -41,16 +41,15 @@ class PersistenceManager {
     return List.generate(items.length, (i) {
       int id = items[i]['id'];
       return ToDo(
-        id: id,
-        task: items[i]['task'],
-        isDone: items[i]['isDone'] == 10
-            ? null
-            : items[i]['isDone'] == 1
-                ? true
-                : false,
-        date: items[i]['date'],
-        importance: items[i]["importance"]
-      );
+          id: id,
+          task: items[i]['task'],
+          isDone: items[i]['isDone'] == 10
+              ? null
+              : items[i]['isDone'] == 1
+                  ? true
+                  : false,
+          date: items[i]['date'],
+          importance: items[i]["importance"]);
     });
   }
 

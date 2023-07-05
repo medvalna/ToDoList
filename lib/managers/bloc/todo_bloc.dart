@@ -10,8 +10,10 @@ part 'todo_state.dart';
 
 class TileListBloc extends Bloc<TileListEvents, TileListState> {
   TileListBloc()
-      : super(TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
+      : super(
+            TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
     on<AddTile>(_addTile);
+    on<ChangeTile>(_changeTile);
     on<DeleteTile>(_deleteTile);
     on<TappedDone>(_tappedDone);
     on<GetTiles>(_getTiles);
@@ -27,6 +29,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
         doneItems: state.doneItems,
         showDone: state.showProcessTiles));
   }
+
   _showProcessTasks(ShowProcessTasks event, Emitter<TileListState> emit) async {
     loggerNoStack.i('Changing visibility');
     state.showProcessTiles = !event.show;
@@ -40,9 +43,29 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     ToDo item = ToDo(
         id: DateTime.now().millisecondsSinceEpoch,
         task: event.text,
-        isDone: null, date: event.date, importance: event.importance);
+        isDone: null,
+        date: event.date,
+        importance: event.importance);
     state.tileList.add(item);
     await PersistenceManager.db.saveToDo(item);
+    emit(TileListUpdated(
+        tileList: state.tileList,
+        doneItems: state.doneItems,
+        showDone: state.showProcessTiles));
+  }
+
+  _changeTile(ChangeTile event, Emitter<TileListState> emit) async {
+    for (int i = 0; i < state.tileList.length; i++) {
+      ToDo item = state.tileList[i];
+      if (item.id == event.item.id) {
+        item.task = event.text;
+        item.date = event.date;
+        item.isDone = event.item.isDone;
+        item.importance = event.importance;
+        await PersistenceManager.db.changeToDo(item);
+        break;
+      }
+    }
     emit(TileListUpdated(
         tileList: state.tileList,
         doneItems: state.doneItems,
@@ -79,11 +102,11 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
   }
 }
 
-int countDone (List<ToDo> todos){
+int countDone(List<ToDo> todos) {
   int count = 0;
-  for (ToDo todo in todos){
-    if (todo.isDone == true){
-      count = count +1;
+  for (ToDo todo in todos) {
+    if (todo.isDone == true) {
+      count = count + 1;
     }
   }
   return count;

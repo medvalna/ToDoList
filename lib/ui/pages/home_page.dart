@@ -8,7 +8,7 @@ import 'package:to_do_list/ui/widgets/add_button.dart';
 import 'package:to_do_list/ui/widgets/task_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
-import 'package:to_do_list/ui/widgets/appBar.dart';
+import 'package:to_do_list/ui/widgets/app_bar.dart';
 
 /*
 * UI главной страницы:
@@ -38,8 +38,9 @@ class Homepage extends StatelessWidget {
               children: [
                 CustomScrollView(
                   slivers: [
-                    CustomAppBar(showUndone: showUndone,doneCount: tileCount ),
-                    TaskList(showUndone: showUndone,
+                    CustomAppBar(showUndone: showUndone, doneCount: tileCount),
+                    TaskList(
+                      showUndone: showUndone,
                       tileList, //showFullList
                     ),
                   ],
@@ -74,7 +75,7 @@ class Homepage extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                AppLocalizations.of(context).addNew,
+                    AppLocalizations.of(context).addNew,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

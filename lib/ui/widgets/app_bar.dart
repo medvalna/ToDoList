@@ -9,9 +9,9 @@ import 'package:to_do_list/managers/bloc/todo_bloc.dart';
 
 class CustomAppBar extends StatelessWidget {
   final int doneCount;
-  bool showUndone;
+  final bool showUndone;
 
-  CustomAppBar({
+  const CustomAppBar({
     super.key,
     required this.doneCount,
     required this.showUndone,
@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget {
         background: Container(
           alignment: Alignment.bottomLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 32,/* bottom: 8,*/ top: 10),
+            padding: const EdgeInsets.only(left: 32, /* bottom: 8,*/ top: 10),
             child: Text(
               "${AppLocalizations.of(context).done} ${doneCount.toString()}",
               style: Theme.of(context).textTheme.bodyMedium,
@@ -47,7 +47,6 @@ class CustomAppBar extends StatelessWidget {
               AppLocalizations.of(context).myTasks,
               style: const TextStyle(color: mainText, fontSize: largeTitle),
             ),
-
             Transform.translate(
               offset: const Offset(4, 15),
               child: IconButton(
@@ -63,7 +62,9 @@ class CustomAppBar extends StatelessWidget {
                         color: add,
                       ),
                 onPressed: () {
-                  context.read<TileListBloc>().add(ShowProcessTasks(show: showUndone));
+                  context
+                      .read<TileListBloc>()
+                      .add(ShowProcessTasks(show: showUndone));
                 },
               ),
             )
