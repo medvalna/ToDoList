@@ -23,6 +23,7 @@ import 'package:to_do_list/ui/widgets/app_bar.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
+
   @override
   Widget build(BuildContext context) {
     loggerNoStack.i('Try to take todos from database');
@@ -30,10 +31,13 @@ class Homepage extends StatelessWidget {
       backgroundColor: backLight,
       body: BlocBuilder<TileListBloc, TileListState>(
         builder: (context, state) {
-          if (state is TileListUpdated && state.tileList.isNotEmpty) {
+          bool showUndone = state.showProcessTiles;
+          final tileCount = state.doneItems;
+          if (state is TileListUpdated &&
+              state.tileList.isNotEmpty &&
+              (!state.showProcessTiles ||
+                  state.tileList.length != state.doneItems)) {
             final tileList = state.tileList;
-            final tileCount = state.doneItems;
-            bool showUndone = state.showProcessTiles;
             return Stack(
               children: [
                 CustomScrollView(
@@ -51,28 +55,9 @@ class Homepage extends StatelessWidget {
           } else {
             return Stack(
               children: [
-                Container(
-                  color: backLight,
-                  padding: const EdgeInsets.only(top: 160, right: 20, left: 60),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context).myTasks,
-                            style: const TextStyle(
-                                color: mainText, fontSize: largeTitle),
-                          ),
-                        ),
-                        const Icon(
-                          Icons.visibility,
-                          color: add,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                CustomScrollView(slivers: [
+                  CustomAppBar(showUndone: showUndone, doneCount: tileCount),
+                ]),
                 Center(
                   child: Text(
                     AppLocalizations.of(context).addNew,
