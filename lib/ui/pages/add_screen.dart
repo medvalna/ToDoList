@@ -14,10 +14,6 @@ import '../../models/todo.dart';
 *
 * */
 
-/*
-* TODO: исправить баг с демонстрацией выбора важности в dropdown widget
-*
-* */
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key, required this.editing, required this.item});
 
@@ -31,8 +27,14 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   final TextEditingController _controller = TextEditingController();
   bool _getDate = false;
-  late String dropdownValue = AppLocalizations.of(context).no;
-  String date = "";
+  late String dropdownValue = !widget.editing
+      ? AppLocalizations.of(context).no
+      : widget.item?.importance == 0
+          ? AppLocalizations.of(context).no
+          : widget.item?.importance == 1
+              ? AppLocalizations.of(context).low
+              : AppLocalizations.of(context).high;
+  late String? date = !widget.editing ? "" : widget.item?.date;
   int importance = 0;
 
   @override
@@ -118,7 +120,7 @@ class _AddScreenState extends State<AddScreen> {
                             context.read<TileListBloc>().add(ChangeTile(
                                 item: widget.item!,
                                 text: _controller.text,
-                                date: date,
+                                date: date!,
                                 importance: importance)),
                             _onGoBack(),
                           }
@@ -126,7 +128,7 @@ class _AddScreenState extends State<AddScreen> {
                           {
                             context.read<TileListBloc>().add(AddTile(
                                 text: _controller.text,
-                                date: date,
+                                date: date!,
                                 importance: importance)),
                             _onGoBack(),
                           }
@@ -232,7 +234,7 @@ class _AddScreenState extends State<AddScreen> {
                                 color: mainText, fontSize: body),
                           ),
                           Text(
-                            date,
+                            date!,
                             style:
                                 const TextStyle(color: add, fontSize: subhead),
                           ),
