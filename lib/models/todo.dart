@@ -6,33 +6,38 @@ import 'dart:convert';
 
 ToDo todotFromJson(String str) {
   final jsonData = json.decode(str);
-  return ToDo.fromJson(jsonData);
+  return ToDo.fromJsonPersistence(jsonData);
 }
 
 String clientToJson(ToDo data) {
-  final dyn = data.toJson();
+  final dyn = data.toJsonPersistence();
   return json.encode(dyn);
 }
 
 class ToDo {
   int id;
-  String task;
-  bool? isDone;
+  String text;
+  String importance;
   String date;
-  int importance;
+  bool? isDone;
+
+  //int createdAt;
+  //int changedAt;
 
   ToDo({
     required this.id,
-    required this.task,
+    required this.text,
     this.isDone,
     required this.date,
     required this.importance,
+    //required this.createdAt,
+    //     required this.changedAt,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJsonPersistence() {
     return {
       "id": id,
-      "task": task,
+      "task": text,
       "isDone": isDone == null
           ? 10
           : isDone == true
@@ -43,9 +48,9 @@ class ToDo {
     };
   }
 
-  factory ToDo.fromJson(Map<String, dynamic> json) => ToDo(
+  factory ToDo.fromJsonPersistence(Map<String, dynamic> json) => ToDo(
         id: int.parse(json["id"]),
-        task: json["task"],
+        text: json["task"],
         isDone: json["isDone"] == 10
             ? null
             : json["isDone"] == 1
@@ -54,4 +59,28 @@ class ToDo {
         date: json["date"],
         importance: json["importance"],
       );
+
+  factory ToDo.fromMapBackend(Map<String, dynamic> map) => ToDo(
+        id: map['id'],
+        text: map['text'],
+        importance: map['importance'],
+        date: map['deadline'],
+        isDone: map['done'],
+        //createdAt: map['created_at'],
+        //changedAt: map['changed_at']);
+      );
+
+  Map<String, dynamic> toMapBackend() {
+    return {
+      'id': id,
+      'text': text,
+      'importance': importance,
+      'deadline': date,
+      'done': isDone
+      //'color': "#FFFFFF",
+      //'created_at': createdAt,
+      //'changed_at': changedAt,
+      //'last_updated_by': 1
+    };
+  }
 }

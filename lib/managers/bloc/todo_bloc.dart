@@ -42,7 +42,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
   _addTile(AddTile event, Emitter<TileListState> emit) async {
     ToDo item = ToDo(
         id: DateTime.now().millisecondsSinceEpoch,
-        task: event.text,
+        text: event.text,
         isDone: null,
         date: event.date,
         importance: event.importance);
@@ -58,7 +58,7 @@ class TileListBloc extends Bloc<TileListEvents, TileListState> {
     for (int i = 0; i < state.tileList.length; i++) {
       ToDo item = state.tileList[i];
       if (item.id == event.item.id) {
-        item.task = event.text;
+        item.text = event.text;
         item.date = event.date;
         item.isDone = event.item.isDone;
         item.importance = event.importance;

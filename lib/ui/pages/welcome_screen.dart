@@ -47,11 +47,6 @@ class _WelcomePageState extends State<WelcomePage> {
               const SizedBox(
                 height: 20,
               ),
-              /*
-              Text(
-                widget.title,
-                style: const TextStyle(fontSize: largeTitle, color: mainText),
-              ),*/
               Container(
                 padding: const EdgeInsets.only(
                   top: 20,

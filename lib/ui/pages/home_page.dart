@@ -10,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 import 'package:to_do_list/ui/widgets/app_bar.dart';
 
+import '../../managers/network_manager.dart';
+
 /*
 * UI главной страницы:
 *   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
@@ -50,6 +52,11 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
                 const AddButton(),
+                FloatingActionButton(
+                    child: Icon(Icons.download),
+                    onPressed: () {
+                      loggerNoStack.i(NetworkManager().getTodoList());
+                    })
               ],
             );
           } else {

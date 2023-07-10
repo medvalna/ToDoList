@@ -5,7 +5,7 @@ abstract class TileListEvents {}
 class AddTile extends TileListEvents {
   final String text;
   final String date;
-  final int importance;
+  final String importance;
   AddTile({required this.text, required this.date, required this.importance});
 }
 
@@ -13,7 +13,7 @@ class ChangeTile extends TileListEvents {
   final ToDo item;
   final String text;
   final String date;
-  final int importance;
+  final String importance;
   ChangeTile(
       {required this.item,
       required this.text,

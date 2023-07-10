@@ -5,7 +5,7 @@ import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/bloc/todo_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../managers/navigation.dart';
 
 class ToDoTile extends StatelessWidget {
@@ -73,19 +73,19 @@ class ToDoTile extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
-                      item.importance == 2
+                      item.importance == AppLocalizations.of(context).high
                           ? const Text(
                               "!!",
                               style: TextStyle(fontSize: body, color: decline),
                             )
-                          : item.importance == 1
+                          : item.importance == AppLocalizations.of(context).low
                               ? const Icon(
                                   Icons.arrow_downward,
                                   color: secondaryText,
                                 )
                               : const Text(""),
                       Text(
-                        item.task,
+                        item.text,
                         style: TextStyle(
                           fontSize: body,
                           color: item.isDone == true ? secondaryText : mainText,

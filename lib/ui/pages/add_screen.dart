@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
-
 import '../../models/todo.dart';
 
 /*
@@ -35,13 +34,13 @@ class _AddScreenState extends State<AddScreen> {
               ? AppLocalizations.of(context).low
               : AppLocalizations.of(context).high;
   late String? date = !widget.editing ? "" : widget.item?.date;
-  int importance = 0;
+  String importance = "";
 
   @override
   void initState() {
     super.initState();
     if (widget.editing) {
-      _controller.text = widget.item!.task;
+      _controller.text = widget.item!.text;
     } else {
       _controller.text = "";
     }
@@ -187,11 +186,12 @@ class _AddScreenState extends State<AddScreen> {
                     value: dropdownValue,
                     onChanged: (String? value) {
                       setState(() {
-                        value == list[0]
+                        importance = value!;
+                        /*value == list[0]
                             ? importance = 0
                             : value == list[1]
                                 ? importance = 1
-                                : importance = 2;
+                                : importance = 2;*/
                         dropdownValue = value!;
                         loggerNoStack.i('$dropdownValue val');
                       });

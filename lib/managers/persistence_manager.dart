@@ -28,7 +28,7 @@ class PersistenceManager {
       version: 1,
       onCreate: (db, version) {
         db.execute(
-            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY, task TEXT, isDone INTEGER, date TEXT, importance INTEGER)');
+            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY, task TEXT, isDone INTEGER, date TEXT, importance TEXT)');
       },
     );
     return _database;
@@ -42,7 +42,7 @@ class PersistenceManager {
       int id = items[i]['id'];
       return ToDo(
           id: id,
-          task: items[i]['task'],
+          text: items[i]['task'],
           isDone: items[i]['isDone'] == 10
               ? null
               : items[i]['isDone'] == 1
@@ -59,7 +59,7 @@ class PersistenceManager {
     final db = await _databaseGetter;
     var res = await db.insert(
       _tableName,
-      todo.toJson(),
+      todo.toJsonPersistence(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return res;
@@ -76,7 +76,7 @@ class PersistenceManager {
     loggerNoStack.i('Changing todo with id = ${todo.id} from database');
     // Get a reference to the database.
     final db = await _databaseGetter;
-    await db.update(_tableName, todo.toJson(),
+    await db.update(_tableName, todo.toJsonPersistence(),
         where: "id = ?", whereArgs: [todo.id]);
     return;
   }
@@ -85,6 +85,6 @@ class PersistenceManager {
     loggerNoStack.i('Taking todo with id = $id from database');
     final db = await _databaseGetter;
     var res = await db.query(_tableName, where: "id = ?", whereArgs: [id]);
-    return res.isNotEmpty ? ToDo.fromJson(res.first) : null;
+    return res.isNotEmpty ? ToDo.fromJsonPersistence(res.first) : null;
   }
 }
