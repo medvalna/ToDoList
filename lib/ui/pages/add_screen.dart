@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/managers/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
+import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 import '../../models/todo.dart';
 
 /*
 * UI страницы добавления:
 *
 * */
+class AddScreenScoupe extends StatelessWidget {
+  final ToDo? item;
+  final bool editing;
+  const AddScreenScoupe({super.key, required this.item, required this.editing});
+  @override
+  Widget build(BuildContext context) => BlocProvider(
+        create: (buildContext) => TileBloc(buildContext.read<TileListBloc>()),
+        child: AddScreen(item: item, editing: editing),
+      );
+}
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key, required this.editing, required this.item});
@@ -46,7 +57,7 @@ class _AddScreenState extends State<AddScreen> {
     }
     if (widget.editing && widget.item?.date == "") {
       _getDate = false;
-    } else if (widget.editing){
+    } else if (widget.editing) {
       _getDate = true;
     }
   }
@@ -116,7 +127,7 @@ class _AddScreenState extends State<AddScreen> {
                         loggerNoStack.i('Pressed to add new task'),
                         if (widget.editing)
                           {
-                            context.read<TileListBloc>().add(ChangeTile(
+                            context.read<TileBloc>().add(ChangeTile(
                                 item: widget.item!,
                                 text: _controller.text,
                                 date: date!,
@@ -125,12 +136,13 @@ class _AddScreenState extends State<AddScreen> {
                           }
                         else
                           {
-                            context.read<TileListBloc>().add(AddTile(
+                            context.read<TileBloc>().add(AddTile(
                                 text: _controller.text,
                                 date: date!,
                                 importance: importance)),
                             _onGoBack(),
                           }
+                        //_onGoBack(),
                       }),
             ),
           ],
@@ -274,7 +286,7 @@ class _AddScreenState extends State<AddScreen> {
                     onPressed: () {
                       if (widget.editing) {
                         context
-                            .read<TileListBloc>()
+                            .read<TileBloc>()
                             .add(DeleteTile(tile: widget.item!));
                       }
                     },

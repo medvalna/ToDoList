@@ -5,9 +5,12 @@ import 'package:logger/logger.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/ui/pages/welcome_screen.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/managers/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'managers/tile_bloc/todo_bloc.dart';
+import 'managers/tile_list_bloc/tile_list_bloc.dart';
 
 var loggerNoStack = Logger(
   printer: PrettyPrinter(methodCount: 0),

@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/managers/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:to_do_list/ui/widgets/add_button.dart';
 import 'package:to_do_list/ui/widgets/task_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
 import 'package:to_do_list/ui/widgets/app_bar.dart';
-
-import '../../managers/network_manager.dart';
+import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 
 /*
 * UI главной страницы:

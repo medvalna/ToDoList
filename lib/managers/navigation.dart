@@ -28,7 +28,7 @@ class NavigationManager {
     _navigator.push(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return AddScreen(editing: editing, item: item);
+          return AddScreenScoupe(editing: editing, item: item);
         },
       ),
     );

@@ -1,4 +1,12 @@
 part of 'tile_list_bloc.dart';
 
-@immutable
 abstract class TileListEvent {}
+
+class GetTiles extends TileListEvent {
+  GetTiles();
+}
+
+class ShowProcessTasks extends TileListEvent {
+  final bool show;
+  ShowProcessTasks({required this.show});
+}

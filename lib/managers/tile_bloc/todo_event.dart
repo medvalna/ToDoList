@@ -1,15 +1,25 @@
 part of 'todo_bloc.dart';
 
-abstract class TileListEvents {}
+abstract class TileEvents {}
 
-class AddTile extends TileListEvents {
+class TappedDone extends TileEvents {
+  final ToDo tile;
+  TappedDone({required this.tile});
+}
+
+class DeleteTile extends TileEvents {
+  final ToDo tile;
+  DeleteTile({required this.tile});
+}
+
+class AddTile extends TileEvents {
   final String text;
   final String date;
   final String importance;
   AddTile({required this.text, required this.date, required this.importance});
 }
 
-class ChangeTile extends TileListEvents {
+class ChangeTile extends TileEvents {
   final ToDo item;
   final String text;
   final String date;
@@ -19,23 +29,4 @@ class ChangeTile extends TileListEvents {
       required this.text,
       required this.date,
       required this.importance});
-}
-
-class GetTiles extends TileListEvents {
-  GetTiles();
-}
-
-class ShowProcessTasks extends TileListEvents {
-  final bool show;
-  ShowProcessTasks({required this.show});
-}
-
-class TappedDone extends TileListEvents {
-  final ToDo tile;
-  TappedDone({required this.tile});
-}
-
-class DeleteTile extends TileListEvents {
-  final ToDo tile;
-  DeleteTile({required this.tile});
 }

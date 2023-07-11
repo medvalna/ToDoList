@@ -4,9 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/adaptivity/colours.dart';
 import 'package:to_do_list/adaptivity/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
-import 'package:to_do_list/managers/bloc/todo_bloc.dart';
+import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../managers/navigation.dart';
+import '../../managers/tile_list_bloc/tile_list_bloc.dart';
+
+class ToDoTileScoupe extends StatelessWidget {
+  final ToDo item;
+
+  const ToDoTileScoupe({super.key, required this.item});
+  @override
+  Widget build(BuildContext context) => BlocProvider(
+        create: (buildContext) => TileBloc(buildContext.read<TileListBloc>()),
+        child: ToDoTile(item),
+      );
+}
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;
@@ -18,9 +30,9 @@ class ToDoTile extends StatelessWidget {
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
-          context.read<TileListBloc>().add(DeleteTile(tile: item));
+          context.read<TileBloc>().add(DeleteTile(tile: item));
         } else {
-          context.read<TileListBloc>().add(TappedDone(tile: item));
+          context.read<TileBloc>().add(TappedDone(tile: item));
         }
       },
       key: UniqueKey(),
@@ -50,7 +62,7 @@ class ToDoTile extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              context.read<TileListBloc>().add(TappedDone(tile: item));
+              context.read<TileBloc>().add(TappedDone(tile: item));
             },
             icon: item.isDone == true
                 ? const Icon(Icons.check_box)

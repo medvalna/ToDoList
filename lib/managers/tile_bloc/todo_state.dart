@@ -1,31 +1,24 @@
 part of 'todo_bloc.dart';
 
-class TileListState {
-  List<ToDo> tileList;
-  int doneItems;
-  bool showProcessTiles;
+class TileState {
+  ToDo tile;
+  bool? toDelete;
+  bool? toAdd;
+  int diff;
 
-  TileListState({
-    required this.tileList,
-    required this.showProcessTiles,
-    required this.doneItems,
+  TileState({
+    required this.toAdd,
+    required this.toDelete,
+    required this.tile,
+    required this.diff,
   });
 }
 
-class TileListInitial extends TileListState {
-  TileListInitial(
-      {required List<ToDo> tileList, required doneItems, required showDone})
-      : super(
-            tileList: tileList,
-            doneItems: doneItems,
-            showProcessTiles: showDone);
-}
-
-class TileListUpdated extends TileListState {
-  TileListUpdated(
-      {required List<ToDo> tileList, required doneItems, required showDone})
-      : super(
-            tileList: tileList,
-            doneItems: doneItems,
-            showProcessTiles: showDone);
+class TileUpdated extends TileState {
+  TileUpdated({
+    required ToDo tile,
+    required bool? toAdd,
+    required bool? toDelete,
+    required int diff,
+  }) : super(tile: tile, toAdd: toAdd, toDelete: toDelete, diff: diff);
 }
