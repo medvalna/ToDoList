@@ -52,11 +52,6 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
                 const AddButton(),
-                FloatingActionButton(
-                    child: Icon(Icons.download),
-                    onPressed: () {
-                      loggerNoStack.i(NetworkManager().getTodoList());
-                    })
               ],
             );
           } else {
