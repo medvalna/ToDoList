@@ -28,9 +28,9 @@ class _AddScreenState extends State<AddScreen> {
   bool _getDate = false;
   late String dropdownValue = !widget.editing
       ? AppLocalizations.of(context).no
-      : widget.item?.importance == 0
+      : widget.item?.importance == AppLocalizations.of(context).no
           ? AppLocalizations.of(context).no
-          : widget.item?.importance == 1
+          : widget.item?.importance == AppLocalizations.of(context).low
               ? AppLocalizations.of(context).low
               : AppLocalizations.of(context).high;
   late String? date = !widget.editing ? "" : widget.item?.date;
@@ -46,7 +46,7 @@ class _AddScreenState extends State<AddScreen> {
     }
     if (widget.editing && widget.item?.date == "") {
       _getDate = false;
-    } else {
+    } else if (widget.editing){
       _getDate = true;
     }
   }
