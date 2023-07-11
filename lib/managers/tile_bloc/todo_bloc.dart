@@ -80,7 +80,7 @@ class TileBloc extends Bloc<TileEvents, TileState> {
       event.tile.isDone = true;
       state.diff = state.diff + 1;
     } else if (event.tile.isDone == true) {
-      event.tile.isDone = false;
+      event.tile.isDone = null;
       state.diff = state.diff - 1;
     } else {
       event.tile.isDone = null;

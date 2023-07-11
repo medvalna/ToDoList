@@ -66,12 +66,10 @@ class ToDoTile extends StatelessWidget {
             },
             icon: item.isDone == true
                 ? const Icon(Icons.check_box)
-                : item.isDone == false
-                    ? const Icon(Icons.check_box_outline_blank)
-                    : const Icon(Icons.check_box_outline_blank),
+                : const Icon(Icons.check_box_outline_blank),
             color: item.isDone == true
                 ? done
-                : item.isDone == false
+                :item.importance == AppLocalizations.of(context).high
                     ? decline
                     : mainText,
           ),
