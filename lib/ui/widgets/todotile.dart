@@ -52,7 +52,7 @@ class ToDoTile extends StatelessWidget {
         color: decline,
         child: const Align(
           alignment: Alignment.centerRight,
-          child: Icon(Icons.delete),
+          child: Icon(Icons.delete, color: tileBackLight),
         ),
       ),
       child: Row(

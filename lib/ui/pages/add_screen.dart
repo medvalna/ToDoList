@@ -16,7 +16,9 @@ import '../../models/todo.dart';
 class AddScreenScoupe extends StatelessWidget {
   final ToDo? item;
   final bool editing;
+
   const AddScreenScoupe({super.key, required this.item, required this.editing});
+
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (buildContext) => TileBloc(buildContext.read<TileListBloc>()),
@@ -94,214 +96,216 @@ class _AddScreenState extends State<AddScreen> {
       AppLocalizations.of(context).high
     ];
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: backLight,
-      appBar: AppBar(
-        elevation: 0,
+        resizeToAvoidBottomInset: false,
         backgroundColor: backLight,
-        leading: IconButton(
-          onPressed: () => {
-            _onGoBack(),
-          },
-          icon: const Icon(
-            Icons.clear,
-            color: secondaryText,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: backLight,
+          leading: IconButton(
+            onPressed: () => {
+              _onGoBack(),
+            },
+            icon: const Icon(
+              Icons.clear,
+              color: secondaryText,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const Spacer(),
+              SizedBox(
+                width: 150,
+                child: FloatingActionButton(
+                    elevation: 0,
+                    backgroundColor: backLight,
+                    shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    child: Text(
+                      AppLocalizations.of(context).save,
+                      style: const TextStyle(fontSize: button, color: add),
+                    ),
+                    onPressed: () => {
+                          loggerNoStack.i('Pressed to add new task'),
+                          if (widget.editing)
+                            {
+                              context.read<TileBloc>().add(ChangeTile(
+                                  item: widget.item!,
+                                  text: _controller.text,
+                                  date: date!,
+                                  importance: importance)),
+                              _onGoBack(),
+                            }
+                          else
+                            {
+                              context.read<TileBloc>().add(AddTile(
+                                  text: _controller.text,
+                                  date: date!,
+                                  importance: importance)),
+                              _onGoBack(),
+                            }
+                          //_onGoBack(),
+                        }),
+              ),
+            ],
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const Spacer(),
-            SizedBox(
-              width: 150,
-              child: FloatingActionButton(
-                  elevation: 0,
-                  backgroundColor: backLight,
-                  shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.zero),
-                  child: Text(
-                    AppLocalizations.of(context).save,
-                    style: const TextStyle(fontSize: button, color: add),
+        body: OrientationBuilder(builder: (context, orientation) {
+          return GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            childAspectRatio: (1 / .65),
+            crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
+            children: [
+              Container(
+                height: MediaQuery.of(context).devicePixelRatio / 2,
+                margin: const EdgeInsets.only(top: 42, left: 20, right: 20),
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: tileBackLight,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: disable,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 10.0,
+                        spreadRadius: 0.0),
+                  ],
+                ),
+                child: SizedBox(
+                  //height: MediaQuery.of(context).devicePixelRatio / 7,
+                  child: TextField(
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    controller: _controller,
+                    decoration: InputDecoration(
+
+                      //contentPadding: EdgeInsets.symmetric(vertical: 40),
+                      contentPadding:
+                          const EdgeInsets.only(left: 10, bottom: 10),
+                      border: InputBorder.none,
+                      hintText: AppLocalizations.of(context).whatNeeds,
+                      hintStyle:
+                          const TextStyle(color: secondaryText, fontSize: body),
+                    ),
                   ),
-                  onPressed: () => {
-                        loggerNoStack.i('Pressed to add new task'),
-                        if (widget.editing)
-                          {
-                            context.read<TileBloc>().add(ChangeTile(
-                                item: widget.item!,
-                                text: _controller.text,
-                                date: date!,
-                                importance: importance)),
-                            _onGoBack(),
-                          }
-                        else
-                          {
-                            context.read<TileBloc>().add(AddTile(
-                                text: _controller.text,
-                                date: date!,
-                                importance: importance)),
-                            _onGoBack(),
-                          }
-                        //_onGoBack(),
-                      }),
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 42, left: 20, right: 20),
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: tileBackLight,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                    color: disable,
-                    offset: Offset(0.0, 0.0),
-                    blurRadius: 10.0,
-                    spreadRadius: 0.0),
-              ],
-            ),
-            child: SizedBox(
-              height: 96,
-              child: TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(bottom: 10),
-                  border: InputBorder.none,
-                  hintText: AppLocalizations.of(context).whatNeeds,
-                  hintStyle:
-                      const TextStyle(color: secondaryText, fontSize: body),
                 ),
               ),
-            ),
-          ),
-          Container(
-            margin:
-                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
-            padding: const EdgeInsets.all(5),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    AppLocalizations.of(context).importance,
-                    style: const TextStyle(color: mainText, fontSize: body),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                    value: dropdownValue,
-                    onChanged: (String? value) {
-                      setState(() {
-                        importance = value!;
-                        /*value == list[0]
+              ListView(
+               children: [
+                 Container(
+                   margin: const EdgeInsets.only(top: 5, left: 16, right: 16),
+                   padding: const EdgeInsets.all(5),
+                   child: Align(
+                     alignment: Alignment.topLeft,
+                     child: Text(
+                       AppLocalizations.of(context).importance,
+                       style: const TextStyle(color: mainText, fontSize: body),
+                     ),
+                   ),
+                 ),
+                 Container(
+                   margin: const EdgeInsets.only(left: 16, right: 16),
+                   padding: const EdgeInsets.all(5),
+                   child: Align(
+                     alignment: Alignment.topLeft,
+                     child: DropdownButtonHideUnderline(
+                         child: DropdownButton<String>(
+                           value: dropdownValue,
+                           onChanged: (String? value) {
+                             setState(() {
+                               importance = value!;
+                               /*value == list[0]
                             ? importance = 0
                             : value == list[1]
                                 ? importance = 1
                                 : importance = 2;*/
-                        dropdownValue = value!;
-                        loggerNoStack.i('$dropdownValue val');
-                      });
-                    },
-                    items: list.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: const TextStyle(fontSize: body),
-                        ),
-                      );
-                    }).toList(),
-                  )),
-                ),
-                const Divider(
-                  color: disable,
-                  thickness: 1,
-                  indent: 0,
-                  endIndent: 0,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin:
-                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
-            padding: const EdgeInsets.all(5),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).deadline,
-                            style: const TextStyle(
-                                color: mainText, fontSize: body),
-                          ),
-                          Text(
-                            date!,
-                            style:
-                                const TextStyle(color: add, fontSize: subhead),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Switch.adaptive(
-                        value: _getDate,
-                        activeColor: add,
-                        onChanged: _changeDate,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Divider(
-            color: disable,
-            thickness: 1,
-            indent: 0,
-            endIndent: 0,
-          ),
-          Container(
-            margin:
-                const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 10),
-            padding: const EdgeInsets.all(5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: widget.editing ? decline : secondaryText,
-                    ),
-                    onPressed: () {
-                      if (widget.editing) {
-                        context
-                            .read<TileBloc>()
-                            .add(DeleteTile(tile: widget.item!));
-                      }
-                    },
-                    color: secondaryText,
-                  ),
-                  Text(AppLocalizations.of(context).delete,
-                      style:
-                          const TextStyle(color: secondaryText, fontSize: body))
-                ],
+                               dropdownValue = value!;
+                               loggerNoStack.i('$dropdownValue val');
+                             });
+                           },
+                           items: list.map<DropdownMenuItem<String>>((String value) {
+                             return DropdownMenuItem<String>(
+                               value: value,
+                               child: Text(
+                                 value,
+                                 style: const TextStyle(fontSize: body),
+                               ),
+                             );
+                           }).toList(),
+                         )),
+                   ),
+                 ),
+
+
+                 const Divider(
+                   color: disable,
+                   thickness: 1,
+                   indent: 0,
+                   endIndent: 0,
+                 ),
+                 Container(
+                   margin: const EdgeInsets.only(
+                       top: 10, left: 16, right: 16, bottom: 10),
+                   padding: const EdgeInsets.all(5),
+                   child: Row(
+                     children: [
+                       Column(
+                         children: [
+                           Text(
+                             AppLocalizations.of(context).deadline,
+                             style: const TextStyle(color: mainText, fontSize: body),
+                           ),
+                           Text(
+                             date!,
+                             style: const TextStyle(color: add, fontSize: subhead),
+                           ),
+                         ],
+                       ),
+                       const Spacer(),
+                       Switch.adaptive(
+                         value: _getDate,
+                         activeColor: add,
+                         onChanged: _changeDate,
+                       ),
+                     ],
+                   ),
+                 ),
+
+                 const Divider(
+                   color: disable,
+                   thickness: 1,
+                   indent: 0,
+                   endIndent: 0,
+                 ),
+                 Container(
+                   margin: const EdgeInsets.only(left: 16, right: 16),
+                   padding: const EdgeInsets.all(5),
+                   child: Row(
+                     children: [
+                       IconButton(
+                         icon: Icon(
+                           Icons.delete,
+                           color: widget.editing ? decline : secondaryText,
+                         ),
+                         onPressed: () {
+                           if (widget.editing) {
+                             context
+                                 .read<TileBloc>()
+                                 .add(DeleteTile(tile: widget.item!));
+                           }
+                         },
+                         color: secondaryText,
+                       ),
+                       Text(AppLocalizations.of(context).delete,
+                           style: const TextStyle(
+                               color: secondaryText, fontSize: body))
+                     ],
+                   ),
+                 ),
+               ],
               ),
-            ),
-          ),
-        ],
-      ),
-    );
+            ],
+          );
+        }));
   }
 }
 
