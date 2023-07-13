@@ -174,6 +174,8 @@ class _AddScreenState extends State<AddScreen> {
                 child: SizedBox(
                   //height: MediaQuery.of(context).devicePixelRatio / 7,
                   child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
                     style: Theme.of(context).textTheme.headlineMedium,
                     controller: _controller,
                     decoration: InputDecoration(

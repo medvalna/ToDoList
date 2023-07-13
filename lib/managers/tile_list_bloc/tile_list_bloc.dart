@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list/managers/network_manager.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/persistence_manager.dart';
 import '../../main.dart';
@@ -11,6 +12,7 @@ part 'tile_list_event.dart';
 part 'tile_list_state.dart';
 
 class TileListBloc extends Bloc<TileListEvent, TileListState> {
+  static final NetworkManager _networkManager = NetworkManager();
   TileListBloc()
       : super(
             TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
@@ -20,6 +22,9 @@ class TileListBloc extends Bloc<TileListEvent, TileListState> {
   }
   _getTiles(GetTiles event, Emitter<TileListState> emit) async {
     state.tileList = await PersistenceManager.db.getAllTodos();
+    _networkManager.getTodoList();
+    _networkManager.patch(state.tileList);
+
     /*TODO add network*/
     state.doneItems = countDone(state.tileList);
     emit(TileListUpdated(

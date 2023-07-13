@@ -13,6 +13,7 @@ class ToDoTileScoupe extends StatelessWidget {
   final ToDo item;
 
   const ToDoTileScoupe({super.key, required this.item});
+
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (buildContext) => TileBloc(buildContext.read<TileListBloc>()),
@@ -69,7 +70,7 @@ class ToDoTile extends StatelessWidget {
                 : const Icon(Icons.check_box_outline_blank),
             color: item.isDone == true
                 ? done
-                :item.importance == AppLocalizations.of(context).high
+                : item.importance == AppLocalizations.of(context).high
                     ? decline
                     : mainText,
           ),
@@ -94,8 +95,8 @@ class ToDoTile extends StatelessWidget {
                                   color: secondaryText,
                                 )
                               : const Text(""),
-                      Text(
-                        item.text,
+                      /*Text(
+                        '''${item.text}''',
                         style: TextStyle(
                           fontSize: body,
                           color: item.isDone == true ? secondaryText : mainText,
@@ -103,8 +104,26 @@ class ToDoTile extends StatelessWidget {
                               ? TextDecoration.lineThrough
                               : null,
                         ),
-                        maxLines: 3,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                      ),*/
+                      Flexible(
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis,
+                          strutStyle: const StrutStyle(
+                            fontSize: body,
+                          ),
+                          text: TextSpan(
+                              style: TextStyle(
+                                color: item.isDone == true
+                                    ? secondaryText
+                                    : mainText,
+                                decoration: item.isDone == true
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                              ),
+                              text: item.text),
+                        ),
                       ),
                     ],
                   ),
