@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "743921378655",
+    "project_id": "yandex-to-do-list",
+    "storage_bucket": "yandex-to-do-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743921378655:android:b04c123be84d01b37c02ea",
+        "android_client_info": {
+          "package_name": "com.example.to_do_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743921378655-80ckl5antj01hj78mtb1t58dg2n2lg87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5AEBWL5WeuzVK7pV_twXmY0VDWMw2YtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743921378655-80ckl5antj01hj78mtb1t58dg2n2lg87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

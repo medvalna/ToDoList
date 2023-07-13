@@ -76,11 +76,11 @@ class ToDo {
       'text': text,
       'importance': importance,
       'deadline': date,
-      'done': isDone
-      //'color': "#FFFFFF",
-      //'created_at': createdAt,
-      //'changed_at': changedAt,
-      //'last_updated_by': 1
+      'done': isDone,
+      'color': "#FFFFFF",
+      'created_at': 0,
+      'changed_at': 0,
+      'last_updated_by': 1
     };
   }
 }
