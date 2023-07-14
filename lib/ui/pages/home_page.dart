@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/data/colours.dart';
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:to_do_list/ui/widgets/add_button.dart';
 import 'package:to_do_list/ui/widgets/task_list.dart';

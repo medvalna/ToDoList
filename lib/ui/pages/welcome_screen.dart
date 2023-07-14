@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/data/colours.dart';
+import 'package:to_do_list/data/config_repository.dart';
+import 'package:to_do_list/data/font_sizes.dart';
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'dart:io' show Platform;
 import 'package:to_do_list/managers/navigation.dart';
@@ -24,9 +25,13 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      const Duration(seconds: 1),
-      () => NavigationManager.instance.openHome(),
+    Future.wait([
+      Future.delayed(
+        const Duration(seconds: 1),
+      ),
+      ConfigRepository.configRepository.init(),
+    ]).then(
+      (value) => NavigationManager.instance.openHome(),
     );
   }
 

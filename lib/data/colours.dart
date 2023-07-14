@@ -12,3 +12,4 @@ const Color tileBackLight = Color(0xFFFFFFFF);
 const Color add = Color(0xFF007AFF);
 const Color decline = Color(0xFFFF3B30);
 const Color done = Color(0xFF34C759);
+const Color newImportance = Color (0xFF793cd8);

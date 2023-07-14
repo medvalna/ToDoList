@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/data/colours.dart';
+import 'package:to_do_list/data/font_sizes.dart';
 
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 

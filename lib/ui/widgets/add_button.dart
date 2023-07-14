@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/adaptivity/colours.dart';
+import 'package:to_do_list/data/colours.dart';
 import 'package:to_do_list/managers/navigation.dart';
 
 /*

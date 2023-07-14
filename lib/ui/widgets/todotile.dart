@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
+import 'package:to_do_list/data/colours.dart';
+import 'package:to_do_list/data/font_sizes.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../data/config_repository.dart';
 import '../../managers/navigation.dart';
 import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 
@@ -28,6 +29,8 @@ class ToDoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool useImportanceColor =
+        ConfigRepository.configRepository.useImportanceColor;
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -62,18 +65,19 @@ class ToDoTile extends StatelessWidget {
             width: 20,
           ),
           IconButton(
-            onPressed: () {
-              context.read<TileBloc>().add(TappedDone(tile: item));
-            },
-            icon: item.isDone == true
-                ? const Icon(Icons.check_box)
-                : const Icon(Icons.check_box_outline_blank),
-            color: item.isDone == true
-                ? done
-                : item.importance == AppLocalizations.of(context).high
-                    ? decline
-                    : mainText,
-          ),
+              onPressed: () {
+                context.read<TileBloc>().add(TappedDone(tile: item));
+              },
+              icon: item.isDone == true
+                  ? const Icon(Icons.check_box)
+                  : const Icon(Icons.check_box_outline_blank),
+              color: item.isDone == true
+                  ? done
+                  : item.importance == AppLocalizations.of(context).high
+                      ? useImportanceColor
+                          ? newImportance
+                          : decline
+                      : mainText),
           const SizedBox(
             width: 20,
           ),
@@ -85,9 +89,13 @@ class ToDoTile extends StatelessWidget {
                   child: Row(
                     children: [
                       item.importance == AppLocalizations.of(context).high
-                          ? const Text(
+                          ? Text(
                               "!!",
-                              style: TextStyle(fontSize: body, color: decline),
+                              style: TextStyle(
+                                  fontSize: body,
+                                  color: useImportanceColor
+                                      ? newImportance
+                                      : decline),
                             )
                           : item.importance == AppLocalizations.of(context).low
                               ? const Icon(
