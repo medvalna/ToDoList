@@ -13,3 +13,7 @@ const Color add = Color(0xFF007AFF);
 const Color decline = Color(0xFFFF3B30);
 const Color done = Color(0xFF34C759);
 const Color newImportance = Color (0xFF793cd8);
+const Color backDark = Color(0xFF161618);
+const Color tileBackDark = Color(0xFF3C3C3F);
+const Color white = Color(0xFFFFFFFF);
+const Color dividerDark = Color(0xFF48484A);

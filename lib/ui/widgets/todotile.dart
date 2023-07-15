@@ -119,13 +119,13 @@ class ToDoTile extends StatelessWidget {
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
                           strutStyle: const StrutStyle(
-                            fontSize: body,
+                            fontSize: button,
                           ),
                           text: TextSpan(
                               style: TextStyle(
                                 color: item.isDone == true
-                                    ? secondaryText
-                                    : mainText,
+                                    ? Theme.of(context).secondaryHeaderColor
+                                    : Theme.of(context).disabledColor,
                                 decoration: item.isDone == true
                                     ? TextDecoration.lineThrough
                                     : null,
@@ -141,9 +141,9 @@ class ToDoTile extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           item.date,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: subhead,
-                            color: secondaryText,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
@@ -157,6 +157,7 @@ class ToDoTile extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.info_outline),
+            color: Theme.of(context).secondaryHeaderColor,
             onPressed: () => {_onOpenAdding(item)},
           ),
           const SizedBox(

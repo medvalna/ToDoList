@@ -28,7 +28,7 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     loggerNoStack.i('Try to take todos from database');
     return Scaffold(
-      backgroundColor: backLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<TileListBloc, TileListState>(
         builder: (context, state) {
           bool showUndone = state.showProcessTiles;

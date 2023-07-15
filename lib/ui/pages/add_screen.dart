@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
-import '../../data/config_repository.dart';
 import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 import '../../models/todo.dart';
 
@@ -98,10 +97,10 @@ class _AddScreenState extends State<AddScreen> {
     ];
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: backLight,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: backLight,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           leading: IconButton(
             onPressed: () => {
               _onGoBack(),
@@ -119,7 +118,7 @@ class _AddScreenState extends State<AddScreen> {
                 width: 150,
                 child: FloatingActionButton(
                     elevation: 0,
-                    backgroundColor: backLight,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     shape: const BeveledRectangleBorder(
                         borderRadius: BorderRadius.zero),
                     child: Text(
@@ -162,7 +161,7 @@ class _AddScreenState extends State<AddScreen> {
                 margin: const EdgeInsets.only(top: 42, left: 20, right: 20),
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: tileBackLight,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
@@ -180,7 +179,6 @@ class _AddScreenState extends State<AddScreen> {
                     style: Theme.of(context).textTheme.headlineMedium,
                     controller: _controller,
                     decoration: InputDecoration(
-
                       //contentPadding: EdgeInsets.symmetric(vertical: 40),
                       contentPadding:
                           const EdgeInsets.only(left: 10, bottom: 10),
@@ -193,118 +191,122 @@ class _AddScreenState extends State<AddScreen> {
                 ),
               ),
               ListView(
-               children: [
-                 Container(
-                   margin: const EdgeInsets.only(top: 5, left: 16, right: 16),
-                   padding: const EdgeInsets.all(5),
-                   child: Align(
-                     alignment: Alignment.topLeft,
-                     child: Text(
-                       AppLocalizations.of(context).importance,
-                       style: const TextStyle(color: mainText, fontSize: body),
-                     ),
-                   ),
-                 ),
-                 Container(
-                   margin: const EdgeInsets.only(left: 16, right: 16),
-                   padding: const EdgeInsets.all(5),
-                   child: Align(
-                     alignment: Alignment.topLeft,
-                     child: DropdownButtonHideUnderline(
-                         child: DropdownButton<String>(
-                           value: dropdownValue,
-                           onChanged: (String? value) {
-                             setState(() {
-                               importance = value!;
-                               /*value == list[0]
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 5, left: 16, right: 16),
+                    padding: const EdgeInsets.all(5),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        AppLocalizations.of(context).importance,
+                        style: TextStyle(
+                            color: Theme.of(context).disabledColor,
+                            fontSize: body),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16),
+                    padding: const EdgeInsets.all(5),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                        value: dropdownValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            importance = value!;
+                            /*value == list[0]
                             ? importance = 0
                             : value == list[1]
                                 ? importance = 1
                                 : importance = 2;*/
-                               dropdownValue = value!;
-                               loggerNoStack.i('$dropdownValue val');
-                             });
-                           },
-                           items: list.map<DropdownMenuItem<String>>((String value) {
-                             return DropdownMenuItem<String>(
-                               value: value,
-                               child: Text(
-                                 value,
-                                 style: const TextStyle(fontSize: body),
-                               ),
-                             );
-                           }).toList(),
-                         )),
-                   ),
-                 ),
-
-
-                 const Divider(
-                   color: disable,
-                   thickness: 1,
-                   indent: 0,
-                   endIndent: 0,
-                 ),
-                 Container(
-                   margin: const EdgeInsets.only(
-                       top: 10, left: 16, right: 16, bottom: 10),
-                   padding: const EdgeInsets.all(5),
-                   child: Row(
-                     children: [
-                       Column(
-                         children: [
-                           Text(
-                             AppLocalizations.of(context).deadline,
-                             style: const TextStyle(color: mainText, fontSize: body),
-                           ),
-                           Text(
-                             date!,
-                             style: const TextStyle(color: add, fontSize: subhead),
-                           ),
-                         ],
-                       ),
-                       const Spacer(),
-                       Switch.adaptive(
-                         value: _getDate,
-                         activeColor: add,
-                         onChanged: _changeDate,
-                       ),
-                     ],
-                   ),
-                 ),
-
-                 const Divider(
-                   color: disable,
-                   thickness: 1,
-                   indent: 0,
-                   endIndent: 0,
-                 ),
-                 Container(
-                   margin: const EdgeInsets.only(left: 16, right: 16),
-                   padding: const EdgeInsets.all(5),
-                   child: Row(
-                     children: [
-                       IconButton(
-                         icon: Icon(
-                           Icons.delete,
-                           color: widget.editing ? decline : secondaryText,
-                         ),
-                         onPressed: () {
-                           if (widget.editing) {
-                             context
-                                 .read<TileBloc>()
-                                 .add(DeleteTile(tile: widget.item!));
-                           }
-                         },
-                         color: secondaryText,
-                       ),
-                       Text(AppLocalizations.of(context).delete,
-                           style: const TextStyle(
-                               color: secondaryText, fontSize: body))
-                     ],
-                   ),
-                 ),
-               ],
+                            dropdownValue = value!;
+                            loggerNoStack.i('$dropdownValue val');
+                          });
+                        },
+                        items:
+                            list.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                  color: Theme.of(context).disabledColor,
+                                  fontSize: body),
+                            ),
+                          );
+                        }).toList(),
+                      )),
+                    ),
+                  ),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: 10, left: 16, right: 16, bottom: 10),
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context).deadline,
+                              style: TextStyle(
+                                  color: Theme.of(context).disabledColor, fontSize: body),
+                            ),
+                            Text(
+                              date!,
+                              style: const TextStyle(
+                                  color: add, fontSize: subhead),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Switch.adaptive(
+                          value: _getDate,
+                          activeColor: add,
+                          onChanged: _changeDate,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16),
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: widget.editing ? decline : secondaryText,
+                          ),
+                          onPressed: () {
+                            if (widget.editing) {
+                              context
+                                  .read<TileBloc>()
+                                  .add(DeleteTile(tile: widget.item!));
+                            }
+                          },
+                          color: secondaryText,
+                        ),
+                        Text(AppLocalizations.of(context).delete,
+                            style: const TextStyle(
+                                color: secondaryText, fontSize: body))
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           );

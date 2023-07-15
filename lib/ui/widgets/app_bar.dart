@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 164,
-      backgroundColor: backLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget {
           children: [
             Text(
               AppLocalizations.of(context).myTasks,
-              style: const TextStyle(color: mainText, fontSize: largeTitle),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Transform.translate(
               offset: const Offset(4, 15),

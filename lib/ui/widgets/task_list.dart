@@ -41,7 +41,7 @@ class TaskList extends StatelessWidget {
                     spreadRadius: 0.0),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: tileBackLight,
+              color: Theme.of(context).cardColor,
             ),
             child: SingleChildScrollView(
               physics: const ScrollPhysics(),
