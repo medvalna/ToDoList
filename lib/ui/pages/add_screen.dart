@@ -221,7 +221,7 @@ class _AddScreenState extends State<AddScreen> {
                             : value == list[1]
                                 ? importance = 1
                                 : importance = 2;*/
-                            dropdownValue = value!;
+                            dropdownValue = value;
                             loggerNoStack.i('$dropdownValue val');
                           });
                         },
@@ -257,7 +257,8 @@ class _AddScreenState extends State<AddScreen> {
                             Text(
                               AppLocalizations.of(context).deadline,
                               style: TextStyle(
-                                  color: Theme.of(context).disabledColor, fontSize: body),
+                                  color: Theme.of(context).disabledColor,
+                                  fontSize: body),
                             ),
                             Text(
                               date!,

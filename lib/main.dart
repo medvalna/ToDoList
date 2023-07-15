@@ -20,9 +20,7 @@ import 'package:envied/envied.dart';
 part 'package:to_do_list/envied/env2.g.dart';
 
 @Envied(path: '.env')
-@EnviedField(varName: 'apiKey')
-
-
+@EnviedField(varName: 'appMetricaKey')
 var loggerNoStack = Logger(
   printer: PrettyPrinter(methodCount: 0),
 );

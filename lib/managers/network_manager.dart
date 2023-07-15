@@ -16,7 +16,7 @@ class NetworkManager {
   //static final NetworkManager bd = NetworkManager();
   static const _url = "https://beta.mrdekk.ru/todobackend";
   static const _urllist = "https://beta.mrdekk.ru/todobackend/list";
-  int _revision = 0;
+  final int _revision = 0;
   @EnviedField(varName: 'apiKey')
   static const apiKey = _Env.apiKey;
 
@@ -66,10 +66,12 @@ class NetworkManager {
       data.add(jsonEncode(todo.toMapBackend()));
     }*/
     //loggerNoStack.i(data);
-    return await dio.patch(
+    return await dio
+        .patch(
       _urllist,
-      data: jsonEncode({"list": listOfTodos.map((task) => task.toMapBackend()).toList()}),
-          //data,
+      data: jsonEncode(
+          {"list": listOfTodos.map((task) => task.toMapBackend()).toList()}),
+      //data,
     )
         .then((value) {
       loggerNoStack.i('Данные на сервере успешно обновлены');

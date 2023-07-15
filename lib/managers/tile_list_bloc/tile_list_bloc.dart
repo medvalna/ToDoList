@@ -1,14 +1,9 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/managers/network_manager.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/persistence_manager.dart';
 import '../../main.dart';
-import '../tile_bloc/todo_bloc.dart';
 part 'tile_list_event.dart';
-
 part 'tile_list_state.dart';
 
 class TileListBloc extends Bloc<TileListEvent, TileListState> {
@@ -18,7 +13,6 @@ class TileListBloc extends Bloc<TileListEvent, TileListState> {
             TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
     on<GetTiles>(_getTiles);
     on<ShowProcessTasks>(_showProcessTasks);
-
   }
   _getTiles(GetTiles event, Emitter<TileListState> emit) async {
     state.tileList = await PersistenceManager.db.getAllTodos();

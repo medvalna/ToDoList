@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '743921378655',
     projectId: 'yandex-to-do-list',
     storageBucket: 'yandex-to-do-list.appspot.com',
-    iosClientId: '743921378655-s9hoqnq8adkimha7jd5tss661to9occv.apps.googleusercontent.com',
+    iosClientId:
+        '743921378655-s9hoqnq8adkimha7jd5tss661to9occv.apps.googleusercontent.com',
     iosBundleId: 'com.example.toDoList',
   );
 }

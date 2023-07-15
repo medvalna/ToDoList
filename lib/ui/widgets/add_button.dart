@@ -22,7 +22,7 @@ class AddButton extends StatelessWidget {
         child: FloatingActionButton(
           backgroundColor: add,
           onPressed: () => {
-          AppMetrica.reportEvent('Event name'),
+            AppMetrica.reportEvent('Event name'),
             _onOpenAdding(),
           },
           child: const Icon(

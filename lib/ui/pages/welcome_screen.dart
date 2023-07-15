@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/data/colours.dart';
 import 'package:to_do_list/data/config_repository.dart';
 import 'package:to_do_list/data/font_sizes.dart';
-import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'dart:io' show Platform;
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
