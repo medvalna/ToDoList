@@ -8,8 +8,7 @@ part 'tile_list_state.dart';
 
 class TileListBloc extends Bloc<TileListEvent, TileListState> {
   static final NetworkManager _networkManager = NetworkManager();
-  TileListBloc()
-      : super(
+  TileListBloc() : super(
             TileListState(tileList: [], doneItems: 0, showProcessTiles: true)) {
     on<GetTiles>(_getTiles);
     on<ShowProcessTasks>(_showProcessTasks);
