@@ -30,7 +30,7 @@ class ToDoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool useImportanceColor = ConfigRepository.configRepository.importanceColor;
-    loggerNoStack.i("Remote Config send: $useImportanceColor");
+    //loggerNoStack.i("Remote Config send: $useImportanceColor");
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -105,18 +105,6 @@ class ToDoTile extends StatelessWidget {
                                   color: secondaryText,
                                 )
                               : const Text(""),
-                      /*Text(
-                        '''${item.text}''',
-                        style: TextStyle(
-                          fontSize: body,
-                          color: item.isDone == true ? secondaryText : mainText,
-                          decoration: item.isDone == true
-                              ? TextDecoration.lineThrough
-                              : null,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),*/
                       Flexible(
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
@@ -131,6 +119,7 @@ class ToDoTile extends StatelessWidget {
                                 decoration: item.isDone == true
                                     ? TextDecoration.lineThrough
                                     : null,
+                                fontSize: button,
                               ),
                               text: item.text),
                         ),

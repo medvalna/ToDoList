@@ -27,8 +27,8 @@ class TaskList extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Container(
             margin:
-                const EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 5),
-            padding: const EdgeInsets.only(right: 25, top: 10, bottom: 10),
+                const EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+            //padding: const EdgeInsets.only(/*right: 25,*/ top: 10, bottom: 10),
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(

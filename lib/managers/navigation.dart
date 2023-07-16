@@ -16,9 +16,17 @@ class NavigationManager {
 
   void openHome() {
     _navigator.pushReplacement(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return const HomePage();
+      PageRouteBuilder<SlideTransition>(
+        pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var tween =
+              Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero);
+          var curveTween = CurveTween(curve: Curves.ease);
+
+          return SlideTransition(
+            position: animation.drive(curveTween).drive(tween),
+            child: child,
+          );
         },
       ),
     );
@@ -26,9 +34,18 @@ class NavigationManager {
 
   void openAdding(bool editing, ToDo? item) {
     _navigator.push(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return AddScreenScoupe(editing: editing, item: item);
+      PageRouteBuilder<SlideTransition>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            AddScreenScoupe(editing: editing, item: item),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var tween =
+              Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero);
+          var curveTween = CurveTween(curve: Curves.ease);
+
+          return SlideTransition(
+            position: animation.drive(curveTween).drive(tween),
+            child: child,
+          );
         },
       ),
     );
