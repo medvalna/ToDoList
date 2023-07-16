@@ -4,12 +4,8 @@ class ConfigRepository {
   final _remoteConfig = FirebaseRemoteConfig.instance;
 
   ConfigRepository._();
-
-  //ConfigRepository(this._remoteConfig);
   static ConfigRepository configRepository = ConfigRepository._();
-
-  //ConfigRepository(this._remoteConfig);
-  bool get useImportanceColor =>
+  bool get importanceColor =>
       _remoteConfig.getBool(_ConfigFields.importanceColor);
 
   Future<void> init() async {

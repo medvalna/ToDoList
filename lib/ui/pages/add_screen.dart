@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/managers/navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do_list/main.dart';
+import '../../data/config_repository.dart';
 import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 import '../../models/todo.dart';
 
@@ -90,6 +91,8 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ConfigRepository.configRepository.init();
+    bool useImportanceColor = ConfigRepository.configRepository.importanceColor;
     List<String> list = <String>[
       AppLocalizations.of(context).no,
       AppLocalizations.of(context).low,
@@ -290,7 +293,9 @@ class _AddScreenState extends State<AddScreen> {
                         IconButton(
                           icon: Icon(
                             Icons.delete,
-                            color: widget.editing ? decline : secondaryText,
+                            color: widget.editing ? useImportanceColor
+                                ? newImportance
+                                : decline : secondaryText,
                           ),
                           onPressed: () {
                             if (widget.editing) {

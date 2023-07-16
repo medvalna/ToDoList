@@ -18,7 +18,7 @@ class NavigationManager {
     _navigator.pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return const Homepage();
+          return const HomePage();
         },
       ),
     );

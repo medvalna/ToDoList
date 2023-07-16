@@ -17,9 +17,8 @@ import '../../managers/tile_list_bloc/tile_list_bloc.dart';
 *     которая прописана в data/todocollection
 *
 * */
-
-class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +27,7 @@ class Homepage extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<TileListBloc, TileListState>(
         builder: (context, state) {
+
           bool showUndone = state.showProcessTiles;
           final tileCount = state.doneItems;
           if (state is TileListUpdated &&

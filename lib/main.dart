@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logger/logger.dart';
 import 'package:to_do_list/data/colours.dart';
+import 'package:to_do_list/data/config_repository.dart';
 import 'package:to_do_list/ui/pages/welcome_screen.dart';
 import 'package:to_do_list/data/font_sizes.dart';
 import 'package:to_do_list/managers/navigation.dart';
@@ -40,6 +41,7 @@ Future<void> main() async {
   };
   AppMetrica.activate(const AppMetricaConfig(_Env.appMetricaKey));
   runApp(const App());
+  await ConfigRepository.configRepository.init();
 }
 
 class App extends StatelessWidget {

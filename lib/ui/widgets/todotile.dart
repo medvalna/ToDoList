@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:to_do_list/data/colours.dart';
 import 'package:to_do_list/data/font_sizes.dart';
+import 'package:to_do_list/main.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,13 +25,12 @@ class ToDoTileScoupe extends StatelessWidget {
 
 class ToDoTile extends StatelessWidget {
   final ToDo item;
-
   const ToDoTile(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool useImportanceColor =
-        ConfigRepository.configRepository.useImportanceColor;
+    bool useImportanceColor = ConfigRepository.configRepository.importanceColor;
+    loggerNoStack.i("Remote Config send: $useImportanceColor");
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -53,7 +53,9 @@ class ToDoTile extends StatelessWidget {
       ),
       secondaryBackground: Container(
         padding: const EdgeInsets.only(right: 10),
-        color: decline,
+        color: useImportanceColor
+            ? newImportance
+            : decline,
         child: const Align(
           alignment: Alignment.centerRight,
           child: Icon(Icons.delete, color: tileBackLight),
