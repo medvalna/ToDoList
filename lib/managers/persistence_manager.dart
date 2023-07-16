@@ -55,7 +55,6 @@ class PersistenceManager {
 
   saveToDo(ToDo todo) async {
     loggerNoStack.i('Saving todos in database');
-    // Get a reference to the database.
     final db = await _databaseGetter;
     var res = await db.insert(
       _tableName,
@@ -74,7 +73,6 @@ class PersistenceManager {
 
   Future<void> changeToDo(ToDo todo) async {
     loggerNoStack.i('Changing todo with id = ${todo.id} from database');
-    // Get a reference to the database.
     final db = await _databaseGetter;
     await db.update(_tableName, todo.toJsonPersistence(),
         where: "id = ?", whereArgs: [todo.id]);

@@ -27,7 +27,6 @@ class HomePage extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<TileListBloc, TileListState>(
         builder: (context, state) {
-
           bool showUndone = state.showProcessTiles;
           final tileCount = state.doneItems;
           if (state is TileListUpdated &&

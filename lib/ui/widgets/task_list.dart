@@ -12,9 +12,8 @@ class TaskList extends StatelessWidget {
   final List<ToDo> tileList;
   final bool showUndone;
 
-  //final bool showFullList;
-
   const TaskList(this.tileList, {required this.showUndone, super.key});
+
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -55,7 +54,9 @@ class TaskList extends StatelessWidget {
                           key: Key((task.id).toString()),
                         );
                       } else {
-                        return ToDoTileScoupe(item: task, );
+                        return ToDoTileScoupe(
+                          item: task,
+                        );
                       }
                     },
                   ),

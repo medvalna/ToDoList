@@ -293,9 +293,11 @@ class _AddScreenState extends State<AddScreen> {
                         IconButton(
                           icon: Icon(
                             Icons.delete,
-                            color: widget.editing ? useImportanceColor
-                                ? newImportance
-                                : decline : secondaryText,
+                            color: widget.editing
+                                ? useImportanceColor
+                                    ? newImportance
+                                    : decline
+                                : secondaryText,
                           ),
                           onPressed: () {
                             if (widget.editing) {

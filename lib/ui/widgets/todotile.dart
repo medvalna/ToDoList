@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'package:to_do_list/data/colours.dart';
 import 'package:to_do_list/data/font_sizes.dart';
-import 'package:to_do_list/main.dart';
 import 'package:to_do_list/models/todo.dart';
 import 'package:to_do_list/managers/tile_bloc/todo_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../data/config_repository.dart';
-import '../../managers/navigation.dart';
-import '../../managers/tile_list_bloc/tile_list_bloc.dart';
+import 'package:to_do_list/data/config_repository.dart';
+import 'package:to_do_list/managers/navigation.dart';
+import 'package:to_do_list/managers/tile_list_bloc/tile_list_bloc.dart';
 
 class ToDoTileScoupe extends StatelessWidget {
   final ToDo item;
@@ -30,7 +29,6 @@ class ToDoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool useImportanceColor = ConfigRepository.configRepository.importanceColor;
-    //loggerNoStack.i("Remote Config send: $useImportanceColor");
     return Dismissible(
       onDismissed: (direction) async {
         if (direction == DismissDirection.endToStart) {
@@ -53,9 +51,7 @@ class ToDoTile extends StatelessWidget {
       ),
       secondaryBackground: Container(
         padding: const EdgeInsets.only(right: 10),
-        color: useImportanceColor
-            ? newImportance
-            : decline,
+        color: useImportanceColor ? newImportance : decline,
         child: const Align(
           alignment: Alignment.centerRight,
           child: Icon(Icons.delete, color: tileBackLight),

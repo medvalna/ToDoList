@@ -8,7 +8,6 @@ part 'package:to_do_list/envied/env.g.dart';
 
 @Envied(path: '.env')
 class NetworkManager {
-
   final Dio dio = Dio();
 
   static const _url = "https://beta.mrdekk.ru/todobackend";
@@ -58,20 +57,19 @@ class NetworkManager {
   }
 
   Future<dynamic> patch(List<ToDo> list) async {
-    List <Map<String, dynamic>>data = [];
+    List<Map<String, dynamic>> data = [];
     for (ToDo todo in list) {
       data.add(todo.toMapBackend());
     }
-    //loggerNoStack.i(data);
     return await dio
         .patch(
       _urllist,
       data: data,
-    ).then((value) {
+    )
+        .then((value) {
       loggerNoStack.i('data is updated');
     }, onError: (error) {
-      loggerNoStack.i(
-          'Data is not updated', error);
+      loggerNoStack.i('Data is not updated', error);
     });
   }
 }

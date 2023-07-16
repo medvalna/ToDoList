@@ -3,7 +3,7 @@ import 'package:to_do_list/ui/pages/home_page.dart';
 
 import 'package:to_do_list/ui/pages/add_screen.dart';
 
-import '../models/todo.dart';
+import 'package:to_do_list/models/todo.dart';
 
 class NavigationManager {
   NavigationManager._();
@@ -17,7 +17,8 @@ class NavigationManager {
   void openHome() {
     _navigator.pushReplacement(
       PageRouteBuilder<SlideTransition>(
-        pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var tween =
               Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero);

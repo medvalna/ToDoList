@@ -91,13 +91,8 @@ class App extends StatelessWidget {
               bodyMedium: TextStyle(fontSize: button, color: white),
               bodySmall: TextStyle(fontSize: body, color: white),
             ),
-            /* dark theme settings */
           ),
           themeMode: ThemeMode.system,
-          /* ThemeMode.system to follow system theme,
-         ThemeMode.light for light theme,
-         ThemeMode.dark for dark theme
-      */
           home: home,
           navigatorKey: NavigationManager.instance.key,
         ));
