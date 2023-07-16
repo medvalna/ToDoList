@@ -1,0 +1,50 @@
+{
+  "done": "Done: ",
+  "@done":{
+  "done": "amount of done tasks"
+  },
+  "welcome": "Welcome To to-do App!",
+  "@welcome":{
+    "welcome": "welcome note"
+  },
+  "save": "Save",
+  "@save":{
+    "save": "save the task"
+  },
+  "delete": "Delete",
+  "@delete":{
+    "delete": "delete task"
+  },
+  "addNew": "Add a new task!",
+  "@addNew":{
+    "addNew": "Add a new task"
+  },
+  "importance": "Importance",
+  "@importance":{
+    "importance": "importance"
+  },
+  "deadline": "Deadline",
+  "@deadline":{
+    "deadline": "deadline"
+  },
+  "myTasks": "My tasks",
+  "@myTasks":{
+    "myTasks": "name of app"
+  },
+  "whatNeeds": "What needs to be done?",
+    "@whatNeeds":{
+      "whatNeeds": "What needs to be done"
+    },
+  "no": "No",
+      "@no":{
+        "no": "not important task"
+      },
+  "low": "Low",
+      "@low":{
+        "low": "task has low importance"
+      },
+  "high": "High",
+        "@high":{
+          "high": "task has high importance"
+        }
+}
