@@ -1,144 +1,100 @@
+import 'dart:ui';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_list/adaptivity/colours.dart';
-import 'package:to_do_list/adaptivity/font_sizes.dart';
-import 'package:to_do_list/widgets/addbutton.dart';
-import 'package:to_do_list/widgets/header.dart';
-import 'package:to_do_list/widgets/tasklist.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:logger/logger.dart';
+import 'package:to_do_list/data/colours.dart';
+import 'package:to_do_list/data/config_repository.dart';
+import 'package:to_do_list/ui/pages/welcome_screen.dart';
+import 'package:to_do_list/data/font_sizes.dart';
+import 'package:to_do_list/managers/navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'managers/tile_list_bloc/tile_list_bloc.dart';
 
-import 'data/logic_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-/*
-* UI главной страницы:
-*    - itemNotifier - вызов глобального состояния
-*     через ChangeNotifier (он прописан в /data/logic_provider)
-*   - CustomSliverAppBarDelegate: кастомный header в сокращенном и обычном формате
-*   - header - строка с числом выполненных задач и виджетом раскрытия полной информации
-*   - TaskList() - виджет, отвечающий за прорисовку листа тайлов
-*   - AddButton - кнопка добавления тайла и переход на страницу добавления
-*   - работа с тайлами производится через структуру "TоDo",
-*     которая прописана в data/todocollection
-*
-* */
-final itemNotifier = TileActions();
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:envied/envied.dart';
 
-void main() => runApp(MaterialApp(
-      home: Homepage(),
-    ));
+part 'package:to_do_list/envied/env2.g.dart';
 
-class Homepage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          //fontFamily: 'RobotoSlab',
-          ),
-      home: Scaffold(
-        backgroundColor: back_light,
-        body: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  delegate: CustomSliverAppBarDelegate(expandedHeight: 160),
-                  pinned: true,
-                ),
-                TaskList(),
-              ],
-            ),
-            AddButton(),
-          ],
-        ),
-      ),
-    );
-  }
+@Envied(path: '.env')
+@EnviedField(varName: 'appMetricaKey')
+var loggerNoStack = Logger(
+  printer: PrettyPrinter(methodCount: 0),
+);
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  AppMetrica.activate(const AppMetricaConfig(_Env.appMetricaKey));
+  runApp(const App());
+  await ConfigRepository.configRepository.init();
 }
 
-class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final double expandedHeight;
-
-  const CustomSliverAppBarDelegate({
-    required this.expandedHeight,
-  });
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      children: [
-        Container(
-          color: back_light,
-        ),
-        Positioned(
-          top: 80,
-          left: 60,
-          right: 20,
-          child: buildAppBar(shrinkOffset),
-        ),
-        Positioned(
-          top: 10,
-          left: 20,
-          right: 20,
-          child: buildFloating(shrinkOffset),
-        ),
-      ],
-    );
+  Widget build(BuildContext context) {
+    const home = WelcomePage();
+    return MultiBlocProvider(
+        providers: [BlocProvider(create: (context) => TileListBloc())],
+        child: MaterialApp(
+          supportedLocales: const [
+            Locale('en'),
+            Locale('ru'),
+          ],
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: backLight,
+            cardColor: tileBackLight,
+            secondaryHeaderColor: secondaryText,
+            disabledColor: mainText,
+            dividerColor: dividerDark,
+            textTheme: const TextTheme(
+              headlineLarge: TextStyle(fontSize: largeTitle, color: mainText),
+              headlineMedium: TextStyle(fontSize: midTitle, color: mainText),
+              bodyMedium: TextStyle(fontSize: button, color: secondaryText),
+              bodySmall: TextStyle(fontSize: body, color: secondaryText),
+            ),
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: backDark,
+            secondaryHeaderColor: secondaryText,
+            disabledColor: white,
+            cardColor: tileBackDark,
+            dividerColor: dividerDark,
+            textTheme: const TextTheme(
+              headlineLarge: TextStyle(fontSize: largeTitle, color: white),
+              headlineMedium: TextStyle(fontSize: midTitle, color: white),
+              bodyMedium: TextStyle(fontSize: button, color: white),
+              bodySmall: TextStyle(fontSize: body, color: white),
+            ),
+          ),
+          themeMode: ThemeMode.system,
+          home: home,
+          navigatorKey: NavigationManager.instance.key,
+        ));
   }
-
-  double appear(double shrinkOffset) => shrinkOffset / expandedHeight;
-
-  double disappear(double shrinkOffset) => 1 - shrinkOffset / expandedHeight;
-
-  Widget buildFloating(double shrinkOffset) => Opacity(
-        opacity: appear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          margin: EdgeInsets.only(top: 30, right: 20),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  Icons.remove_red_eye,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget buildAppBar(double shrinkOffset) => Opacity(
-        opacity: disappear(shrinkOffset),
-        child: Container(
-          color: back_light,
-          //padding: EdgeInsets.only(top: 30, right: 20),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Мои дела",
-                  style: TextStyle(color: maintext, fontSize: largetitle),
-                ),
-              ),
-              Header(),
-            ],
-          ),
-        ),
-      );
-
-  @override
-  double get maxExtent => expandedHeight;
-
-  @override
-  double get minExtent => kToolbarHeight + 30;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

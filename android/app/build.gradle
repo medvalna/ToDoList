@@ -24,7 +24,6 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
 android {
     namespace "com.example.to_do_list"
     compileSdkVersion flutter.compileSdkVersion
@@ -61,6 +60,9 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    defaultConfig{
+        minSdkVersion 19
+    }
 }
 
 flutter {
@@ -69,4 +71,11 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Import the Firebase BoM
+   // implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    //implementation("com.google.firebase:firebase-analytics-ktx")
 }
